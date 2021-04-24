@@ -2,8 +2,8 @@
     "name": "记忆单词",
     "short_name": "记忆单词",
     "display": "standalone",
-    "start_url": "/rmbw/",
-    "scope": "/rmbw/",
+    "start_url": "/",
+    "scope": "/",
     "theme_color": "#ffffff",
     "background_color": "#ffffff",
     "icons": [
