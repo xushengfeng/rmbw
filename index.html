@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="supported-color-schemes" content="light dark">
+    <link rel=”icon” href=”favicon.ico” type=”image/x-icon”> <link rel="stylesheet" type="text/css" href="css/css.css">
+    <link rel="manifest" href="manifest.json" />
+    <script src="js/map.js"></script>
+    <script src="lib/dic.js"></script>
+    <link href="lib/material-components-web.min.css" rel="stylesheet">
+    <script src="lib/material-components-web.min.js"></script>
+
+    <title>记忆单词</title>
+</head>
+
+<body onload="changeDropdown();change(0)">
+    <script>
+        if (navigator.serviceWorker != null) {
+            navigator.serviceWorker.register('sw.js')
+                .then(function (registration) {
+                    console.log('Registered events at scope: ', registration.scope);
+                });
+        }
+    </script>
+
+    <script src="lib/jquery.min.js"></script>
+    <script src="js/js.js"></script>
+    
+    <div class="navF">
+        <ul class="nav">
+            <a onclick="listS(1)">
+                <li class="nav-item">list</li>
+            </a>
+            <a onclick="change(0)">
+                <li class="nav-item">背词</li>
+            </a>
+            <a onclick="change(1)">
+                <li class="nav-item">拼写</li>
+            </a>
+            <select id="dropdown" onchange="change(modle)"></select>
+            <div class="mdc-form-field">
+                <div class="mdc-checkbox">
+                    <input type="checkbox" class="mdc-checkbox__native-control" id="playC" />
+                    <div class="mdc-checkbox__background">
+                        <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+                            <path class="mdc-checkbox__checkmark-path" fill="none"
+                                d="M1.73,12.91 8.1,19.28 22.79,4.59" />
+                        </svg>
+                        <div class="mdc-checkbox__mixedmark"></div>
+                    </div>
+                    <div class="mdc-checkbox__ripple"></div>
+                </div>
+                <label for="playC">发音</label>
+            </div>
+            <div class="mdc-form-field">
+                <div class="mdc-checkbox">
+                    <input type="checkbox" class="mdc-checkbox__native-control" id="wordStyle" />
+                    <div class="mdc-checkbox__background">
+                        <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+                            <path class="mdc-checkbox__checkmark-path" fill="none"
+                                d="M1.73,12.91 8.1,19.28 22.79,4.59" />
+                        </svg>
+                        <div class="mdc-checkbox__mixedmark"></div>
+                    </div>
+                    <div class="mdc-checkbox__ripple"></div>
+                </div>
+                <label for="wordStyle">样式</label>
+            </div>
+        </ul>
+    </div>
+
+    <div id="List"></div>
+    <div id="main"></div>
+    <audio id="audio"></audio>
+    <ul class="nav2">
+        <a onclick="next(n-1)">
+            <li class="nav-item2">&#60;</li>
+        </a>
+        <a onclick="answer()">
+            <li class="nav-item2">=</li>
+        </a>
+        <a onclick="next(n+1)">
+            <li class="nav-item2">&#62;</li>
+        </a>
+    </ul>
+</body>
+
+</html>
