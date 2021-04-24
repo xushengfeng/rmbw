@@ -5,7 +5,7 @@ self.addEventListener('install', event => {
         caches.open(CACHE_NAME)
           .then(cache => cache.addAll(
             [
-                '/',  // 这个一定要包含整个目录，不然无法离线浏览
+                '/rmbw/',  // 这个一定要包含整个目录，不然无法离线浏览
                 'asset/icon.png',
                 'index.html',
                 'css/css.css'
