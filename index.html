@@ -15,7 +15,7 @@
     <title>记忆单词</title>
 </head>
 
-<body onload="changeDropdown();change(0)">
+<body onload="changeDropdown();showWordList();change(0)">
     <script>
         if (navigator.serviceWorker != null) {
             navigator.serviceWorker.register('sw.js')
@@ -39,39 +39,13 @@
             <a onclick="change(1)">
                 <li class="nav-item">拼写</li>
             </a>
-            <select id="dropdown" onchange="change(modle)"></select>
-            <div class="mdc-form-field">
-                <div class="mdc-checkbox">
-                    <input type="checkbox" class="mdc-checkbox__native-control" id="playC" />
-                    <div class="mdc-checkbox__background">
-                        <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
-                            <path class="mdc-checkbox__checkmark-path" fill="none"
-                                d="M1.73,12.91 8.1,19.28 22.79,4.59" />
-                        </svg>
-                        <div class="mdc-checkbox__mixedmark"></div>
-                    </div>
-                    <div class="mdc-checkbox__ripple"></div>
-                </div>
-                <label for="playC">发音</label>
-            </div>
-            <div class="mdc-form-field">
-                <div class="mdc-checkbox">
-                    <input type="checkbox" class="mdc-checkbox__native-control" id="wordStyle" />
-                    <div class="mdc-checkbox__background">
-                        <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
-                            <path class="mdc-checkbox__checkmark-path" fill="none"
-                                d="M1.73,12.91 8.1,19.28 22.79,4.59" />
-                        </svg>
-                        <div class="mdc-checkbox__mixedmark"></div>
-                    </div>
-                    <div class="mdc-checkbox__ripple"></div>
-                </div>
-                <label for="wordStyle">样式</label>
-            </div>
+            <select id="dropdown" onchange="change(mode)"></select>
+
+            <a href="https://github.com/xushengfeng/rmbw"></a>
         </ul>
     </div>
 
-    <div id="List"></div>
+    <div id="List"><a onclick="listS(0)"><li class="nav-item">list</li></a><div id="control"></div><div id="leftList"></div></div>
     <div id="main"></div>
     <audio id="audio"></audio>
     <ul class="nav2">
