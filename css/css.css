@@ -96,6 +96,7 @@ body {
   flex-direction: column;
   transition: 0.3s;
   box-shadow: 8px 0px 20px 0px #9993;
+  padding: 14px 0 0 0;
 }
 #control{
   display: flex;

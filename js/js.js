@@ -15,20 +15,16 @@ function change(n) {
     dropdownValue = document.getElementById('dropdown').value
     switch (n) {
         case 0:
-            mode = 0
+            mode = 0 // mode是列表模式
             showList()
             break;
         case 1:
-            mode = 1
+            mode = 1 // mode是拼写模式
             showSpell()
             break;
     }
     window.localStorage["drop"] = document.getElementById('dropdown').value
     showWordList()
-}
-
-function checkboxClass(id, name) {
-    return '<div class="mdc-form-field"><div class="mdc-checkbox"><input type="checkbox" class="mdc-checkbox__native-control" id="' + id + '" /><div class="mdc-checkbox__background"><svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24"><path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59" /></svg><div class="mdc-checkbox__mixedmark"></div></div><div class="mdc-checkbox__ripple"></div></div><label for="' + id + '">' + name + '</label></div>'
 }
 
 // 左边控件和单词表
@@ -39,8 +35,9 @@ function showWordList() {
         c += '<div class="listItem" id="' + i + '" onclick="next(' + i + ')">' + dic[id][0] + '</div>'
     }
     document.getElementById('leftList').innerHTML = c
-    document.getElementById('control').innerHTML = checkboxClass('playC', '发音') + checkboxClass('wordStyle', '样式') + checkboxClass('R', 'random') + checkboxClass('bingC', 'bing') + checkboxClass('wordC', 'word') + checkboxClass('phoneticC', 'phonetic') + checkboxClass('translationC', 'translation') + '<select id="spellN"><option>1</option><option>2</option><option>3</option><option>4</option></select>'
+    document.getElementById('control').innerHTML = checkboxClass('playC', '发音') + checkboxClass('playtC', '翻译发音') + checkboxClass('autoC', '自动播放') + checkboxClass('wordStyle', '样式') + checkboxClass('R', 'random') + checkboxClass('bingC', 'bing') + checkboxClass('wordC', 'word') + checkboxClass('phoneticC', 'phonetic') + checkboxClass('translationC', 'translation') + '<select id="spellN"><option>1</option><option>2</option><option>3</option><option>4</option></select>'
 
+    // 选项切换
     document.getElementById("bingC").checked = window.localStorage["bingC"] == 'true' ? true : false
     document.getElementById("wordC").checked = window.localStorage["wordC"] == 'true' ? true : false
     document.getElementById("phoneticC").checked = window.localStorage["phoneticC"] == 'true' ? true : false
@@ -50,9 +47,21 @@ function showWordList() {
     document.getElementById('R').checked = window.localStorage["R"] == 'true' ? true : false
 }
 
+function listS(v) {
+    if (v == 0) {
+        document.getElementById('List').style.left = '-40%'
+    } else {
+        document.getElementById('List').style.left = '0'
+    }
+}
+
+function checkboxClass(id, name) {
+    return '<div class="mdc-form-field"><div class="mdc-checkbox"><input type="checkbox" class="mdc-checkbox__native-control" id="' + id + '" /><div class="mdc-checkbox__background"><svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24"><path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59" /></svg><div class="mdc-checkbox__mixedmark"></div></div><div class="mdc-checkbox__ripple"></div></div><label for="' + id + '">' + name + '</label></div>'
+}
+
 // 背书模式
 function showList() {
-    mode=0
+    mode = 0
     document.getElementById('main').innerHTML = '<div id="wordDetail"><div id="word"></div><div id="phonetic"></div><div id="translation"></div><iframe id="bing"></iframe></div>'
 
     if (window.localStorage[dropdownValue] != undefined) {
@@ -64,7 +73,7 @@ function showList() {
 
 // 拼写模式
 function showSpell() {
-    mode=1
+    mode = 1
     document.getElementById('main').innerHTML = '<input id="spellWord" type="text" oninput="trueOrFalse()" autofocue="autofocue"><div id="word"></div><div id="phonetic"></div><div id="translation"></div>'
 
     if (window.localStorage[dropdownValue] != undefined) {
@@ -75,75 +84,74 @@ function showSpell() {
 
 }
 
-function listS(v) {
-    if (v == 0) {
-        document.getElementById('List').style.left = '-40%'
-    } else {
-        document.getElementById('List').style.left = '0'
-    }
-}
 
-var wptList, word, phonetic, translation,id
+// 存储
+var wptList, word, phonetic, translation, id
 n = 0
 
 function next(num) {
-        n = document.getElementById('R').checked == true ? Math.floor(Math.random() * (map[dropdownValue].length + 1)) : num
-        n = n < 0 ? 0 : n
-        wptList = {
-            "bingC": document.getElementById('bingC').checked,
-            "wordC": document.getElementById('wordC').checked,
-            "phoneticC": document.getElementById('phoneticC').checked,
-            "translationC": document.getElementById('translationC').checked,
-            "playC": document.getElementById('playC').checked
+    n = document.getElementById('R').checked == true ? Math.floor(Math.random() * (map[dropdownValue].length + 1)) : num // n随机与否
+    n = n < 0 ? 0 : n // n must>=0
+
+    wptList = {
+        "bingC": document.getElementById('bingC').checked,
+        "wordC": document.getElementById('wordC').checked,
+        "phoneticC": document.getElementById('phoneticC').checked,
+        "translationC": document.getElementById('translationC').checked,
+        "playC": document.getElementById('playC').checked
+    }
+
+    id = map[dropdownValue][n]
+    word = dic[id][0]
+    phonetic = dic[id][1]
+    translation = dic[id][2]
+
+    // 界面归位
+    document.getElementById('translation').innerHTML = ''
+    document.getElementById('phonetic').innerHTML = ''
+    document.getElementById("word").innerHTML = ''
+
+    // 根据选项展示
+    if (mode == 0) {
+        if (wptList['wordC']) {
+            document.getElementById('word').innerHTML = document.getElementById('wordStyle').checked == true ? aeiouy(word) : word
         }
-
-        id = map[dropdownValue][n]
-        word = dic[id][0]
-        phonetic = dic[id][1]
-        translation = dic[id][2]
-
-        document.getElementById('translation').innerHTML = ''
-        document.getElementById('phonetic').innerHTML = ''
-        document.getElementById("word").innerHTML = ''
-
-        if (mode == 0) {
-            if (wptList['wordC']) {
-                document.getElementById('word').innerHTML = document.getElementById('wordStyle').checked == true ? aeiouy(word) : word
-            }
-            if (wptList["phoneticC"]) {
-                document.getElementById('phonetic').innerHTML = phonetic
-            }
-            if (wptList["translationC"]) {
-                document.getElementById('translation').innerHTML = to(translation)
-            }
-            if (document.getElementById('bingC').checked && wptList[0] && wptList[1] && wptList[2]) {
-                document.getElementById('bing').src = "https://cn.bing.com/dict/search?q=" + dic[id][0]
-            } else {
-                document.getElementById('bing').src = ''
-            }
-        } else {
+        if (wptList["phoneticC"]) {
+            document.getElementById('phonetic').innerHTML = phonetic
+        }
+        if (wptList["translationC"]) {
             document.getElementById('translation').innerHTML = to(translation)
-            document.getElementById("spellWord").value = ''
-            document.getElementById("spellWord").placeholder = ""
-            spellNum = document.getElementById('spellN').value
         }
-
-        if (document.getElementById('playC').checked) {
-            play(word)
+        if (document.getElementById('bingC').checked && wptList[0] && wptList[1] && wptList[2]) {
+            document.getElementById('bing').src = "https://cn.bing.com/dict/search?q=" + dic[id][0]
+        } else {
+            document.getElementById('bing').src = ''
         }
+    } else {
+        document.getElementById('translation').innerHTML = to(translation)
+        document.getElementById("spellWord").value = ''
+        document.getElementById("spellWord").placeholder = ""
+        spellNum = document.getElementById('spellN').value
+    }
+
+    if (document.getElementById('playC').checked) {
+        play(word)
+    }
 
 
-        location.href = '#' + n
-        window.localStorage[dropdownValue] = n
-        window.localStorage["bingC"] = document.getElementById('bingC').checked
-        window.localStorage["wordC"] = document.getElementById('wordC').checked
-        window.localStorage["phoneticC"] = document.getElementById('phoneticC').checked
-        window.localStorage["translationC"] = document.getElementById('translationC').checked
-        window.localStorage["palyC"] = document.getElementById('playC').checked
-        window.localStorage["R"] = document.getElementById('R').checked
-        window.localStorage['spellN'] = document.getElementById('spellN').value
+    // 选项存储
+    location.href = '#' + n
+    window.localStorage[dropdownValue] = n
+    window.localStorage["bingC"] = document.getElementById('bingC').checked
+    window.localStorage["wordC"] = document.getElementById('wordC').checked
+    window.localStorage["phoneticC"] = document.getElementById('phoneticC').checked
+    window.localStorage["translationC"] = document.getElementById('translationC').checked
+    window.localStorage["palyC"] = document.getElementById('playC').checked
+    window.localStorage["R"] = document.getElementById('R').checked
+    window.localStorage['spellN'] = document.getElementById('spellN').value
 }
 
+// 展示答案
 function answer() {
     if (document.getElementById('bingC').checked) {
         document.getElementById('bing').src = "https://cn.bing.com/dict/search?q=" + dic[id][0]
@@ -163,8 +171,25 @@ function answer() {
 function play(word) {
     audio = document.getElementById('audio')
     // audio.src = 'http://tts.baidu.com/text2audio?lan=en&ie=UTF-8&spd=4&text=' + word
-    audio.src = 'https://dict.youdao.com/dictvoice?le=eng&type=1&audio=' + word
-    audio.play()
+    if (document.getElementById('playtC').checked == true) {
+        audio.src = 'https://dict.youdao.com/dictvoice?le=eng&type=1&audio=' + word
+        audio.play()
+        audio.onended = function () {
+            audio.src = 'http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&spd=7&text=' + translation
+            audio.play()
+            audio.onended = function () {}
+        }
+    } else {
+        audio.src = 'https://dict.youdao.com/dictvoice?le=eng&type=1&audio=' + word
+        audio.play()
+    }
+    if (document.getElementById('autoC').checked == true) {
+        audio.onended = function () {
+            next(Number(n) + 1)
+        }
+    } else {
+        audio.onended = function () {}
+    }
 }
 
 // 释义编排
@@ -196,42 +221,42 @@ document.onkeyup = function (e) {
     var event = e || window.event;
     event.preventDefault();
     var key = event.which || event.keyCode || event.charCode;
-    if (mode == 0) {
+    if (mode == 0) { // 列表模式下生效
         if (key == 37 || key == 38) {
             next(Number(n) - 1)
         }
         if (key == 39 || key == 40) {
             next(Number(n) + 1)
         }
-        if (key == 37 || key == 38 || key == 39 || key == 40) {
-            next(n)
-        }
+        // if (key == 37 || key == 38 || key == 39 || key == 40) {
+        // next(n)
+        // }
         if (key == 13) {
             answer()
         }
     }
 }
 
-// 判断
+// 拼写判断
 function trueOrFalse() {
     inputWord = document.getElementById('spellWord').value
     document.getElementById("word").innerHTML = ''
     document.getElementById('phonetic').innerHTML = ''
     switch (inputWord) {
-        case '~':
+        case '~': // 暂时展示
             document.getElementById('word').innerHTML = document.getElementById('wordStyle').checked == true ? aeiouy(word) : word
             document.getElementById('phonetic').innerHTML = phonetic
             document.getElementById("spellWord").value = ''
             play(word)
             break;
-        case '!':
+        case '!': // 发音
             play(word)
             document.getElementById("spellWord").value = ''
             break;
-        case word:
-            if (spellNum == 1) {
+        case word: // 正确
+            if (spellNum == 1) { // 拼写次数降到1才下一个,否则重复拼写
                 document.getElementById("spellWord").value = ''
-                next(Number(n)+1)
+                next(Number(n) + 1)
             } else {
                 spellNum--
                 document.getElementById("spellWord").value = ''
