@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="200"
+   height="200"
+   viewBox="0 0 200 200"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   sodipodi:docname="icon.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#111111"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:document-units="px"
+     showgrid="false"
+     units="px"
+     width="200px"
+     viewbox-height="200"
+     inkscape:zoom="2.7968811"
+     inkscape:cx="95.463479"
+     inkscape:cy="97.251184"
+     inkscape:window-width="1920"
+     inkscape:window-height="1031"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <rect
+       x="14.617376"
+       y="19.856581"
+       width="261.94525"
+       height="226.6291"
+       id="rect47606" />
+    <rect
+       x="30.725562"
+       y="30.642783"
+       width="123.01059"
+       height="147.1559"
+       id="rect3506" />
+  </defs>
+  <g
+     inkscape:label="图层 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke-width:0.99882"
+       id="rect94255"
+       width="200"
+       height="200"
+       x="0"
+       y="0"
+       ry="48.151146" />
+    <text
+       xml:space="preserve"
+       id="text47604"
+       style="font-style:normal;font-weight:normal;font-size:133.333px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect47606);fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(1.2166368,0,0,1.2166368,0.6716355,-27.188183)"><tspan
+         x="14.617188"
+         y="153.85708"
+         id="tspan94856"><tspan
+           style="font-family:'Old English Text MT';-inkscape-font-specification:'Old English Text MT'"
+           id="tspan94854">W</tspan></tspan></text>
+  </g>
+</svg>
