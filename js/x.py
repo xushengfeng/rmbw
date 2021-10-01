@@ -11,7 +11,6 @@ word2id={}
 for row in cur:
     dic_data[row[0]]=[row[1],row[2],row[3]]
     word2id[row[1]]=row[0]
-print(word2id)
 
 dic_file=open('dic.js','w')
 dic_file.write('dic='+str(dic_data))
