@@ -62,7 +62,7 @@ function checkboxClass(id, name) {
 // 背书模式
 function showList() {
     mode = 0
-    document.getElementById('main').innerHTML = '<div id="wordDetail"><div id="word"></div><div id="phonetic"></div><div id="translation"></div><iframe id="bing"></iframe></div>'
+    document.getElementById('main').innerHTML = '<div id="wordDetail"><div id="word"></div><div id="phonetic"></div><div id="translation"></div><iframe id="bing" title="bing词典"></iframe></div>'
 
     if (window.localStorage[dropdownValue] != undefined) {
         next(window.localStorage[dropdownValue])

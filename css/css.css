@@ -60,6 +60,7 @@ body {
   background-color: var(--bg-color);
   font-size: 1rem;
   color: var(--color);
+  margin-left: 8px;
 }
 
 #playC {
