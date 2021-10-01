@@ -1,8 +1,9 @@
 // 界面渲染
-window.addEventListener("load", ()=>{
+window.addEventListener("load", () => {
     changeDropdown()
     showWordList()
     change(0)
+    mode = 0
 })
 
 function changeDropdown() {
