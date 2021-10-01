@@ -99,10 +99,12 @@ body {
   box-shadow: 8px 0px 20px 0px #9993;
   padding: 14px 0 0 0;
 }
-#control{
+
+#control {
   display: flex;
-  flex-direction: column;  
+  flex-direction: column;
 }
+
 #leftList {
   overflow-y: scroll;
 }
@@ -160,12 +162,12 @@ body {
   border: none;
   border-bottom: solid 2px var(--shadow-color);
   background-color: var(--bg-color);
-  /*! box-shadow: 0px 0px 20px 0px #9993; */
   margin: 1rem;
   font-size: 4rem;
   padding: 0 0 10px 30px;
 }
-#spellWord:focus{
+
+#spellWord:focus {
   outline: none;
 }
 
@@ -223,7 +225,59 @@ body {
   .cx {
     background-color: #333;
   }
-  label{
+
+  label {
     color: #fff
+  }
+}
+
+/* github link */
+#octo {
+  fill: #fff;
+  color: #151513;
+  position: absolute;
+  top: 0;
+  border: 0;
+  right: 0;
+}
+
+.octo-arm {
+  transform-origin: 130px 106px;
+  fill: currentColor
+}
+
+.octo-body {
+  fill: currentColor
+}
+
+.github-corner:hover .octo-arm {
+  animation: octocat-wave 560ms ease-in-out
+}
+
+@keyframes octocat-wave {
+
+  0%,
+  100% {
+    transform: rotate(0)
+  }
+
+  20%,
+  60% {
+    transform: rotate(-25deg)
+  }
+
+  40%,
+  80% {
+    transform: rotate(10deg)
+  }
+}
+
+@media (max-width:500px) {
+  .github-corner:hover .octo-arm {
+    animation: none
+  }
+
+  .github-corner .octo-arm {
+    animation: octocat-wave 560ms ease-in-out
   }
 }

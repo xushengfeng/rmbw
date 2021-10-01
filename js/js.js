@@ -1,4 +1,10 @@
 // 界面渲染
+window.addEventListener("load", ()=>{
+    changeDropdown()
+    showWordList()
+    change(0)
+})
+
 function changeDropdown() {
     dropdownC = ''
     for (i in map) {
