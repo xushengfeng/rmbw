@@ -7,13 +7,11 @@ cur = con.cursor().execute('SELECT topic_id, word, accent, mean_cn FROM dict_bcz
 
 dic_data={}
 word2id={}
+dic={}
 
 for row in cur:
-    dic_data[row[0]]=[row[1],row[2],row[3]]
+    dic_data[str(row[0])]=[row[1],row[2],row[3]]
     word2id[row[1]]=row[0]
-
-dic_file=open('dic.js','w')
-dic_file.write('dic='+str(dic_data))
 
 
 filelist=os.listdir('json/')
@@ -30,17 +28,24 @@ for item in filelist:
         c[name]=[]
         list=json.load(open('json/'+item))
         for i in list:
-            c[name].append(i['topic_id'])
+            id=str(i['topic_id'])
+            c[name].append(id)
+            dic[id]=dic_data[id]
     else:
         c[name[:-4]]=[]
         list=open('json/'+item).read()
         list=list.split('\n')
         for i in list:
             if(i in w2i):
-                c[name[:-4]].append(w2i[i])
+                id=str(w2i[i])
+                c[name[:-4]].append(id)
+                dic[id]=dic_data[id]
     
 map_js_file.write('map='+json.dumps(c)+';')
 
+
+dic_file=open('dic.js','w')
+dic_file.write('dic='+str(dic))
 
 map_js_file.close()
 
