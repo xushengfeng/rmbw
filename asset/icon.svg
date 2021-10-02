@@ -9,9 +9,9 @@
    id="svg5"
    inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
    sodipodi:docname="icon.svg"
-   inkscape:export-filename="/home/xsf/Project/背书/rmbw/asset/icon.png"
-   inkscape:export-xdpi="96"
-   inkscape:export-ydpi="96"
+   inkscape:export-filename="/home/xsf/Project/背书/rmbw/asset/icon-512-m.png"
+   inkscape:export-xdpi="245.75999"
+   inkscape:export-ydpi="245.75999"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -30,8 +30,8 @@
      width="200px"
      viewbox-height="200"
      inkscape:zoom="2.7968811"
-     inkscape:cx="95.463479"
-     inkscape:cy="97.251184"
+     inkscape:cx="95.82102"
+     inkscape:cy="97.251185"
      inkscape:window-width="1920"
      inkscape:window-height="1031"
      inkscape:window-x="0"
@@ -64,16 +64,16 @@
        height="200"
        x="0"
        y="0"
-       ry="48.151146" />
+       ry="57.309372" />
     <text
        xml:space="preserve"
        id="text47604"
        style="font-style:normal;font-weight:normal;font-size:133.333px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect47606);fill:#000000;fill-opacity:1;stroke:none"
-       transform="matrix(1.2166368,0,0,1.2166368,0.6716355,-27.188183)"><tspan
+       transform="matrix(1.0816929,0,0,1.0816929,11.688692,-13.08104)"><tspan
          x="14.617188"
          y="153.85708"
-         id="tspan94989"><tspan
+         id="tspan1145"><tspan
            style="font-family:'Old English Text MT';-inkscape-font-specification:'Old English Text MT'"
-           id="tspan94987">W</tspan></tspan></text>
+           id="tspan1143">W</tspan></tspan></text>
   </g>
 </svg>

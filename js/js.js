@@ -1,9 +1,16 @@
-// 界面渲染
+// 界面渲染和初始化
 window.addEventListener("load", () => {
     changeDropdown()
     showWordList()
-    change(0)
+    if ( window.location.href.substring( window.location.href.length - 3)== '?px') {
+        change(1)
+    } else {
+        change(0)
+    }
     mode = 0
+    if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("sw.js");
+    }
 })
 
 function changeDropdown() {
