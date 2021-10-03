@@ -63,7 +63,7 @@ function showWordList() {
 
 function listS(v) {
     if (v == 0) {
-        document.getElementById('List').style.left = '-40%'
+        document.getElementById('List').style.left = '-100%'
     } else {
         document.getElementById('List').style.left = '0'
     }
