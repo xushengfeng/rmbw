@@ -2,10 +2,10 @@
   --bg-color: #fff;
   --color: #000;
   --shadow-color: #9993;
-  --display-word:none;
-  --display-phonetic:none;
+  --display-word:block;
+  --display-phonetic:block;
   --display-translation:none;
-  --display-aeiouy:var(--color);
+  --display-aeiouy:none;
   --display-yuan:var(--color);
   --display-fu:var(--color);
 }
@@ -128,16 +128,28 @@ body {
   width: 90%;
 }
 
+#word{
+  display: var(--display-word);
+}
+#phonetic{
+  display: var(--display-phonetic);
+}
+#translation{
+  display: var(--display-translation);
+}
 .yuan {
-  color: #34A353;
+  /* color: #34A353; */
+  color: var(--display-yuan);
 }
 
 .fu {
-  color: #87a8d6;
+  /* color: #87a8d6; */
+  color: var(--display-fu);
 }
 
 .aeiouy {
-  text-decoration: underline;
+  /* text-decoration: underline; */
+  text-decoration: var(--display-aeiouy);
 }
 
 #bing {

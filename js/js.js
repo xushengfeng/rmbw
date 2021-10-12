@@ -64,6 +64,8 @@ function showWordList() {
     // 选项切换
     document.getElementById("bingC").checked = window.localStorage["bingC"] == "true" ? true : false;
     document.getElementById("wordC").checked = window.localStorage["wordC"] == "true" ? true : false;
+
+    // document.querySelector(':root').setAttribute('style', '--display-word:block');
     document.getElementById("phoneticC").checked = window.localStorage["phoneticC"] == "true" ? true : false;
     document.getElementById("translationC").checked = window.localStorage["translationC"] == "true" ? true : false;
     document.getElementById("playC").checked = window.localStorage["playC"] == "true" ? true : false;
@@ -101,8 +103,8 @@ function showList() {
     // } else {
     //     next(0)
     // }
-    
-    slow_load(0,50)
+
+    slow_load(0, 50);
 }
 
 function slow_load(num, step) {
