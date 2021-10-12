@@ -2,13 +2,20 @@
   --bg-color: #fff;
   --color: #000;
   --shadow-color: #9993;
+  --display-word:none;
+  --display-phonetic:none;
+  --display-translation:none;
+  --display-aeiouy:var(--color);
+  --display-yuan:var(--color);
+  --display-fu:var(--color);
 }
 
 html {
   width: 100%;
   height: 100%;
   color: var(--color);
-  background-color: var(--bg-color)
+  background-color: var(--bg-color);
+  scroll-behavior: smooth;
 }
 
 body {
@@ -132,22 +139,6 @@ body {
 .aeiouy {
   text-decoration: underline;
 }
-
-/* #word {
-  text-align: center;
-  font-size: 8rem;
-}
-
-#phonetic {
-  text-align: center;
-  font-size: 2rem;
-}
-
-#translation {
-  text-align: center;
-  font-size: 2rem;
-  line-height: 1.5;
-} */
 
 #bing {
   width: 100%;
