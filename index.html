@@ -7,7 +7,7 @@
         content="Author: xushengfeng.You can choose a word meter and do word learning memories on this page, such as learning the word spelling, pronunciation, interpretation. You can even practice the word spelling through multiple exercises.">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="supported-color-schemes" content="light dark">
-    <meta name="theme-color" content="#ffffff"/>
+    <meta name="theme-color" content="#ffffff" />
     <link rel="icon" href="asset/icon-192.png" type="image/x-icon">
     <link rel="apple-touch-icon" href="asset/icon-192.png">
     <link rel="stylesheet" type="text/css" href="css/css.css">
@@ -52,7 +52,9 @@
         <div id="control"></div>
         <div id="leftList"></div>
     </div>
-    <div id="main"></div>
+    <div id="main">
+        <word-card word="hi" phonetic="x0" translation='n'></word-card>
+    </div>
     <audio id="audio"></audio>
     <ul class="nav2">
         <li class="nav-item2" id="左箭头">&#60;</li>
@@ -61,6 +63,19 @@
     </ul>
 
     <script src="js/addEventListener.js"></script>
+
+    <template id="word_card">
+        <div id="n">
+            <div id="n0"></div>
+            <div id="n2"></div>
+            <div id="n3"></div>
+            <div id="n4"></div>
+        </div>
+        <div id="word"></div>
+        <div id="phonetic"></div>
+        <div id="translation"></div>
+    </template>
+    <script src="lib/template.js"></script>
 </body>
 
 </html>
