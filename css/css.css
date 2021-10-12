@@ -73,9 +73,9 @@ body {
 
 #main {
   width: 100%;
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: center; */
   flex-grow: 1;
   background-color: var(--bg-color);
 }
