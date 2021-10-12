@@ -133,7 +133,7 @@ body {
   text-decoration: underline;
 }
 
-#word {
+/* #word {
   text-align: center;
   font-size: 8rem;
 }
@@ -147,7 +147,7 @@ body {
   text-align: center;
   font-size: 2rem;
   line-height: 1.5;
-}
+} */
 
 #bing {
   width: 100%;
