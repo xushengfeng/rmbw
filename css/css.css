@@ -1,307 +1,302 @@
 :root {
-  --bg-color: #fff;
-  --color: #000;
-  --shadow-color: #9993;
-  --display-word:block;
-  --display-phonetic:block;
-  --display-translation:none;
-  --display-aeiouy:none;
-  --display-yuan:var(--color);
-  --display-fu:var(--color);
+    --bg-color: #fff;
+    --color: #000;
+    --shadow-color: #9993;
+    --display-word: block;
+    --display-phonetic: block;
+    --display-translation: hidden;
+    --display-aeiouy: none;
+    --display-yuan: var(--color);
+    --display-fu: var(--color);
 }
 
 html {
-  width: 100%;
-  height: 100%;
-  color: var(--color);
-  background-color: var(--bg-color);
-  scroll-behavior: smooth;
+    width: 100%;
+    height: 100%;
+    color: var(--color);
+    background-color: var(--bg-color);
+    scroll-behavior: smooth;
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .add-button {
-  display: none;
+    display: none;
 }
 
 .nav {
-  display: flex;
-  width: 100%;
-  margin: 0;
-  padding: 16px 0 16px 0;
-  background-color: var(--bg-color);
+    display: flex;
+    width: 100%;
+    margin: 0;
+    padding: 16px 0 16px 0;
+    background-color: var(--bg-color);
 }
 
 .nav-item {
-  list-style: none;
-  margin: 0 8px 0 8px;
-  padding: 11px 0 11px 0;
+    list-style: none;
+    margin: 0 8px 0 8px;
+    padding: 11px 0 11px 0;
 }
 
-.nav2 {
-  display: none;
-  /*   display: flex; */
-  justify-content: space-around;
-  padding: 0;
-  margin-top: 11px;
-  background-color: var(--bg-color)
+#nav2 {
+    display: flex;
+    padding: 0;
+    margin-top: 11px;
+    background-color: var(--bg-color);
+    flex-wrap: wrap;
 }
 
-.nav-item2 {
-  list-style: none;
-  margin: 0 10px 0 10px;
-  padding: 0;
-  font-size: 2rem;
-  width: 80px;
-  text-align: center;
+#nav2 > li {
+    list-style: none;
+    margin: 0 10px 0 10px;
+    padding: 0;
+    font-size: 2rem;
+    width: 80px;
+    text-align: center;
+}
+
+.nav2-li-h {
+    color: var(--bg-color);
+    background: var(--color);
+    border-radius: 10px;
 }
 
 #dropdown {
-  border: none;
-  background-color: var(--bg-color);
-  font-size: 1rem;
-  color: var(--color);
-  margin-left: 8px;
+    border: none;
+    background-color: var(--bg-color);
+    font-size: 1rem;
+    color: var(--color);
+    margin-left: 8px;
 }
 
 #playC {
-  border: none;
-  background-color: var(--bg-color);
-  width: 30px;
-  height: 30px;
-  /* visibility: hidden; */
+    border: none;
+    background-color: var(--bg-color);
+    width: 30px;
+    height: 30px;
+    /* visibility: hidden; */
 }
 
 #main {
-  width: 100%;
-  /* display: flex;
+    width: 100%;
+    /* display: flex;
   flex-direction: column;
   align-items: center; */
-  flex-grow: 1;
-  background-color: var(--bg-color);
+    flex-grow: 1;
+    background-color: var(--bg-color);
 }
 
 .cx {
-  background-color: #eee;
-  border-radius: 1rem;
-  padding: 0 8px;
+    background-color: #eee;
+    border-radius: 1rem;
+    padding: 0 8px;
 }
 
 #List {
-  position: absolute;
-  left: -100%;
-  top: 0;
-  bottom: 0;
-  color: var(--color);
-  background-color: var(--bg-color);
-  display: flex;
-  flex-direction: column;
-  transition: 0.3s;
-  box-shadow: 8px 0px 20px 0px #9993;
-  padding: 16px 0 0 0;
+    position: absolute;
+    left: -100%;
+    top: 0;
+    bottom: 0;
+    color: var(--color);
+    background-color: var(--bg-color);
+    display: flex;
+    flex-direction: column;
+    transition: 0.3s;
+    box-shadow: 8px 0px 20px 0px #9993;
+    padding: 16px 0 0 0;
 }
 
 #control {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 #leftList {
-  overflow-y: scroll;
+    overflow-y: scroll;
 }
 
 .llul {
-  padding: 0;
+    padding: 0;
 }
 
 #wordDetail {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 90%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
 }
 
-#word{
-  display: var(--display-word);
+#word {
+    visibility: var(--display-word);
 }
-#phonetic{
-  display: var(--display-phonetic);
+#phonetic {
+    visibility: var(--display-phonetic);
 }
-#translation{
-  display: var(--display-translation);
+#translation {
+    visibility: var(--display-translation);
 }
 .yuan {
-  /* color: #34A353; */
-  color: var(--display-yuan);
+    /* color: #34A353; */
+    color: var(--display-yuan);
 }
 
 .fu {
-  /* color: #87a8d6; */
-  color: var(--display-fu);
+    /* color: #87a8d6; */
+    color: var(--display-fu);
 }
 
 .aeiouy {
-  /* text-decoration: underline; */
-  text-decoration: var(--display-aeiouy);
+    /* text-decoration: underline; */
+    text-decoration: var(--display-aeiouy);
 }
 
 #bing {
-  width: 100%;
-  height: 0;
-  border: none;
-  flex-grow: 1;
+    width: 100%;
+    height: 0;
+    border: none;
+    flex-grow: 1;
 }
 
 #spellWord {
-  width: 90%;
-  height: 60px;
-  border: none;
-  border-bottom: solid 2px var(--shadow-color);
-  background-color: var(--bg-color);
-  margin: 1rem;
-  font-size: 4rem;
-  padding: 0 0 10px 30px;
+    width: 90%;
+    height: 60px;
+    border: none;
+    border-bottom: solid 2px var(--shadow-color);
+    background-color: var(--bg-color);
+    margin: 1rem;
+    font-size: 4rem;
+    padding: 0 0 10px 30px;
 }
 
 #spellWord:focus {
-  outline: none;
+    outline: none;
 }
 
 #Sword {
-  width: 90%;
-  font-size: 8rem;
-  text-align: center;
+    width: 90%;
+    font-size: 8rem;
+    text-align: center;
 }
 
 #Sphonetic {
-  font-size: 2rem;
+    font-size: 2rem;
 }
 
 #Stranslation {
-  text-align: center;
-  font-size: 2rem;
-  width: 90%;
-  line-height: 1.5;
+    text-align: center;
+    font-size: 2rem;
+    width: 90%;
+    line-height: 1.5;
 }
 
-@media (max-width:900px) {
-  .nav {
-    padding: 8px 0 8px 0;
-  }
+@media (max-width: 900px) {
+    .nav {
+        padding: 8px 0 8px 0;
+    }
 
-  .nav-item {
-    font-size: 1em;
-  }
+    #word,
+    #Sword {
+        font-size: 4rem;
+    }
 
-  .nav2 {
-    display: flex;
-  }
+    #translation,
+    #Stranslation {
+        font-size: 1.4rem;
+    }
 
-  #word,
-  #Sword {
-    font-size: 4rem;
-  }
-
-  #translation,
-  #Stranslation {
-    font-size: 1.4rem
-  }
-
-  .cx {
-    border-radius: 10px;
-  }
+    .cx {
+        border-radius: 10px;
+    }
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --bg-color: #000;
-    --color: #fff;
-  }
+    :root {
+        --bg-color: #000;
+        --color: #fff;
+    }
 
-  .cx {
-    background-color: #333;
-  }
+    .cx {
+        background-color: #333;
+    }
 
-  label {
-    color: #fff
-  }
+    label {
+        color: #fff;
+    }
 }
 
 /* github link */
 #octo {
-  fill: #fff;
-  color: #151513;
-  position: absolute;
-  top: 0;
-  border: 0;
-  right: 0;
+    fill: #fff;
+    color: #151513;
+    position: absolute;
+    top: 0;
+    border: 0;
+    right: 0;
 }
 
 .octo-arm {
-  transform-origin: 130px 106px;
-  fill: currentColor
+    transform-origin: 130px 106px;
+    fill: currentColor;
 }
 
 .octo-body {
-  fill: currentColor
+    fill: currentColor;
 }
 
 .github-corner:hover .octo-arm {
-  -webkit-animation: octocat-wave 560ms ease-in-out;
-          animation: octocat-wave 560ms ease-in-out
+    -webkit-animation: octocat-wave 560ms ease-in-out;
+    animation: octocat-wave 560ms ease-in-out;
 }
 
 @-webkit-keyframes octocat-wave {
+    0%,
+    100% {
+        transform: rotate(0);
+    }
 
-  0%,
-  100% {
-    transform: rotate(0)
-  }
+    20%,
+    60% {
+        transform: rotate(-25deg);
+    }
 
-  20%,
-  60% {
-    transform: rotate(-25deg)
-  }
-
-  40%,
-  80% {
-    transform: rotate(10deg)
-  }
+    40%,
+    80% {
+        transform: rotate(10deg);
+    }
 }
 
 @keyframes octocat-wave {
+    0%,
+    100% {
+        transform: rotate(0);
+    }
 
-  0%,
-  100% {
-    transform: rotate(0)
-  }
+    20%,
+    60% {
+        transform: rotate(-25deg);
+    }
 
-  20%,
-  60% {
-    transform: rotate(-25deg)
-  }
-
-  40%,
-  80% {
-    transform: rotate(10deg)
-  }
+    40%,
+    80% {
+        transform: rotate(10deg);
+    }
 }
 
-@media (max-width:500px) {
-  .github-corner:hover .octo-arm {
-    -webkit-animation: none;
-            animation: none
-  }
+@media (max-width: 500px) {
+    .github-corner:hover .octo-arm {
+        -webkit-animation: none;
+        animation: none;
+    }
 
-  .github-corner .octo-arm {
-    -webkit-animation: octocat-wave 560ms ease-in-out;
-            animation: octocat-wave 560ms ease-in-out
-  }
+    .github-corner .octo-arm {
+        -webkit-animation: octocat-wave 560ms ease-in-out;
+        animation: octocat-wave 560ms ease-in-out;
+    }
 }

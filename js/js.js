@@ -103,6 +103,22 @@ function showList() {
     // } else {
     //     next(0)
     // }
+    var c = "";
+    for (i = 1; i <= Math.ceil(map[dropdownValue].length / 50); i++) {
+        c += `<li>${i}</li>`;
+    }
+    document.querySelector("#nav2").innerHTML = c;
+    for (i = 0; i <= Math.ceil(map[dropdownValue].length / 50) - 1; i++) {
+        ((i) => {
+            document.querySelectorAll("#nav2>li")[i].onclick = () => {
+                slow_load(i, 50);
+                [].forEach.call(document.querySelectorAll("#nav2>li"), function (v) {
+                    v.className = "";
+                });
+                document.querySelectorAll("#nav2>li")[i].className = "nav2-li-h";
+            };
+        })(i);
+    }
 
     slow_load(0, 50);
 }
@@ -112,7 +128,7 @@ function slow_load(num, step) {
         return;
     }
     var c = "";
-    for (i = num * step; i < (num + 1) * step && i <= map[dropdownValue].length; i++) {
+    for (i = num * step; i < (num + 1) * step && i < map[dropdownValue].length; i++) {
         id = map[dropdownValue][i];
         c += `<word-card word="${dic[id][0]}" phonetic="${dic[id][1]}" translation="${dic[id][2]}"></word-card>`;
     }
@@ -130,10 +146,6 @@ function showSpell() {
     } else {
         next(0);
     }
-}
-
-function show() {
-    document.querySelector("#main").innerHTML = "<word-card></word-card>";
 }
 
 // 存储
