@@ -43,12 +43,6 @@ function change(n) {
 
 // 左边控件和单词表
 function showWordList() {
-    var c = "";
-    for (i in map[dropdownValue]) {
-        var id = map[dropdownValue][i];
-        c += '<div class="listItem" id="' + i + '" onclick="next(' + i + ')">' + dic[id][0] + "</div>";
-    }
-    document.getElementById("leftList").innerHTML = c;
     document.getElementById("control").innerHTML =
         checkboxClass("playC", "发音") +
         checkboxClass("playtC", "翻译发音") +
@@ -62,22 +56,51 @@ function showWordList() {
         '<select id="spellN"><option>1</option><option>2</option><option>3</option><option>4</option></select>';
 
     // 选项切换
-    document.getElementById("bingC").checked = window.localStorage["bingC"] == "true" ? true : false;
-    document.getElementById("wordC").checked = window.localStorage["wordC"] == "true" ? true : false;
+    document.querySelector("#bingC").onclick = () => {};
+
+    document.querySelector("#wordC").onclick = () => {
+        console.log("hi");
+        //
+        if (document.querySelector("#wordC").checked) {
+            document.querySelector(":root").setAttribute("style", "--display-word:visible");
+        } else {
+            document.querySelector(":root").setAttribute("style", "--display-word:hidden");
+        }
+    };
+    document.querySelector("#phoneticC").onclick = () => {
+        console.log("hi");
+        //
+        if (document.querySelector("#phoneticC").checked) {
+            document.querySelector(":root").setAttribute("style", "--display-phonetic:visible");
+        } else {
+            document.querySelector(":root").setAttribute("style", "--display-phonetic:hidden");
+        }
+    };
+    document.querySelector("#translationC").onclick = () => {
+        console.log("hi");
+        //
+        if (document.querySelector("#translationC").checked) {
+            document.querySelector(":root").setAttribute("style", "--display-translation:visible");
+        } else {
+            document.querySelector(":root").setAttribute("style", "--display-translation:hidden");
+        }
+    };
 
     // document.querySelector(':root').setAttribute('style', '--display-word:block');
-    document.getElementById("phoneticC").checked = window.localStorage["phoneticC"] == "true" ? true : false;
-    document.getElementById("translationC").checked = window.localStorage["translationC"] == "true" ? true : false;
-    document.getElementById("playC").checked = window.localStorage["playC"] == "true" ? true : false;
-    document.getElementById("spellN").value = window.localStorage["spellN"];
-    document.getElementById("R").checked = window.localStorage["R"] == "true" ? true : false;
+    document.querySelector("#bingC").checked = window.localStorage["bingC"] == "true" ? true : false;
+    document.querySelector("#wordC").checked = window.localStorage["wordC"] == "true" ? true : false;
+    document.querySelector("#phoneticC").checked = window.localStorage["phoneticC"] == "true" ? true : false;
+    document.querySelector("#translationC").checked = window.localStorage["translationC"] == "true" ? true : false;
+    document.querySelector("#playC").checked = window.localStorage["playC"] == "true" ? true : false;
+    document.querySelector("#spellN").value = window.localStorage["spellN"];
+    document.querySelector("#R").checked = window.localStorage["R"] == "true" ? true : false;
 }
 
 function listS(v) {
     if (v == 0) {
-        document.getElementById("List").style.left = "-100%";
+        document.getElementById("List").style.transform = "translateX(-102%)";
     } else {
-        document.getElementById("List").style.left = "0";
+        document.getElementById("List").style.transform = "translateX(0)";
     }
 }
 

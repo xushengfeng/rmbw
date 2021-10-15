@@ -2,8 +2,8 @@
     --bg-color: #fff;
     --color: #000;
     --shadow-color: #9993;
-    --display-word: block;
-    --display-phonetic: block;
+    --display-word: visible;
+    --display-phonetic: visible;
     --display-translation: hidden;
     --display-aeiouy: none;
     --display-yuan: var(--color);
@@ -31,6 +31,7 @@ body {
 }
 
 .nav {
+    position: fixed;
     display: flex;
     width: 100%;
     margin: 0;
@@ -96,8 +97,8 @@ body {
 }
 
 #List {
-    position: absolute;
-    left: -100%;
+    position: fixed;
+    transform: translateX(-101%);
     top: 0;
     bottom: 0;
     color: var(--color);
