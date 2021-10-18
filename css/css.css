@@ -1,6 +1,7 @@
 :root {
     --bg-color: #fff;
-    --color: #000;
+    --bg2-color: #ddd;
+    --color: #252525;
     --shadow-color: #9993;
     --display-word: visible;
     --display-phonetic: visible;

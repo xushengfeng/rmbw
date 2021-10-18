@@ -59,7 +59,7 @@
     <ul id="nav2">
     </ul>
 
-    <script src="js/addEventListener.js"></script>
+    <!-- <script src="js/addEventListener.js"></script> -->
 
     <template id="word_card">
         <style>
@@ -68,28 +68,29 @@
             }
 
             #n {
-                display: flex;
+                -webkit-appearance: none;
+                background-size: 75% 100%;
+                border-radius: 6px;
+                background: linear-gradient(var(--color), var(--color)) no-repeat, var(--bg2-color);
+
             }
 
-            #n>div {
-                width: 40px;
-                height: 20px;
-                border: 1px #000 solid;
+            #n::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                height: 30px;
+                width: 20px;
             }
 
-            #word-main{
+
+            #word-main {
                 margin: 0 0 40px 0;
             }
-            #word-main>div{
+
+            #word-main>div {
                 text-align: center;
             }
         </style>
-        <div id="n">
-            <div id="n0"></div>
-            <div id="n1"></div>
-            <div id="n2"></div>
-            <div id="n3"></div>
-        </div>
+        <input type="range" id="n" min="0" max="3">
         <div id="word-main">
             <div id="word"></div>
             <div id="phonetic"></div>
