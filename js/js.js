@@ -135,16 +135,19 @@ function showList() {
         ((i) => {
             document.querySelectorAll("#nav2>li")[i].onclick = () => {
                 slow_load(i, 50);
-                [].forEach.call(document.querySelectorAll("#nav2>li"), function (v) {
-                    v.className = "";
-                });
-                document.querySelectorAll("#nav2>li")[i].className = "nav2-li-h";
             };
         })(i);
     }
-
-    slow_load(0, 50);
+    if (window.localStorage[dropdownValue] != undefined) {
+        var page = JSON.parse(window.localStorage[dropdownValue]).page || 0;
+    } else {
+        var page = 0;
+    }
+    slow_load(page, 50);
 }
+
+word_num = 0;
+word_value = JSON.parse(window.localStorage.word_value||'{}');
 
 function slow_load(num, step) {
     if (num * step > map[dropdownValue].length) {
@@ -153,9 +156,16 @@ function slow_load(num, step) {
     var c = "";
     for (i = num * step; i < (num + 1) * step && i < map[dropdownValue].length; i++) {
         id = map[dropdownValue][i];
-        c += `<word-card word="${dic[id][0]}" phonetic="${dic[id][1]}" translation="${dic[id][2]}"></word-card>`;
+        c += `<word-card word="${dic[id][0]}" phonetic="${dic[id][1]}" translation="${dic[id][2]}" value="${word_value[dic[id][0]]}"></word-card>`;
     }
     document.querySelector("#main").innerHTML = c;
+    [].forEach.call(document.querySelectorAll("#nav2>li"), function (v) {
+        v.className = "";
+    });
+    document.querySelectorAll("#nav2>li")[num].className = "nav2-li-h";
+
+    var l = { page: num, page_step: step, w_n: word_num };
+    window.localStorage[dropdownValue] = JSON.stringify(l);
 }
 
 // 拼写模式

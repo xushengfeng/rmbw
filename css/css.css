@@ -38,6 +38,7 @@ body {
     margin: 0;
     padding: 16px 0 16px 0;
     background-color: var(--bg-color);
+    box-shadow: var(--shadow-color) 0 0 10px;
 }
 
 .nav-item {
