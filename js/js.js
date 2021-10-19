@@ -1,4 +1,4 @@
-var url = "http://0.0.0.0:8080";
+var url = "http://192.168.0.196:8080";
 
 fetch(url, {
     method: 'GET'
