@@ -1,3 +1,5 @@
+word_rmb_value = JSON.parse(window.localStorage.word_value || "{}");
+
 // 界面渲染和初始化
 window.addEventListener("load", () => {
     changeDropdown();
@@ -147,7 +149,7 @@ function showList() {
 }
 
 word_num = 0;
-word_value = JSON.parse(window.localStorage.word_value||'{}');
+word_value = word_rmb_value;
 
 function slow_load(num, step) {
     if (num * step > map[dropdownValue].length) {
@@ -156,7 +158,9 @@ function slow_load(num, step) {
     var c = "";
     for (i = num * step; i < (num + 1) * step && i < map[dropdownValue].length; i++) {
         id = map[dropdownValue][i];
-        c += `<word-card word="${dic[id][0]}" phonetic="${dic[id][1]}" translation="${dic[id][2]}" value="${word_value[dic[id][0]]}"></word-card>`;
+        c += `<word-card word="${dic[id][0]}" phonetic="${dic[id][1]}" translation="${dic[id][2]}" value="${
+            word_value[dic[id][0]]
+        }"></word-card>`;
     }
     document.querySelector("#main").innerHTML = c;
     [].forEach.call(document.querySelectorAll("#nav2>li"), function (v) {
@@ -166,6 +170,12 @@ function slow_load(num, step) {
 
     var l = { page: num, page_step: step, w_n: word_num };
     window.localStorage[dropdownValue] = JSON.stringify(l);
+}
+
+function word_value_write(word, n) {
+    var w = JSON.parse(window.localStorage.word_value || "{}");
+    w[word] = n;
+    window.localStorage.word_value = JSON.stringify(w);
 }
 
 // 拼写模式
