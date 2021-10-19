@@ -176,6 +176,16 @@ function word_value_write(word, n) {
     var w = JSON.parse(window.localStorage.word_value || "{}");
     w[word] = n;
     window.localStorage.word_value = JSON.stringify(w);
+
+    var url = "http://0.0.0.0:8080";
+    var data = { word: word, value: n };
+
+    fetch(url, {
+        method: "POST",
+        body: JSON.stringify(data),
+    })
+        .then((res) => res.json())
+        .catch((error) => console.error("Error:", error));
 }
 
 // 拼写模式

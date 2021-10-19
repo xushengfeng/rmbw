@@ -17,9 +17,9 @@ class data:
         return json.dumps(dic)
 
     def write(w, v):
-        cur = con.cursor().execute('SELECT word, value FROM words')
-        con.cursor().execute('INSERT INTO words(word,value)')
-        con.cursor().execute('VALUES("'+w+'",'+v+')')
+        con.cursor().execute("INSERT INTO words(word,value) VALUES(?,?)\
+        ON CONFLICT(word) DO UPDATE SET value=?;", (w, v, v))
+        con.commit()
 
 
 urls = (
@@ -31,9 +31,9 @@ class index:
     def GET(self):
         return data.read()
 
-    # def POST(self):
-        # data = web.data()
-        # return json.dumps((ocr(data, 'en')))
+    def POST(self):
+        web_data = json.loads(web.data().decode('UTF-8'))
+        data.write(web_data['word'], web_data['value'])
 
 
 if __name__ == "__main__":
