@@ -182,7 +182,6 @@ function word_value_write(word, n) {
     w[word] = n;
     window.localStorage.word_value = JSON.stringify(w);
 
-    var url = "http://0.0.0.0:8080";
     var data = { word: word, value: n };
 
     fetch(url, {
