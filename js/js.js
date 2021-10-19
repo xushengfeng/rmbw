@@ -1,4 +1,14 @@
-word_rmb_value = JSON.parse(window.localStorage.word_value || "{}");
+var url = "http://0.0.0.0:8080";
+
+fetch(url, {
+    method: 'GET'
+  })
+  .then((res)=>{
+    return res.json()
+  })
+  .then((res)=>{
+    window.localStorage.word_value=JSON.stringify(res)
+  })
 
 // 界面渲染和初始化
 window.addEventListener("load", () => {
@@ -123,11 +133,6 @@ function showList() {
     mode = 0;
     // document.getElementById('main').innerHTML = '<div id="wordDetail"><div id="word"></div><div id="phonetic"></div><div id="translation"></div><iframe id="bing" title="bing词典"></iframe></div>'
 
-    // if (window.localStorage[dropdownValue] != undefined) {
-    //     next(window.localStorage[dropdownValue])
-    // } else {
-    //     next(0)
-    // }
     var c = "";
     for (i = 1; i <= Math.ceil(map[dropdownValue].length / 50); i++) {
         c += `<li>${i}</li>`;
@@ -149,7 +154,7 @@ function showList() {
 }
 
 word_num = 0;
-word_value = word_rmb_value;
+word_value = JSON.parse(window.localStorage.word_value || "{}");
 
 function slow_load(num, step) {
     if (num * step > map[dropdownValue].length) {
@@ -185,7 +190,6 @@ function word_value_write(word, n) {
         body: JSON.stringify(data),
     })
         .then((res) => res.json())
-        .catch((error) => console.error("Error:", error));
 }
 
 // 拼写模式

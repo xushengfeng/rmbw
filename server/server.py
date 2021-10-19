@@ -29,9 +29,11 @@ urls = (
 
 class index:
     def GET(self):
+        web.header("Access-Control-Allow-Origin", "*")
         return data.read()
 
     def POST(self):
+        web.header("Access-Control-Allow-Origin", "*")
         web_data = json.loads(web.data().decode('UTF-8'))
         data.write(web_data['word'], web_data['value'])
 
