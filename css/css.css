@@ -1,6 +1,6 @@
 :root {
     --bg-color: #fff;
-    --bg2-color: #ddd;
+    --bg2-color: rgb(236, 236, 236);
     --bg3-color: #fff9;
     --color: #252525;
     --color2: #fff;
@@ -76,7 +76,7 @@ body {
 }
 
 .nav2-li-h {
-    color: var(--bg-color);
+    color: var(--color2);
     background: var(--color);
     border-radius: 10px;
 }
@@ -149,6 +149,12 @@ body {
 #translation {
     visibility: var(--display-translation);
 }
+#spellN{
+    border: none;
+    outline: none;
+    background-color: var(--bg2-color);
+}
+
 .yuan {
     /* color: #34A353; */
     color: var(--display-yuan);
@@ -211,6 +217,10 @@ body {
     .cx {
         border-radius: 10px;
     }
+
+    #main {
+        padding: 0 8px;
+    }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -218,7 +228,9 @@ body {
         --bg-color: #000;
         --color: #dadada;
         --bg2-color: #444;
+        --bg3-color: #0009;
         --shadow-color: #6663;
+        --color2: #000;
     }
 
     .cx {
