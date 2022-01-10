@@ -11,6 +11,12 @@
     --display-aeiouy: none;
     --display-yuan: var(--color);
     --display-fu: var(--color);
+    --word-s: 8rem;
+    --phonetic-s: 2rem;
+    --translation-s: 2rem;
+    --word-s-h: 1rem;
+    --phonetic-s-h: 1rem;
+    --translation-s-h: 1rem;
 }
 
 html {
@@ -149,7 +155,7 @@ body {
 #translation {
     visibility: var(--display-translation);
 }
-#spellN{
+#spellN {
     border: none;
     outline: none;
     background-color: var(--bg2-color);
@@ -210,6 +216,14 @@ body {
 }
 
 @media (max-width: 900px) {
+    :root {
+        --word-s: 4rem;
+        --phonetic-s: 1.6rem;
+        --translation-s: 1.6rem;
+        --word-s-h: 1rem;
+        --phonetic-s-h: 1rem;
+        --translation-s-h: 1rem;
+    }
     .nav {
         padding: 8px 0 8px 0;
     }
