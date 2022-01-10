@@ -1,4 +1,9 @@
-var url = "http://192.168.0.196:8080";
+var store = JSON.parse(window.localStorage.rmbw || "{}");
+window.onbeforeunload = () => {
+    window.localStorage.rmbw = JSON.stringify(store);
+};
+
+var url = "http://0.0.0.0:8080";
 
 fetch(url, {
     method: "GET",
@@ -7,7 +12,7 @@ fetch(url, {
         return res.json();
     })
     .then((res) => {
-        window.localStorage.word_value = JSON.stringify(res);
+        store.word_value = res;
     });
 
 // 界面渲染和初始化
@@ -32,7 +37,7 @@ function changeDropdown() {
     }
     document.getElementById("dropdown").innerHTML = dropdownC;
 
-    document.getElementById("dropdown").value = window.localStorage["drop"];
+    document.getElementById("dropdown").value = store["drop"];
 }
 
 var dropdownValue;
@@ -49,7 +54,7 @@ function change(n) {
             showSpell();
             break;
     }
-    window.localStorage["drop"] = document.getElementById("dropdown").value;
+    store["drop"] = document.getElementById("dropdown").value;
     showWordList();
 }
 
@@ -99,13 +104,13 @@ function showWordList() {
     };
 
     // document.querySelector(':root').setAttribute('style', '--display-word:block');
-    document.querySelector("#bingC").checked = window.localStorage["bingC"] == "true" ? true : false;
-    document.querySelector("#wordC").checked = window.localStorage["wordC"] == "true" ? true : false;
-    document.querySelector("#phoneticC").checked = window.localStorage["phoneticC"] == "true" ? true : false;
-    document.querySelector("#translationC").checked = window.localStorage["translationC"] == "true" ? true : false;
-    document.querySelector("#playC").checked = window.localStorage["playC"] == "true" ? true : false;
-    document.querySelector("#spellN").value = window.localStorage["spellN"];
-    document.querySelector("#R").checked = window.localStorage["R"] == "true" ? true : false;
+    document.querySelector("#bingC").checked = store["bingC"] == "true" ? true : false;
+    document.querySelector("#wordC").checked = store["wordC"] == "true" ? true : false;
+    document.querySelector("#phoneticC").checked = store["phoneticC"] == "true" ? true : false;
+    document.querySelector("#translationC").checked = store["translationC"] == "true" ? true : false;
+    document.querySelector("#playC").checked = store["playC"] == "true" ? true : false;
+    document.querySelector("#spellN").value = store["spellN"];
+    document.querySelector("#R").checked = store["R"] == "true" ? true : false;
 }
 
 function listS(v) {
@@ -145,8 +150,8 @@ function showList() {
             };
         })(i);
     }
-    if (window.localStorage[dropdownValue] != undefined) {
-        var page = JSON.parse(window.localStorage[dropdownValue]).page || 0;
+    if (store[dropdownValue] != undefined) {
+        var page = store[dropdownValue].page || 0;
     } else {
         var page = 0;
     }
@@ -154,7 +159,7 @@ function showList() {
 }
 
 word_num = 0;
-word_value = JSON.parse(window.localStorage.word_value || "{}");
+word_value = store.word_value || {};
 var page_w_l = [];
 
 function slow_load(num, step) {
@@ -177,13 +182,13 @@ function slow_load(num, step) {
     document.querySelectorAll("#nav2>li")[num].className = "nav2-li-h";
 
     var l = { page: num, page_step: step, w_n: word_num };
-    window.localStorage[dropdownValue] = JSON.stringify(l);
+    store[dropdownValue] = l;
 }
 
 function word_value_write(word, n) {
-    var w = JSON.parse(window.localStorage.word_value || "{}");
+    var w = store.word_value;
     w[word] = n;
-    window.localStorage.word_value = JSON.stringify(w);
+    store.word_value = w;
 
     var data = { word: word, value: n };
 
@@ -199,8 +204,8 @@ function showSpell() {
     document.getElementById("main").innerHTML =
         '<input id="spellWord" type="text" oninput="trueOrFalse()" autofocue="autofocue"><div id="word"></div><div id="phonetic"></div><div id="translation"></div>';
 
-    if (window.localStorage[dropdownValue] != undefined) {
-        next(JSON.parse(window.localStorage[dropdownValue]).w_n);
+    if (store[dropdownValue] != undefined) {
+        next(store[dropdownValue].w_n);
     } else {
         next(0);
     }
@@ -262,14 +267,14 @@ function next(num) {
 
     // 选项存储
     location.href = "#" + n;
-    window.localStorage[dropdownValue] = n;
-    window.localStorage["bingC"] = document.getElementById("bingC").checked;
-    window.localStorage["wordC"] = document.getElementById("wordC").checked;
-    window.localStorage["phoneticC"] = document.getElementById("phoneticC").checked;
-    window.localStorage["translationC"] = document.getElementById("translationC").checked;
-    window.localStorage["palyC"] = document.getElementById("playC").checked;
-    window.localStorage["R"] = document.getElementById("R").checked;
-    window.localStorage["spellN"] = document.getElementById("spellN").value;
+    store[dropdownValue] = n;
+    store["bingC"] = document.getElementById("bingC").checked;
+    store["wordC"] = document.getElementById("wordC").checked;
+    store["phoneticC"] = document.getElementById("phoneticC").checked;
+    store["translationC"] = document.getElementById("translationC").checked;
+    store["palyC"] = document.getElementById("playC").checked;
+    store["R"] = document.getElementById("R").checked;
+    store["spellN"] = document.getElementById("spellN").value;
 }
 
 // 展示答案
