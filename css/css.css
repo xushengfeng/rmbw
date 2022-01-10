@@ -25,6 +25,7 @@ body {
     height: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 }
 
 .add-button {
@@ -34,6 +35,7 @@ body {
 .nav {
     position: fixed;
     display: flex;
+    top: 0;
     width: 100%;
     margin: 0;
     padding: 16px 0 16px 0;
@@ -50,9 +52,13 @@ body {
 #nav2 {
     display: flex;
     padding: 0;
-    margin-top: 11px;
+    margin: 8px 0;
     background-color: var(--bg-color);
-    flex-wrap: wrap;
+    overflow-x: auto;
+    flex-shrink: 0;
+}
+#nav2::-webkit-scrollbar {
+    display: none;
 }
 
 #nav2 > li {
@@ -62,6 +68,7 @@ body {
     font-size: 2rem;
     width: 80px;
     text-align: center;
+    flex-shrink: 0;
 }
 
 .nav2-li-h {
@@ -83,14 +90,15 @@ body {
     background-color: var(--bg-color);
     width: 30px;
     height: 30px;
-    /* visibility: hidden; */
 }
 
 #main {
-    width: 90%;
-    /* flex-grow: 1; */
-    margin: 80px auto 0 auto;
+    width: 100%;
+    margin-top: 80px;
+    padding: 0 80px;
+    box-sizing: border-box;
     background-color: var(--bg-color);
+    overflow-y: auto;
 }
 
 .cx {
