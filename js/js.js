@@ -205,7 +205,7 @@ function word_value_write(word, n) {
 function showSpell() {
     mode = 1;
     document.getElementById("main").innerHTML =
-        '<input id="spellWord" type="text" autofocue="autofocue"><div id="word"></div><div id="phonetic"></div><div id="translation"></div>';
+        '<input id="spellWord" type="text" autofocue="autofocue" enterkeyhint="done"><div id="word"></div><div id="phonetic"></div><div id="translation"></div>';
     document.getElementById("spellWord").oninput = trueOrFalse;
     if (store[dropdownValue] != undefined) {
         next(store[dropdownValue].w_n);
