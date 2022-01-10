@@ -43,7 +43,7 @@ function changeDropdown() {
 var dropdownValue;
 
 function change(n) {
-    dropdownValue = document.getElementById("dropdown").value;
+    store["drop"] = dropdownValue = document.getElementById("dropdown").value;
     switch (n) {
         case 0:
             mode = 0; // mode是列表模式
@@ -54,7 +54,6 @@ function change(n) {
             showSpell();
             break;
     }
-    store["drop"] = document.getElementById("dropdown").value;
     showWordList();
 }
 
@@ -104,13 +103,29 @@ function showWordList() {
     };
 
     // document.querySelector(':root').setAttribute('style', '--display-word:block');
-    document.querySelector("#bingC").checked = store["bingC"] == "true" ? true : false;
-    document.querySelector("#wordC").checked = store["wordC"] == "true" ? true : false;
-    document.querySelector("#phoneticC").checked = store["phoneticC"] == "true" ? true : false;
-    document.querySelector("#translationC").checked = store["translationC"] == "true" ? true : false;
-    document.querySelector("#playC").checked = store["playC"] == "true" ? true : false;
-    document.querySelector("#spellN").value = store["spellN"];
-    document.querySelector("#R").checked = store["R"] == "true" ? true : false;
+    document.getElementById("bingC").checked = store["bingC"];
+    document.getElementById("wordC").checked = store["wordC"];
+    document.getElementById("phoneticC").checked = store["phoneticC"];
+    document.getElementById("translationC").checked = store["translationC"];
+    document.getElementById("playC").checked = store["playC"];
+    document.getElementById("playtC").checked = store["playtC"];
+    document.getElementById("autoC").checked = store["autoC"];
+    document.getElementById("wordStyle").checked = store["wordStyle"];
+    document.getElementById("spellN").value = store["spellN"];
+    document.getElementById("R").checked = store["R"];
+    // 选项存储
+    document.getElementById("control").onclick = () => {
+        store["bingC"] = document.getElementById("bingC").checked;
+        store["wordC"] = document.getElementById("wordC").checked;
+        store["phoneticC"] = document.getElementById("phoneticC").checked;
+        store["translationC"] = document.getElementById("translationC").checked;
+        store["playC"] = document.getElementById("playC").checked;
+        store["playtC"] = document.getElementById("playtC").checked;
+        store["autoC"] = document.getElementById("autoC").checked;
+        store["wordStyle"] = document.getElementById("wordStyle").checked;
+        store["R"] = document.getElementById("R").checked;
+        store["spellN"] = document.getElementById("spellN").value;
+    };
 }
 
 function listS(v) {
@@ -218,6 +233,7 @@ n = 0;
 function next(num) {
     n = document.getElementById("R").checked == true ? Math.floor(Math.random() * (page_w_l.length + 1)) : num; // n随机与否
     n = n < 0 ? 0 : n; // n must>=0
+    store[dropdownValue].w_n = n;
 
     wptList = {
         bingC: document.getElementById("bingC").checked,
@@ -264,17 +280,6 @@ function next(num) {
     if (document.getElementById("playC").checked) {
         play(word);
     }
-
-    // 选项存储
-    location.href = "#" + n;
-    store[dropdownValue] = n;
-    store["bingC"] = document.getElementById("bingC").checked;
-    store["wordC"] = document.getElementById("wordC").checked;
-    store["phoneticC"] = document.getElementById("phoneticC").checked;
-    store["translationC"] = document.getElementById("translationC").checked;
-    store["palyC"] = document.getElementById("playC").checked;
-    store["R"] = document.getElementById("R").checked;
-    store["spellN"] = document.getElementById("spellN").value;
 }
 
 // 展示答案
