@@ -170,7 +170,7 @@ function slow_load(num, step) {
         }"></word-card>`;
         page_w_l.push(id);
     }
-    document.querySelector("#main").innerHTML = c;
+    if (mode == 0) document.querySelector("#main").innerHTML = c;
     [].forEach.call(document.querySelectorAll("#nav2>li"), function (v) {
         v.className = "";
     });
