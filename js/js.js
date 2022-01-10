@@ -101,8 +101,11 @@ function showWordList() {
         store["autoC"] = document.getElementById("autoC").checked;
         store["wordStyle"] = document.getElementById("wordStyle").checked;
         store["R"] = document.getElementById("R").checked;
-        store["spellN"] = document.getElementById("spellN").value;
         check();
+    };
+
+    document.getElementById("spellN").oninput = () => {
+        store["spellN"] = document.getElementById("spellN").value;
     };
 
     function check() {
@@ -207,7 +210,7 @@ function showSpell() {
     document.getElementById("main").innerHTML =
         '<input id="spellWord" type="text" autofocue="autofocue" enterkeyhint="done"><div id="word"></div><div id="phonetic"></div><div id="translation"></div>';
     document.getElementById("spellWord").oninput = trueOrFalse;
-    if (store[dropdownValue] != undefined) {
+    if (!store[dropdownValue]) {
         next(store[dropdownValue].w_n);
     } else {
         next(0);
