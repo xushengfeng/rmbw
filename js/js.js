@@ -41,7 +41,7 @@ function changeDropdown() {
     }
     document.getElementById("dropdown").innerHTML = dropdownC;
 
-    document.getElementById("dropdown").value = store["drop"];
+    if (store["drop"]) document.getElementById("dropdown").value = store["drop"];
 }
 
 var dropdownValue;
