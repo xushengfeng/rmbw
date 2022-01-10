@@ -1,14 +1,14 @@
 var url = "http://192.168.0.196:8080";
 
 fetch(url, {
-    method: 'GET'
-  })
-  .then((res)=>{
-    return res.json()
-  })
-  .then((res)=>{
-    window.localStorage.word_value=JSON.stringify(res)
-  })
+    method: "GET",
+})
+    .then((res) => {
+        return res.json();
+    })
+    .then((res) => {
+        window.localStorage.word_value = JSON.stringify(res);
+    });
 
 // 界面渲染和初始化
 window.addEventListener("load", () => {
@@ -155,17 +155,20 @@ function showList() {
 
 word_num = 0;
 word_value = JSON.parse(window.localStorage.word_value || "{}");
+var page_w_l = [];
 
 function slow_load(num, step) {
     if (num * step > map[dropdownValue].length) {
         return;
     }
     var c = "";
+    page_w_l = [];
     for (i = num * step; i < (num + 1) * step && i < map[dropdownValue].length; i++) {
         id = map[dropdownValue][i];
         c += `<word-card word="${dic[id][0]}" phonetic="${dic[id][1]}" translation="${dic[id][2]}" value="${
             word_value[dic[id][0]]
         }"></word-card>`;
+        page_w_l.push(id);
     }
     document.querySelector("#main").innerHTML = c;
     [].forEach.call(document.querySelectorAll("#nav2>li"), function (v) {
@@ -187,8 +190,7 @@ function word_value_write(word, n) {
     fetch(url, {
         method: "POST",
         body: JSON.stringify(data),
-    })
-        .then((res) => res.json())
+    }).then((res) => res.json());
 }
 
 // 拼写模式
@@ -198,7 +200,7 @@ function showSpell() {
         '<input id="spellWord" type="text" oninput="trueOrFalse()" autofocue="autofocue"><div id="word"></div><div id="phonetic"></div><div id="translation"></div>';
 
     if (window.localStorage[dropdownValue] != undefined) {
-        next(window.localStorage[dropdownValue]);
+        next(JSON.parse(window.localStorage[dropdownValue]).w_n);
     } else {
         next(0);
     }
@@ -209,10 +211,7 @@ var wptList, word, phonetic, translation, id;
 n = 0;
 
 function next(num) {
-    n =
-        document.getElementById("R").checked == true
-            ? Math.floor(Math.random() * (map[dropdownValue].length + 1))
-            : num; // n随机与否
+    n = document.getElementById("R").checked == true ? Math.floor(Math.random() * (page_w_l.length + 1)) : num; // n随机与否
     n = n < 0 ? 0 : n; // n must>=0
 
     wptList = {
@@ -223,7 +222,7 @@ function next(num) {
         playC: document.getElementById("playC").checked,
     };
 
-    id = map[dropdownValue][n];
+    id = page_w_l[n];
     word = dic[id][0];
     phonetic = dic[id][1];
     translation = dic[id][2];
