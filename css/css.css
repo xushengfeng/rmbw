@@ -1,7 +1,9 @@
 :root {
     --bg-color: #fff;
     --bg2-color: #ddd;
+    --bg3-color: #fff9;
     --color: #252525;
+    --color2: #fff;
     --shadow-color: #9993;
     --display-word: visible;
     --display-phonetic: visible;
@@ -116,7 +118,8 @@ body {
     top: 0;
     bottom: 0;
     color: var(--color);
-    background-color: var(--bg-color);
+    background-color: var(--bg3-color);
+    backdrop-filter: blur(10px);
     display: flex;
     flex-direction: column;
     transition: 0.3s;
