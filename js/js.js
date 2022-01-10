@@ -213,8 +213,8 @@ function word_value_write(word, n) {
 function showSpell() {
     mode = 1;
     document.getElementById("main").innerHTML =
-        '<input id="spellWord" type="text" oninput="trueOrFalse()" autofocue="autofocue"><div id="word"></div><div id="phonetic"></div><div id="translation"></div>';
-
+        '<input id="spellWord" type="text" autofocue="autofocue"><div id="word"></div><div id="phonetic"></div><div id="translation"></div>';
+    document.getElementById("spellWord").oninput = trueOrFalse;
     if (store[dropdownValue] != undefined) {
         next(store[dropdownValue].w_n);
     } else {
@@ -389,7 +389,7 @@ function trueOrFalse() {
         case word: // 正确
             if (spellNum == 1) {
                 // 拼写次数降到1才下一个,否则重复拼写
-                document.getElementById("spellWord").value = "";
+                inputWord = document.getElementById("spellWord").value = "";
                 next(Number(n) + 1);
             } else {
                 spellNum--;
