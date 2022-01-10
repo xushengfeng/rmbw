@@ -47,6 +47,7 @@ body {
     list-style: none;
     margin: 0 8px 0 8px;
     padding: 11px 0 11px 0;
+    cursor: pointer;
 }
 
 #nav2 {
@@ -64,11 +65,12 @@ body {
 #nav2 > li {
     list-style: none;
     margin: 0 10px 0 10px;
-    padding: 0;
-    font-size: 2rem;
-    width: 80px;
+    padding: 4px;
+    font-size: 1rem;
+    width: 40px;
     text-align: center;
     flex-shrink: 0;
+    cursor: pointer;
 }
 
 .nav2-li-h {
@@ -83,6 +85,7 @@ body {
     font-size: 1rem;
     color: var(--color);
     margin-left: 8px;
+    outline: none;
 }
 
 #playC {
