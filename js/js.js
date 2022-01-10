@@ -1,6 +1,10 @@
 var store = JSON.parse(window.localStorage.rmbw || "{}");
 window.onbeforeunload = () => {
     window.localStorage.rmbw = JSON.stringify(store);
+    fetch(url, {
+        method: "POST",
+        body: JSON.stringify(store.word_value),
+    }).then((res) => res.json());
 };
 
 var url = "http://0.0.0.0:8080";
@@ -201,16 +205,8 @@ function slow_load(num, step) {
 }
 
 function word_value_write(word, n) {
-    var w = store.word_value;
-    w[word] = n;
-    store.word_value = w;
-
-    var data = { word: word, value: n };
-
-    fetch(url, {
-        method: "POST",
-        body: JSON.stringify(data),
-    }).then((res) => res.json());
+    if (!store.word_value) store.word_value = {};
+    store.word_value[word] = n;
 }
 
 // 拼写模式
