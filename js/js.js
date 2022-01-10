@@ -73,7 +73,7 @@ function showWordList() {
         checkboxClass("wordC", "word") +
         checkboxClass("phoneticC", "phonetic") +
         checkboxClass("translationC", "translation") +
-        '<select id="spellN"><option>1</option><option>2</option><option>3</option><option>4</option></select>';
+        '<input type="number" min="1" id="spellN">';
 
     // 选项切换
     document.querySelector("#bingC").onclick = () => {};
@@ -394,14 +394,14 @@ function trueOrFalse() {
             } else {
                 spellNum--;
                 document.getElementById("spellWord").value = "";
-                document.getElementById("spellWord").placeholder = "Good";
+                document.getElementById("spellWord").placeholder = `Good! ${spellNum} time(s) left`;
             }
             break;
     }
     //错误归位
     if (inputWord.length == word.length && inputWord != word) {
-        document.getElementById("spellWord").value = "";
-        document.getElementById("spellWord").placeholder = "Wrong";
         spellNum = document.getElementById("spellN").value;
+        document.getElementById("spellWord").value = "";
+        document.getElementById("spellWord").placeholder = `Wrong! ${spellNum} time(s) left`;
     }
 }
