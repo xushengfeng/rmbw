@@ -311,13 +311,13 @@ function play(word) {
         audio.src = "https://dict.youdao.com/dictvoice?le=eng&type=1&audio=" + word;
         audio.play();
     }
-    if (document.getElementById("autoC").checked == true) {
-        audio.onended = function () {
-            next(Number(n) + 1);
-        };
-    } else {
-        audio.onended = function () {};
-    }
+    // if (document.getElementById("autoC").checked == true) {
+    //     audio.onended = function () {
+    //         next(Number(n) + 1);
+    //     };
+    // } else {
+    //     audio.onended = function () {};
+    // }
 }
 
 // 释义编排
