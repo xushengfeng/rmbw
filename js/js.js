@@ -78,34 +78,6 @@ function showWordList() {
     // 选项切换
     document.querySelector("#bingC").onclick = () => {};
 
-    document.querySelector("#wordC").onclick = () => {
-        console.log("hi");
-        //
-        if (document.querySelector("#wordC").checked) {
-            document.querySelector(":root").setAttribute("style", "--display-word:visible");
-        } else {
-            document.querySelector(":root").setAttribute("style", "--display-word:hidden");
-        }
-    };
-    document.querySelector("#phoneticC").onclick = () => {
-        console.log("hi");
-        //
-        if (document.querySelector("#phoneticC").checked) {
-            document.querySelector(":root").setAttribute("style", "--display-phonetic:visible");
-        } else {
-            document.querySelector(":root").setAttribute("style", "--display-phonetic:hidden");
-        }
-    };
-    document.querySelector("#translationC").onclick = () => {
-        console.log("hi");
-        //
-        if (document.querySelector("#translationC").checked) {
-            document.querySelector(":root").setAttribute("style", "--display-translation:visible");
-        } else {
-            document.querySelector(":root").setAttribute("style", "--display-translation:hidden");
-        }
-    };
-
     // document.querySelector(':root').setAttribute('style', '--display-word:block');
     document.getElementById("bingC").checked = store["bingC"];
     document.getElementById("wordC").checked = store["wordC"];
@@ -117,6 +89,7 @@ function showWordList() {
     document.getElementById("wordStyle").checked = store["wordStyle"];
     document.getElementById("spellN").value = store["spellN"];
     document.getElementById("R").checked = store["R"];
+    check();
     // 选项存储
     document.getElementById("control").onclick = () => {
         store["bingC"] = document.getElementById("bingC").checked;
@@ -129,7 +102,26 @@ function showWordList() {
         store["wordStyle"] = document.getElementById("wordStyle").checked;
         store["R"] = document.getElementById("R").checked;
         store["spellN"] = document.getElementById("spellN").value;
+        check();
     };
+
+    function check() {
+        if (document.querySelector("#wordC").checked) {
+            document.documentElement.style.setProperty("--display-word", "visible");
+        } else {
+            document.documentElement.style.setProperty("--display-word", "hidden");
+        }
+        if (document.querySelector("#phoneticC").checked) {
+            document.documentElement.style.setProperty("--display-phonetic", "visible");
+        } else {
+            document.documentElement.style.setProperty("--display-phonetic", "hidden");
+        }
+        if (document.querySelector("#translationC").checked) {
+            document.documentElement.style.setProperty("--display-translation", "visible");
+        } else {
+            document.documentElement.style.setProperty("--display-translation", "hidden");
+        }
+    }
 }
 
 function listS(v) {
