@@ -3,11 +3,11 @@ window.onbeforeunload = () => {
     window.localStorage.rmbw = JSON.stringify(store);
     fetch(url, {
         method: "POST",
-        body: JSON.stringify(store.word_value),
+        body: JSON.stringify(store),
     }).then((res) => res.json());
 };
 
-var url = "http://" + (store["sql"] || "0.0.0.0") + ":8080";
+var url = "http://" + (store["sql"] || "0.0.0.0") + ":8888";
 
 fetch(url, {
     method: "GET",
@@ -16,7 +16,7 @@ fetch(url, {
         return res.json();
     })
     .then((res) => {
-        store.word_value = res;
+        store = res;
     });
 
 // 界面渲染和初始化
