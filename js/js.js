@@ -360,16 +360,21 @@ function aeiouy(word) {
 }
 
 function syllable(word, el) {
-    fetch(`https://www.dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${store.dic_key}`, {
-        method: "GET",
-    })
-        .then((res) => {
-            return res.json();
+    store.syllable_l = store.syllable_l || {};
+    if (store.syllable_l[word]) {
+        el.querySelector("#word").innerHTML = store.syllable_l[word];
+    } else {
+        fetch(`https://www.dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${store.dic_key}`, {
+            method: "GET",
         })
-        .then((res) => {
-            console.log(res);
-            el.querySelector("#word").innerHTML = res[0].hwi.hw;
-        });
+            .then((res) => {
+                return res.json();
+            })
+            .then((res) => {
+                store.syllable_l[word] = res[0].hwi.hw;
+                el.querySelector("#word").innerHTML = res[0].hwi.hw;
+            });
+    }
 }
 
 // 键盘
