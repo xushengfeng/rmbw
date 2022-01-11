@@ -360,28 +360,30 @@ function aeiouy(word) {
 }
 
 function syllable(word, el) {
-    store.syllable_l = store.syllable_l || {};
-    if (store.syllable_l[word]) {
-        // el.querySelector("#word").innerHTML = ;
-        w(store.syllable_l[word]);
-    } else {
-        fetch(`https://www.dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${store.dic_key}`, {
-            method: "GET",
-        })
-            .then((res) => {
-                return res.json();
+    if (!word.includes(" ")) {
+        store.syllable_l = store.syllable_l || {};
+        if (store.syllable_l[word]) {
+            // el.querySelector("#word").innerHTML = ;
+            w(store.syllable_l[word]);
+        } else {
+            fetch(`https://www.dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${store.dic_key}`, {
+                method: "GET",
             })
-            .then((res) => {
-                store.syllable_l[word] = res[0].hwi.hw;
-                // el.querySelector("#word").innerHTML = ;
-                w(res[0].hwi.hw);
-            });
-    }
-    function w(worddd) {
-        worddd = worddd.split("*");
-        for (i in worddd) worddd[i] = `<span class="syllable">${worddd[i]}</span>`;
-        worddd = worddd.join('<span class="syllable_s"></span>');
-        el.querySelector("#word").innerHTML = worddd;
+                .then((res) => {
+                    return res.json();
+                })
+                .then((res) => {
+                    store.syllable_l[word] = res[0].hwi.hw;
+                    // el.querySelector("#word").innerHTML = ;
+                    w(res[0].hwi.hw);
+                });
+        }
+        function w(worddd) {
+            worddd = worddd.split("*");
+            for (i in worddd) worddd[i] = `<span class="syllable">${worddd[i]}</span>`;
+            worddd = worddd.join('<span class="syllable_s"></span>');
+            el.querySelector("#word").innerHTML = worddd;
+        }
     }
 }
 
