@@ -75,7 +75,7 @@ function showWordList() {
         checkboxClass("translationC", "translation") +
         `<input type="number" min="1" id="spellN" value="${store.spellN || 3}">
         <input type=text placeholder="数据库地址" id="sql" value="${store.sql || "0.0.0.0"}">
-        <input type=text placeholder="词典key" id="dic_key" value="${store.dic_key || ''}">`;
+        <input type=text placeholder="词典key" id="dic_key" value="${store.dic_key || ""}">`;
 
     // 选项切换
     document.querySelector("#bingC").onclick = () => {};
@@ -357,6 +357,19 @@ function aeiouy(word) {
     // word = word.replace(/([aeiou])[^aeiou](e)/g, '<span class="aeiou_e">$&</span>')
 
     return [word1, word2];
+}
+
+function syllable(word, el) {
+    fetch(`https://www.dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${store.dic_key}`, {
+        method: "GET",
+    })
+        .then((res) => {
+            return res.json();
+        })
+        .then((res) => {
+            console.log(res);
+            el.querySelector("#word").innerHTML = res[0].hwi.hw;
+        });
 }
 
 // 键盘
