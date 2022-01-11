@@ -362,7 +362,8 @@ function aeiouy(word) {
 function syllable(word, el) {
     store.syllable_l = store.syllable_l || {};
     if (store.syllable_l[word]) {
-        el.querySelector("#word").innerHTML = store.syllable_l[word];
+        // el.querySelector("#word").innerHTML = ;
+        w(store.syllable_l[word]);
     } else {
         fetch(`https://www.dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${store.dic_key}`, {
             method: "GET",
@@ -372,8 +373,15 @@ function syllable(word, el) {
             })
             .then((res) => {
                 store.syllable_l[word] = res[0].hwi.hw;
-                el.querySelector("#word").innerHTML = res[0].hwi.hw;
+                // el.querySelector("#word").innerHTML = ;
+                w(res[0].hwi.hw);
             });
+    }
+    function w(worddd) {
+        worddd = worddd.split("*");
+        for (i in worddd) worddd[i] = `<span class="syllable">${worddd[i]}</span>`;
+        worddd = worddd.join('<span class="syllable_s"></span>');
+        el.querySelector("#word").innerHTML = worddd;
     }
 }
 

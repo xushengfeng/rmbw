@@ -178,6 +178,15 @@ input{
     text-decoration: var(--display-aeiouy);
 }
 
+.syllable {
+    box-shadow: 0 8px var(--color);
+}
+
+.syllable_s {
+    width: 8px;
+    display: inline-block;
+}
+
 #bing {
     width: 100%;
     height: 0;
