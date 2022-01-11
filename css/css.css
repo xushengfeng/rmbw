@@ -155,10 +155,12 @@ body {
 #translation {
     visibility: var(--display-translation);
 }
-#spellN {
+
+input{
     border: none;
     outline: none;
     background-color: var(--bg2-color);
+    margin: 8px;
 }
 
 .yuan {

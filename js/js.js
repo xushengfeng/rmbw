@@ -7,7 +7,7 @@ window.onbeforeunload = () => {
     }).then((res) => res.json());
 };
 
-var url = "http://0.0.0.0:8080";
+var url = "http://" + (store["sql"] || "0.0.0.0") + ":8080";
 
 fetch(url, {
     method: "GET",
@@ -73,7 +73,9 @@ function showWordList() {
         checkboxClass("wordC", "word") +
         checkboxClass("phoneticC", "phonetic") +
         checkboxClass("translationC", "translation") +
-        '<input type="number" min="1" id="spellN">';
+        `<input type="number" min="1" id="spellN" value="${store.spellN || 3}">
+        <input type=text placeholder="数据库地址" id="sql" value="${store.sql || "0.0.0.0"}">
+        <input type=text placeholder="词典key" id="dic_key" value="${store.dic_key || ''}">`;
 
     // 选项切换
     document.querySelector("#bingC").onclick = () => {};
@@ -106,6 +108,13 @@ function showWordList() {
 
     document.getElementById("spellN").oninput = () => {
         store["spellN"] = document.getElementById("spellN").value;
+    };
+    document.getElementById("sql").oninput = () => {
+        store["sql"] = document.getElementById("sql").value;
+        url = "http://" + (store["sql"] || "0.0.0.0") + ":8080";
+    };
+    document.getElementById("dic_key").oninput = () => {
+        store["dic_key"] = document.getElementById("dic_key").value;
     };
 
     function check() {
