@@ -9,6 +9,7 @@ function save() {
 window.onbeforeunload = () => {
     save();
 };
+setInterval(save, 5 * 60 * 1000);
 
 var url = "http://" + (store["sql"] || "0.0.0.0") + ":8888";
 
