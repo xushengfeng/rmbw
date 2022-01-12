@@ -1,11 +1,15 @@
 var store = JSON.parse(window.localStorage.rmbw || "{}");
-window.onbeforeunload = () => {
+function save() {
     window.localStorage.rmbw = JSON.stringify(store);
     fetch(url, {
         method: "POST",
         body: JSON.stringify(store),
     }).then((res) => res.json());
+}
+window.onbeforeunload = () => {
+    save();
 };
+setInterval(save, 10 * 60 * 1000);
 
 var url = "http://" + (store["sql"] || "0.0.0.0") + ":8888";
 
@@ -211,6 +215,8 @@ function slow_load(num, step) {
 
     var l = { page: num, page_step: step, w_n: word_num };
     store[dropdownValue] = l;
+
+    save();
 }
 
 function word_value_write(word, n) {
