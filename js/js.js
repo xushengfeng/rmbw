@@ -9,7 +9,6 @@ function save() {
 window.onbeforeunload = () => {
     save();
 };
-setInterval(save, 10 * 60 * 1000);
 
 var url = "http://" + (store["sql"] || "0.0.0.0") + ":8888";
 
@@ -200,6 +199,7 @@ function slow_load(num, step) {
     }
     var c = "";
     page_w_l = [];
+    word_value = store.word_value || {};
     for (i = num * step; i < (num + 1) * step && i < map[dropdownValue].length; i++) {
         id = map[dropdownValue][i];
         c += `<word-card word="${dic[id][0]}" phonetic="${dic[id][1]}" translation="${dic[id][2]}" value="${
