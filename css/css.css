@@ -156,7 +156,7 @@ body {
     visibility: var(--display-translation);
 }
 
-input{
+input {
     border: none;
     outline: none;
     background-color: var(--bg2-color);
@@ -185,6 +185,10 @@ input{
 .syllable_s {
     width: 8px;
     display: inline-block;
+}
+
+.other_dic {
+    color: var(--color);
 }
 
 #bing {
