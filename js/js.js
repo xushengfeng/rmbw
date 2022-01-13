@@ -300,8 +300,7 @@ function answer() {
         document.getElementById("bing").src = "https://cn.bing.com/dict/search?q=" + dic[id][0];
     }
     if (!wptList["wordC"]) {
-        document.getElementById("word").innerHTML =
-            document.getElementById("wordStyle").checked == true ? aeiouy(word) : word;
+        document.getElementById("word").innerHTML = syllable(word);
     }
     if (!wptList["phoneticC"]) {
         document.getElementById("phonetic").innerHTML = phonetic;
@@ -367,11 +366,14 @@ function aeiouy(word) {
 }
 
 function syllable(word, el) {
-    if (!word.includes(" ")) {
+    if (!word.includes(" ") && !word.includes(".")) {
         store.syllable_l = store.syllable_l || {};
         if (store.syllable_l[word]) {
-            // el.querySelector("#word").innerHTML = ;
-            w(store.syllable_l[word]);
+            if (el) {
+                el.querySelector("#word").innerHTML = w(store.syllable_l[word]);
+            } else {
+                return w(store.syllable_l[word]);
+            }
         } else {
             fetch(`https://www.dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${store.dic_key}`, {
                 method: "GET",
@@ -381,15 +383,18 @@ function syllable(word, el) {
                 })
                 .then((res) => {
                     store.syllable_l[word] = res[0].hwi.hw;
-                    // el.querySelector("#word").innerHTML = ;
-                    w(res[0].hwi.hw);
+                    if (el) {
+                        el.querySelector("#word").innerHTML = w(res[0].hwi.hw);
+                    } else {
+                        return w(res[0].hwi.hw);
+                    }
                 });
         }
         function w(worddd) {
             worddd = worddd.split("*");
             for (i in worddd) worddd[i] = `<span class="syllable">${worddd[i]}</span>`;
             worddd = worddd.join('<span class="syllable_s"></span>');
-            el.querySelector("#word").innerHTML = worddd;
+            return worddd;
         }
     }
 }
@@ -423,8 +428,8 @@ function trueOrFalse() {
     document.getElementById("phonetic").innerHTML = "";
     switch (inputWord) {
         case "~": // 暂时展示
-            document.getElementById("word").innerHTML =
-                document.getElementById("wordStyle").checked == true ? aeiouy(word) : word;
+            document.getElementById("word").innerHTML = syllable(word);
+            document.getElementById("word").style = "font-size: var(--word-s)";
             document.getElementById("phonetic").innerHTML = phonetic;
             document.getElementById("spellWord").value = "";
             play(word);
@@ -447,8 +452,12 @@ function trueOrFalse() {
     }
     //错误归位
     if (inputWord.length == word.length && inputWord != word) {
+        document.getElementById("word").innerHTML = syllable(word);
+        document.getElementById("word").style = "font-size: var(--word-s)";
+        document.getElementById("phonetic").innerHTML = phonetic;
         spellNum = document.getElementById("spellN").value;
         document.getElementById("spellWord").value = "";
         document.getElementById("spellWord").placeholder = `Wrong! ${spellNum} time(s) left`;
+        play(word);
     }
 }
