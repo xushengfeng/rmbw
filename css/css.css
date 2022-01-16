@@ -109,7 +109,12 @@ body {
     padding: 0 80px;
     box-sizing: border-box;
     background-color: var(--bg-color);
-    overflow-y: auto;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+}
+
+#main > div {
+    scroll-snap-align: center;
 }
 
 .cx {
