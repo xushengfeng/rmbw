@@ -115,6 +115,7 @@ body {
 
 #main > div {
     scroll-snap-align: center;
+    height: 100%;
 }
 
 .cx {
