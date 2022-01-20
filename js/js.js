@@ -220,6 +220,17 @@ function slow_load(num, step) {
     save();
 }
 
+var io = new IntersectionObserver(
+    (entries) => {
+        if (entries[0].isIntersecting) {
+            console.log(entries[0].target.getAttribute("word"));
+        }
+    },
+    {
+        threshold: 1,
+    }
+);
+
 function word_value_write(word, n) {
     if (!store.word_value) store.word_value = {};
     store.word_value[word] = n;
