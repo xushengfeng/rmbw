@@ -220,10 +220,15 @@ function slow_load(num, step) {
     save();
 }
 
+// 判断滚动到某个单词
 var io = new IntersectionObserver(
     (entries) => {
         if (entries[0].isIntersecting) {
             console.log(entries[0].target.getAttribute("word"));
+            // 自动播放
+            if (store.autoC) {
+                play(entries[0].target.getAttribute("word"));
+            }
         }
     },
     {
