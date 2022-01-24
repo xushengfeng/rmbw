@@ -68,6 +68,7 @@ function change(n) {
 // 左边控件和单词表
 function showWordList() {
     document.getElementById("control").innerHTML =
+        checkboxClass("list", "列表模式") +
         checkboxClass("playC", "发音") +
         checkboxClass("playtC", "翻译发音") +
         checkboxClass("autoC", "自动播放") +
@@ -85,6 +86,7 @@ function showWordList() {
     document.querySelector("#bingC").onclick = () => {};
 
     // document.querySelector(':root').setAttribute('style', '--display-word:block');
+    document.getElementById("list").checked = store["list"];
     document.getElementById("bingC").checked = store["bingC"];
     document.getElementById("wordC").checked = store["wordC"];
     document.getElementById("phoneticC").checked = store["phoneticC"];
@@ -98,6 +100,7 @@ function showWordList() {
     check();
     // 选项存储
     document.getElementById("control").onclick = () => {
+        store["list"] = document.getElementById("list").checked;
         store["bingC"] = document.getElementById("bingC").checked;
         store["wordC"] = document.getElementById("wordC").checked;
         store["phoneticC"] = document.getElementById("phoneticC").checked;
@@ -122,6 +125,8 @@ function showWordList() {
     };
 
     function check() {
+        big_list(document.getElementById("list").checked);
+
         if (document.querySelector("#wordC").checked) {
             document.documentElement.style.setProperty("--display-word", "visible");
         } else {
@@ -239,6 +244,16 @@ var io = new IntersectionObserver(
 function word_value_write(word, n) {
     if (!store.word_value) store.word_value = {};
     store.word_value[word] = n;
+}
+
+function big_list(v) {
+    if (v) {
+        document.getElementById("main").style.scrollSnapType = "none";
+        document.documentElement.style.setProperty("--main-div-height", "auto");
+    } else {
+        document.getElementById("main").style.scrollSnapType = "";
+        document.documentElement.style.setProperty("--main-div-height", "100%");
+    }
 }
 
 // 拼写模式

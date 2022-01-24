@@ -17,6 +17,7 @@
     --word-s-h: 1rem;
     --phonetic-s-h: 1rem;
     --translation-s-h: 1rem;
+    ---main-div-height: 100%;
 }
 
 html {
@@ -114,7 +115,7 @@ body {
 
 #main > div {
     scroll-snap-align: center;
-    height: 100%;
+    height: var(--main-div-height);
 }
 
 .cx {
