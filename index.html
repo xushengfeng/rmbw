@@ -65,16 +65,43 @@
                 width: 20px;
             }
 
+            word-card {
+                display: grid;
+                grid-template-columns: 1fr 0;
+            }
+
+            #word_bar{
+                grid-area: 1 / 1 / 2 / 3;
+                display: flex;
+                justify-content: space-between;
+            }
+
             #word-main {
                 margin: 0 0 40px 0;
+                overflow: hidden;
+                transition: 0.3s;
             }
 
             #word-main>div {
                 text-align: center;
             }
+
+            #word_spell {
+                overflow: hidden;
+                transition: 0.3s;
+            }
         </style>
-        <input type="range" id="n" min="0" max="3">
+        <div id="word_bar">
+            <input type="range" id="n" min="0" max="3">
+            <button id="spell_b"></button>
+        </div>
         <div id="word-main">
+            <div id="word"></div>
+            <div id="phonetic"></div>
+            <div id="translation"></div>
+        </div>
+        <div id="word_spell">
+            <input id="spellWord" type="text" autofocue="autofocue" enterkeyhint="done" placeholder="">
             <div id="word"></div>
             <div id="phonetic"></div>
             <div id="translation"></div>
