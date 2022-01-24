@@ -22,11 +22,9 @@
 
 <body>
     <script src="lib/jquery.min.js"></script>
-    <script src="js/js.js"></script>
     <ul class="nav">
         <li class="nav-item" id="list_show">list</li>
-        <li class="nav-item" id="背词">背词</li>
-        <li class="nav-item" id="拼写">拼写</li>
+        <li class="nav-item" id="mode_b">背词</li>
         <select id="dropdown"></select>
 
         <a href="https://github.com/xushengfeng/rmbw"></a>
@@ -43,6 +41,7 @@
     <ul id="nav2">
     </ul>
 
+    <script src="js/js.js"></script>
     <script src="js/addEventListener.js"></script>
 
     <template id="word_card">
@@ -74,6 +73,10 @@
                 -webkit-appearance: none;
                 height: 20px;
                 width: 20px;
+            }
+
+            #word_bar{
+                margin-top: 16px;
             }
 
             #word_bar>button{

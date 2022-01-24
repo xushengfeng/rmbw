@@ -48,19 +48,26 @@ function changeDropdown() {
     if (store["drop"]) document.getElementById("dropdown").value = store["drop"];
 }
 
+var mode = 0;
+document.getElementById("mode_b").onclick = () => {
+    if (mode == 0) {
+        mode = 1;
+        document.getElementById("mode_b").innerHTML = "拼写";
+    } else {
+        mode = 0;
+        document.getElementById("mode_b").innerHTML = "背书";
+    }
+    change(mode);
+};
+
 var dropdownValue;
 
 function change(n) {
     store["drop"] = dropdownValue = document.getElementById("dropdown").value;
-    switch (n) {
-        case 0:
-            mode = 0; // mode是列表模式
-            showList();
-            break;
-        case 1:
-            mode = 1; // mode是拼写模式
-            showSpell();
-            break;
+    if (n == 0) {
+        showList();
+    } else {
+        showSpell();
     }
     showWordList();
 }
@@ -210,7 +217,7 @@ function slow_load(num, step) {
         id = map[dropdownValue][i];
         c += `<div><word-card word="${dic[id][0]}" phonetic="${dic[id][1]}" translation="${dic[id][2]}" value="${
             word_value[dic[id][0]]
-        }"></word-card></div>`;
+        }" n="${i}"></word-card></div>`;
         page_w_l.push(id);
     }
     if (mode == 0) document.querySelector("#main").innerHTML = c;
@@ -259,9 +266,6 @@ function big_list(v) {
 // 拼写模式
 function showSpell() {
     mode = 1;
-    document.getElementById("main").innerHTML =
-        '<input id="spellWord" type="text" autofocue="autofocue" enterkeyhint="done"><div id="word"></div><div id="phonetic"></div><div id="translation"></div>';
-    document.getElementById("spellWord").oninput = trueOrFalse;
     if (!store[dropdownValue]) {
         next(store[dropdownValue].w_n);
     } else {
@@ -292,36 +296,39 @@ function next(num) {
     translation = dic[id][2];
 
     // 界面归位
-    document.getElementById("translation").innerHTML = "";
-    document.getElementById("phonetic").innerHTML = "";
-    document.getElementById("word").innerHTML = "";
+    // document.getElementById("translation").innerHTML = "";
+    // document.getElementById("phonetic").innerHTML = "";
+    // document.getElementById("word").innerHTML = "";
 
     // 根据选项展示
-    if (mode == 0) {
-        if (wptList["wordC"]) {
-            document.getElementById("word").innerHTML =
-                document.getElementById("wordStyle").checked == true ? aeiouy(word) : word;
-        }
-        if (wptList["phoneticC"]) {
-            document.getElementById("phonetic").innerHTML = phonetic;
-        }
-        if (wptList["translationC"]) {
-            document.getElementById("translation").innerHTML = to(translation);
-        }
-        if (document.getElementById("bingC").checked && wptList[0] && wptList[1] && wptList[2]) {
-            document.getElementById("bing").src = "https://cn.bing.com/dict/search?q=" + dic[id][0];
-        } else {
-            document.getElementById("bing").src = "";
-        }
-    } else {
-        document.getElementById("translation").innerHTML = to(translation);
-        document.getElementById("spellWord").value = "";
-        document.getElementById("spellWord").placeholder = "";
-    }
+    // if (mode == 0) {
+    //     if (wptList["wordC"]) {
+    //         document.getElementById("word").innerHTML =
+    //             document.getElementById("wordStyle").checked == true ? aeiouy(word) : word;
+    //     }
+    //     if (wptList["phoneticC"]) {
+    //         document.getElementById("phonetic").innerHTML = phonetic;
+    //     }
+    //     if (wptList["translationC"]) {
+    //         document.getElementById("translation").innerHTML = to(translation);
+    //     }
+    //     if (document.getElementById("bingC").checked && wptList[0] && wptList[1] && wptList[2]) {
+    //         document.getElementById("bing").src = "https://cn.bing.com/dict/search?q=" + dic[id][0];
+    //     } else {
+    //         document.getElementById("bing").src = "";
+    //     }
+    // } else {
+    //     document.getElementById("translation").innerHTML = to(translation);
+    //     document.getElementById("spellWord").value = "";
+    //     document.getElementById("spellWord").placeholder = "";
+    // }
 
     if (document.getElementById("playC").checked) {
         play(word);
     }
+
+    document.getElementById("main").scrollTop =
+        document.querySelector(`word-card[word="${word}"]`).offsetTop - document.getElementById("main").offsetTop;
 }
 
 // var spellNum = document.getElementById("spellN").value - 0;
