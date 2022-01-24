@@ -207,12 +207,12 @@ input {
 
 #spellWord {
     width: 90%;
-    height: 60px;
+    /* height: 60px; */
     border: none;
     border-bottom: solid 2px var(--shadow-color);
     background-color: var(--bg-color);
-    margin: 1rem;
-    font-size: 4rem;
+    /* margin: 1rem; */
+    /* font-size: 4rem; */
     padding: 0 0 10px 30px;
 }
 
@@ -220,22 +220,6 @@ input {
     outline: none;
 }
 
-#Sword {
-    width: 90%;
-    font-size: 8rem;
-    text-align: center;
-}
-
-#Sphonetic {
-    font-size: 2rem;
-}
-
-#Stranslation {
-    text-align: center;
-    font-size: 2rem;
-    width: 90%;
-    line-height: 1.5;
-}
 
 @media (max-width: 900px) {
     :root {

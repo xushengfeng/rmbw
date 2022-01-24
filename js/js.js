@@ -317,7 +317,6 @@ function next(num) {
         document.getElementById("translation").innerHTML = to(translation);
         document.getElementById("spellWord").value = "";
         document.getElementById("spellWord").placeholder = "";
-        spellNum = document.getElementById("spellN").value;
     }
 
     if (document.getElementById("playC").checked) {
@@ -325,45 +324,29 @@ function next(num) {
     }
 }
 
+// var spellNum = document.getElementById("spellN").value - 0;
 // 展示答案
-function answer() {
-    if (document.getElementById("bingC").checked) {
-        document.getElementById("bing").src = "https://cn.bing.com/dict/search?q=" + dic[id][0];
-    }
-    if (!wptList["wordC"]) {
-        document.getElementById("word").innerHTML = syllable(word);
-    }
-    if (!wptList["phoneticC"]) {
-        document.getElementById("phonetic").innerHTML = phonetic;
-    }
-    if (!wptList["translationC"]) {
-        document.getElementById("translation").innerHTML = to(translation);
-    }
-    play(word);
+function answer(el, w, p, t) {
+    el.querySelector("#word").innerHTML = w;
+    el.querySelector("#phonetic").innerHTML = p;
+    el.querySelector("#translation").innerHTML = t;
+    play(w);
 }
 
 function play(word) {
     audio = document.getElementById("audio");
-    // audio.src = 'http://tts.baidu.com/text2audio?lan=en&ie=UTF-8&spd=4&text=' + word
     if (document.getElementById("playtC").checked == true) {
         audio.src = "https://dict.youdao.com/dictvoice?le=eng&type=1&audio=" + word;
         audio.play();
-        audio.onended = function () {
-            audio.src = "http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&spd=7&text=" + translation;
-            audio.play();
-            audio.onended = function () {};
-        };
+        // audio.onended = function () {
+        //     audio.src = "http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&spd=7&text=" + translation;
+        //     audio.play();
+        //     audio.onended = function () {};
+        // };
     } else {
         audio.src = "https://dict.youdao.com/dictvoice?le=eng&type=1&audio=" + word;
         audio.play();
     }
-    // if (document.getElementById("autoC").checked == true) {
-    //     audio.onended = function () {
-    //         next(Number(n) + 1);
-    //     };
-    // } else {
-    //     audio.onended = function () {};
-    // }
 }
 
 // 释义编排
@@ -452,43 +435,3 @@ document.onkeyup = function (e) {
     }
 };
 
-// 拼写判断
-function trueOrFalse() {
-    inputWord = document.getElementById("spellWord").value;
-    document.getElementById("word").innerHTML = "";
-    document.getElementById("phonetic").innerHTML = "";
-    switch (inputWord) {
-        case "~": // 暂时展示
-            document.getElementById("word").innerHTML = syllable(word);
-            document.getElementById("word").style = "font-size: var(--word-s)";
-            document.getElementById("phonetic").innerHTML = phonetic;
-            document.getElementById("spellWord").value = "";
-            play(word);
-            break;
-        case "!": // 发音
-            play(word);
-            document.getElementById("spellWord").value = "";
-            break;
-        case word: // 正确
-            if (spellNum == 1) {
-                // 拼写次数降到1才下一个,否则重复拼写
-                inputWord = document.getElementById("spellWord").value = "";
-                next(Number(n) + 1);
-            } else {
-                spellNum--;
-                document.getElementById("spellWord").value = "";
-                document.getElementById("spellWord").placeholder = `Good! ${spellNum} time(s) left`;
-            }
-            break;
-    }
-    //错误归位
-    if (inputWord.length == word.length && inputWord != word) {
-        document.getElementById("word").innerHTML = syllable(word);
-        document.getElementById("word").style = "font-size: var(--word-s)";
-        document.getElementById("phonetic").innerHTML = phonetic;
-        spellNum = document.getElementById("spellN").value;
-        document.getElementById("spellWord").value = "";
-        document.getElementById("spellWord").placeholder = `Wrong! ${spellNum} time(s) left`;
-        play(word);
-    }
-}

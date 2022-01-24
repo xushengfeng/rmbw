@@ -70,7 +70,7 @@
                 grid-template-columns: 1fr 0;
             }
 
-            #word_bar{
+            #word_bar {
                 grid-area: 1 / 1 / 2 / 3;
                 display: flex;
                 justify-content: space-between;
@@ -80,10 +80,13 @@
                 margin: 0 0 40px 0;
                 overflow: hidden;
                 transition: 0.3s;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
             }
 
             #word-main>div {
-                text-align: center;
+                white-space: nowrap;
             }
 
             #word_spell {
