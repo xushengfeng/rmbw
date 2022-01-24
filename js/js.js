@@ -231,7 +231,7 @@ var io = new IntersectionObserver(
         if (entries[0].isIntersecting) {
             console.log(entries[0].target.getAttribute("word"));
             // 自动播放
-            if (store.autoC) {
+            if (store.autoC && !store["list"]) {
                 play(entries[0].target.getAttribute("word"));
             }
         }
@@ -434,4 +434,3 @@ document.onkeyup = function (e) {
         }
     }
 };
-
