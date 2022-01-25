@@ -17,7 +17,8 @@
     --word-s-h: 1rem;
     --phonetic-s-h: 1rem;
     --translation-s-h: 1rem;
-    ---main-div-height: 100%;
+    --main-div-height: 100%;
+    --spacing: 0.1em;
 }
 
 html {
@@ -50,6 +51,7 @@ body {
     padding: 16px 0 16px 0;
     background-color: var(--bg-color);
     box-shadow: var(--shadow-color) 0 0 10px;
+    align-items: center;
 }
 
 .nav-item {
@@ -97,11 +99,19 @@ body {
     outline: none;
 }
 
-#playC {
-    border: none;
-    background-color: var(--bg-color);
-    width: 30px;
-    height: 30px;
+#spacing {
+    -webkit-appearance: none;
+    border-radius: 10px;
+    background: var(--bg2-color);
+    margin: 0;
+}
+
+#spacing::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background-color: var(--color);
+    border-radius: 10px;
+    height: 20px;
+    width: 20px;
 }
 
 #main {
@@ -190,7 +200,7 @@ input {
 }
 
 .syllable_s {
-    width: 8px;
+    width: var(--spacing);
     display: inline-block;
 }
 
@@ -219,7 +229,6 @@ input {
 #spellWord:focus {
     outline: none;
 }
-
 
 @media (max-width: 900px) {
     :root {

@@ -395,6 +395,7 @@ function syllable(word, el) {
             } else {
                 return w(store.syllable_l[word]);
             }
+            console.log("n");
         } else {
             fetch(`https://www.dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${store.dic_key}`, {
                 method: "GET",
@@ -403,6 +404,7 @@ function syllable(word, el) {
                     return res.json();
                 })
                 .then((res) => {
+                    console.log(res);
                     store.syllable_l[word] = res[0].hwi.hw;
                     if (el) {
                         el.querySelector("#word").innerHTML = w(res[0].hwi.hw);
@@ -419,6 +421,10 @@ function syllable(word, el) {
         }
     }
 }
+
+document.getElementById("spacing").oninput = () => {
+    document.documentElement.style.setProperty("--spacing", `${document.getElementById("spacing").value}em`);
+};
 
 // 键盘
 document.onkeyup = function (e) {
