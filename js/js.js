@@ -29,8 +29,10 @@ window.addEventListener("load", () => {
     showWordList();
     if (window.location.href.substring(window.location.href.length - 3) == "?px") {
         change(1);
+        showSpell();
     } else {
         change(0);
+        showList();
     }
     mode = 0;
     if ("serviceWorker" in navigator) {
@@ -65,7 +67,6 @@ var dropdownValue;
 function change(n) {
     store["drop"] = dropdownValue = document.getElementById("dropdown").value;
     if (n == 0) {
-        showList();
     } else {
         showSpell();
     }

@@ -127,7 +127,10 @@ body {
     scroll-snap-align: center;
     height: var(--main-div-height);
 }
-
+word-card {
+    display: grid;
+    /* grid-template-columns: 1fr 0; */
+}
 .cx {
     background-color: #eee;
     border-radius: 1rem;
