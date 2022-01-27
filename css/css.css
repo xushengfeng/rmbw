@@ -19,6 +19,7 @@
     --translation-s-h: 1rem;
     --main-div-height: 100%;
     --spacing: 0.1em;
+    --not-spell: 1fr 0;
 }
 
 html {
@@ -129,7 +130,7 @@ body {
 }
 word-card {
     display: grid;
-    /* grid-template-columns: 1fr 0; */
+    grid-template-columns: var(--not-spell);
 }
 .cx {
     background-color: #eee;

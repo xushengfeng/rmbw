@@ -67,8 +67,9 @@ var dropdownValue;
 function change(n) {
     store["drop"] = dropdownValue = document.getElementById("dropdown").value;
     if (n == 0) {
+        document.documentElement.style.setProperty("--not-spell", "1fr 0");
     } else {
-        showSpell();
+        document.documentElement.style.setProperty("--not-spell", "0 1fr");
     }
     showWordList();
 }
@@ -261,16 +262,6 @@ function big_list(v) {
     } else {
         document.getElementById("main").style.scrollSnapType = "";
         document.documentElement.style.setProperty("--main-div-height", "100%");
-    }
-}
-
-// 拼写模式
-function showSpell() {
-    mode = 1;
-    if (!store[dropdownValue]) {
-        next(store[dropdownValue].w_n);
-    } else {
-        next(0);
     }
 }
 
