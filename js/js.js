@@ -28,18 +28,18 @@ window.addEventListener("load", () => {
     changeDropdown();
     showWordList();
     if (window.location.href.substring(window.location.href.length - 3) == "?px") {
-        change(1);
+        change(false);
         showSpell();
     } else {
-        change(0);
-        showList();
+        change(true);
+        change_b_list();
     }
-    mode = 0;
     if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("sw.js");
     }
 });
 
+var dropdownValue;
 function changeDropdown() {
     dropdownC = "";
     for (i in map) {
@@ -47,28 +47,28 @@ function changeDropdown() {
     }
     document.getElementById("dropdown").innerHTML = dropdownC;
 
-    if (store["drop"]) document.getElementById("dropdown").value = store["drop"];
+    if (store["drop"]) document.getElementById("dropdown").value = dropdownValue = store["drop"];
 }
 
-var mode = 0;
+// 词书切换按钮
+document.getElementById("dropdown").addEventListener("change", () => {
+    change_b_list();
+});
+
+// 模式切换按钮
+var mode = false;
 document.getElementById("mode_b").onclick = () => {
-    if (mode == 0) {
-        mode = 1;
-        document.getElementById("mode_b").innerHTML = "拼写";
-    } else {
-        mode = 0;
-        document.getElementById("mode_b").innerHTML = "背词";
-    }
+    mode = !mode;
     change(mode);
 };
 
-var dropdownValue;
-
 function change(n) {
-    store["drop"] = dropdownValue = document.getElementById("dropdown").value;
-    if (n == 0) {
+    mode = n;
+    if (n) {
+        document.getElementById("mode_b").innerHTML = "背词";
         document.documentElement.style.setProperty("--not-spell", "1fr 0");
     } else {
+        document.getElementById("mode_b").innerHTML = "拼写";
         document.documentElement.style.setProperty("--not-spell", "0 1fr");
     }
     showWordList();
@@ -166,6 +166,12 @@ function listS(v) {
         document.getElementById("List").style.transform = "translateX(0)";
     }
 }
+document.getElementById("list_show").addEventListener("click", () => {
+    listS(1);
+});
+document.getElementById("list_disappear").addEventListener("click", () => {
+    listS(0);
+});
 
 function checkboxClass(id, name) {
     return (
@@ -179,11 +185,9 @@ function checkboxClass(id, name) {
     );
 }
 
-// 背书模式
-function showList() {
-    mode = 0;
-    // document.getElementById('main').innerHTML = '<div id="wordDetail"><div id="word"></div><div id="phonetic"></div><div id="translation"></div><iframe id="bing" title="bing词典"></iframe></div>'
-
+// 底部页数栏
+function change_b_list() {
+    store["drop"] = dropdownValue = document.getElementById("dropdown").value;
     var c = "";
     for (i = 1; i <= Math.ceil(map[dropdownValue].length / 50); i++) {
         c += `<li>${i}</li>`;
@@ -196,7 +200,7 @@ function showList() {
             };
         })(i);
     }
-    if (store[dropdownValue] != undefined) {
+    if (store[dropdownValue]) {
         var page = store[dropdownValue].page || 0;
     } else {
         var page = 0;
@@ -222,7 +226,7 @@ function slow_load(num, step) {
         }" n="${i}"></word-card></div>`;
         page_w_l.push(id);
     }
-    if (mode == 0) document.querySelector("#main").innerHTML = c;
+    document.querySelector("#main").innerHTML = c;
     [].forEach.call(document.querySelectorAll("#nav2>li"), function (v) {
         v.className = "";
     });
@@ -415,26 +419,4 @@ async function syllable(word, el) {
 
 document.getElementById("spacing").oninput = () => {
     document.documentElement.style.setProperty("--spacing", `${document.getElementById("spacing").value}em`);
-};
-
-// 键盘
-document.onkeyup = function (e) {
-    var event = e || window.event;
-    event.preventDefault();
-    var key = event.which || event.keyCode || event.charCode;
-    if (mode == 0) {
-        // 列表模式下生效
-        if (key == 37 || key == 38) {
-            next(Number(n) - 1);
-        }
-        if (key == 39 || key == 40) {
-            next(Number(n) + 1);
-        }
-        // if (key == 37 || key == 38 || key == 39 || key == 40) {
-        // next(n)
-        // }
-        if (key == 13) {
-            answer();
-        }
-    }
 };
