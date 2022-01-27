@@ -260,12 +260,50 @@ var io = new IntersectionObserver(
             if (store.autoC && !store["list"]) {
                 play(entries[0].target.getAttribute("word"));
             }
+
+            if (!store["list"]) {
+                word_more(entries[0].target.getAttribute("word"));
+            }
         }
     },
     {
         threshold: 1,
     }
 );
+
+async function word_more(word) {
+    var more_r = await more(word);
+    var more_stems = more_r[0].meta.stems;
+    if (more_r[0].et) {
+        var more_et = more_r[0].et[0][1];
+        var et_o = {
+            "{b}": "<strong>",
+            "{/b}": "</strong>",
+            "{inf}": "<sub>",
+            "{/inf}": "</sub>",
+            "{it}": "<i>",
+            "{/it}": "</i>",
+            "{sc}": "<small>",
+            "{/sc}": "</small>",
+            "{sup}": "<sup>",
+            "{/sup}": "</sup>",
+            "{ldquo}": "&ldquo;",
+            "{rdquo}": "&rdquo;",
+            "{bc}": "<strong>: </strong>",
+        };
+        for (i in et_o) {
+            more_et = more_et.replace(RegExp(i, "g"), et_o[i]);
+        }
+        more_et = more_et.replace(/{.*}/g, "");
+    } else {
+        more_et = "";
+    }
+    var more_short_def = more_r[0].shortdef;
+    document.querySelector(
+        `word-card[word="${word}"] #more`
+    ).innerHTML = `<div id="stems">${more_stems}</div><div id="def">${more_short_def}</div><div id="et">${more_et}</div>`;
+    console.log(more_stems, more_et, more_short_def);
+}
 
 function word_value_write(word, n) {
     if (!store.word_value) store.word_value = {};
