@@ -334,18 +334,8 @@ function answer(el, w, p, t) {
 
 function play(word) {
     audio = document.getElementById("audio");
-    if (document.getElementById("playtC").checked == true) {
-        audio.src = "https://dict.youdao.com/dictvoice?le=eng&type=1&audio=" + word;
-        audio.play();
-        // audio.onended = function () {
-        //     audio.src = "http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&spd=7&text=" + translation;
-        //     audio.play();
-        //     audio.onended = function () {};
-        // };
-    } else {
-        audio.src = "https://dict.youdao.com/dictvoice?le=eng&type=1&audio=" + word;
-        audio.play();
-    }
+    audio.src = "https://dict.youdao.com/dictvoice?le=eng&type=1&audio=" + word;
+    audio.play();
 }
 
 // 释义编排
@@ -400,32 +390,19 @@ async function more(word) {
     }
 }
 
-function syllable(word, el) {
-    if (!word.includes(" ") && !word.includes(".")) {
-        store.syllable_l = store.syllable_l || {};
-        if (store.syllable_l[word]) {
-            if (el) {
-                el.querySelector("#word").innerHTML = w(store.syllable_l[word]);
-            } else {
-                return w(store.syllable_l[word]);
-            }
-            console.log("n");
+async function syllable(word, el) {
+    var syllable_r = await more(word);
+    if (syllable_r[0].hwi) {
+        var syllable_t = syllable_r[0].hwi.hw;
+        var n = 0;
+        while (syllable_t.replace(/\*/g, "") != word) {
+            syllable_t = syllable_r[0].uros[n].ure;
+            n += 1;
+        }
+        if (el) {
+            el.querySelector("#word").innerHTML = w(syllable_t);
         } else {
-            fetch(`https://www.dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${store.dic_key}`, {
-                method: "GET",
-            })
-                .then((res) => {
-                    return res.json();
-                })
-                .then((res) => {
-                    console.log(res);
-                    store.syllable_l[word] = res[0].hwi.hw;
-                    if (el) {
-                        el.querySelector("#word").innerHTML = w(res[0].hwi.hw);
-                    } else {
-                        return w(res[0].hwi.hw);
-                    }
-                });
+            return w(syllable_t);
         }
         function w(worddd) {
             worddd = worddd.split("*");
