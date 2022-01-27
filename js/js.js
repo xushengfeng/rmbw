@@ -203,9 +203,13 @@ function change_b_list() {
     if (store[dropdownValue]) {
         var page = store[dropdownValue].page || 0;
     } else {
+        store[dropdownValue] = { page: 0, page_step: 50, w_n: 0 };
         var page = 0;
     }
     slow_load(page, 50);
+    can_record_p = false;
+    next(store[dropdownValue].w_n);
+    can_record_p = true;
 }
 
 word_num = 0;
@@ -226,23 +230,32 @@ function slow_load(num, step) {
         }" n="${i}"></word-card></div>`;
         page_w_l.push(id);
     }
+    can_record_p = false;
     document.querySelector("#main").innerHTML = c;
+    document.getElementById("main").scrollTop = 0;
+    can_record_p = true;
     [].forEach.call(document.querySelectorAll("#nav2>li"), function (v) {
         v.className = "";
     });
     document.querySelectorAll("#nav2>li")[num].className = "nav2-li-h";
 
-    var l = { page: num, page_step: step, w_n: word_num };
-    store[dropdownValue] = l;
+    store[dropdownValue].page_step = step;
+    store[dropdownValue].page = num;
 
     save();
 }
 
+var can_record_p = false;
 // 判断滚动到某个单词
 var io = new IntersectionObserver(
     (entries) => {
         if (entries[0].isIntersecting) {
-            console.log(entries[0].target.getAttribute("word"));
+            // 记录位置
+            if (can_record_p) {
+                console.log(entries[0].target.getAttribute("word"));
+                word_num = (entries[0].target.getAttribute("n") - 0) % store[dropdownValue].page_step;
+                store[dropdownValue].w_n = word_num;
+            }
             // 自动播放
             if (store.autoC && !store["list"]) {
                 play(entries[0].target.getAttribute("word"));
@@ -276,7 +289,6 @@ n = 0;
 function next(num) {
     n = document.getElementById("R").checked == true ? Math.floor(Math.random() * (page_w_l.length + 1)) : num; // n随机与否
     n = n < 0 ? 0 : n; // n must>=0
-    store[dropdownValue].w_n = n;
 
     wptList = {
         bingC: document.getElementById("bingC").checked,
@@ -290,34 +302,6 @@ function next(num) {
     word = dic[id][0];
     phonetic = dic[id][1];
     translation = dic[id][2];
-
-    // 界面归位
-    // document.getElementById("translation").innerHTML = "";
-    // document.getElementById("phonetic").innerHTML = "";
-    // document.getElementById("word").innerHTML = "";
-
-    // 根据选项展示
-    // if (mode == 0) {
-    //     if (wptList["wordC"]) {
-    //         document.getElementById("word").innerHTML =
-    //             document.getElementById("wordStyle").checked == true ? aeiouy(word) : word;
-    //     }
-    //     if (wptList["phoneticC"]) {
-    //         document.getElementById("phonetic").innerHTML = phonetic;
-    //     }
-    //     if (wptList["translationC"]) {
-    //         document.getElementById("translation").innerHTML = to(translation);
-    //     }
-    //     if (document.getElementById("bingC").checked && wptList[0] && wptList[1] && wptList[2]) {
-    //         document.getElementById("bing").src = "https://cn.bing.com/dict/search?q=" + dic[id][0];
-    //     } else {
-    //         document.getElementById("bing").src = "";
-    //     }
-    // } else {
-    //     document.getElementById("translation").innerHTML = to(translation);
-    //     document.getElementById("spellWord").value = "";
-    //     document.getElementById("spellWord").placeholder = "";
-    // }
 
     if (document.getElementById("playC").checked) {
         play(word);
