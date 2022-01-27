@@ -57,7 +57,7 @@ document.getElementById("mode_b").onclick = () => {
         document.getElementById("mode_b").innerHTML = "拼写";
     } else {
         mode = 0;
-        document.getElementById("mode_b").innerHTML = "背书";
+        document.getElementById("mode_b").innerHTML = "背词";
     }
     change(mode);
 };
@@ -378,23 +378,24 @@ function aeiouy(word) {
     return [word1, word2];
 }
 
-function more(word) {
+async function more(word) {
     if (!word.includes(".")) {
         store.more = store.more || {};
         if (store.more[word]) {
-            return;
+            return store.more[word];
         } else {
-            fetch(`https://www.dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${store.dic_key}`, {
-                method: "GET",
-            })
-                .then((res) => {
-                    return res.json();
-                })
-                .then((res) => {
-                    delete res.def;
-                    store.more[word] = res;
-                    return res;
-                });
+            store.dic_key = document.getElementById("dic_key").value;
+            var res = await fetch(
+                `https://www.dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${store.dic_key}`,
+                {
+                    method: "GET",
+                }
+            );
+
+            res = await res.json();
+            delete res.def;
+            store.more[word] = res;
+            return res;
         }
     }
 }
