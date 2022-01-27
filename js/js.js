@@ -387,6 +387,27 @@ function aeiouy(word) {
     return [word1, word2];
 }
 
+function more(word) {
+    if (!word.includes(".")) {
+        store.more = store.more || {};
+        if (store.more[word]) {
+            return;
+        } else {
+            fetch(`https://www.dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${store.dic_key}`, {
+                method: "GET",
+            })
+                .then((res) => {
+                    return res.json();
+                })
+                .then((res) => {
+                    delete res.def;
+                    store.more[word] = res;
+                    return res;
+                });
+        }
+    }
+}
+
 function syllable(word, el) {
     if (!word.includes(" ") && !word.includes(".")) {
         store.syllable_l = store.syllable_l || {};
