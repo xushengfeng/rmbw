@@ -311,12 +311,19 @@ function word_value_write(word, n) {
 }
 
 function big_list(v) {
+    var l = document.querySelectorAll("word-card");
     if (v) {
         document.getElementById("main").style.scrollSnapType = "none";
         document.documentElement.style.setProperty("--main-div-height", "auto");
+        for (i in l) {
+            l[i].show = false;
+        }
     } else {
         document.getElementById("main").style.scrollSnapType = "";
         document.documentElement.style.setProperty("--main-div-height", "100%");
+        for (i in l) {
+            l[i].show = true;
+        }
     }
 }
 
@@ -417,24 +424,26 @@ async function more(word) {
 }
 
 async function syllable(word, el) {
-    var syllable_r = await more(word);
-    if (syllable_r[0].hwi) {
-        var syllable_t = syllable_r[0].hwi.hw;
-        var n = 0;
-        while (syllable_t.replace(/\*/g, "") != word) {
-            syllable_t = syllable_r[0].uros[n].ure;
-            n += 1;
-        }
-        if (el) {
-            el.querySelector("#word").innerHTML = w(syllable_t);
-        } else {
-            return w(syllable_t);
-        }
-        function w(worddd) {
-            worddd = worddd.split("*");
-            for (i in worddd) worddd[i] = `<span class="syllable">${worddd[i]}</span>`;
-            worddd = worddd.join('<span class="syllable_s"></span>');
-            return worddd;
+    if (can_record_p) {
+        var syllable_r = await more(word);
+        if (syllable_r[0].hwi) {
+            var syllable_t = syllable_r[0].hwi.hw;
+            var n = 0;
+            while (syllable_t.replace(/\*/g, "") != word) {
+                syllable_t = syllable_r[0].uros[n].ure;
+                n += 1;
+            }
+            if (el) {
+                el.querySelector("#word").innerHTML = w(syllable_t);
+            } else {
+                return w(syllable_t);
+            }
+            function w(worddd) {
+                worddd = worddd.split("*");
+                for (i in worddd) worddd[i] = `<span class="syllable">${worddd[i]}</span>`;
+                worddd = worddd.join('<span class="syllable_s"></span>');
+                return worddd;
+            }
         }
     }
 }
