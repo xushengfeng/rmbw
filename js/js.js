@@ -341,14 +341,6 @@ function next(num) {
     n = document.getElementById("R").checked == true ? Math.floor(Math.random() * (page_w_l.length + 1)) : num; // n随机与否
     n = n < 0 ? 0 : n; // n must>=0
 
-    wptList = {
-        bingC: document.getElementById("bingC").checked,
-        wordC: document.getElementById("wordC").checked,
-        phoneticC: document.getElementById("phoneticC").checked,
-        translationC: document.getElementById("translationC").checked,
-        playC: document.getElementById("playC").checked,
-    };
-
     id = page_w_l[n];
     word = dic[id][0];
     phonetic = dic[id][1];
@@ -360,6 +352,10 @@ function next(num) {
 
     document.getElementById("main").scrollTop =
         document.querySelector(`word-card[word="${word}"]`).offsetTop - document.getElementById("main").offsetTop;
+
+    if (!mode) {
+        document.querySelector(`word-card[word="${word}"] #spellWord`).focus();
+    }
 }
 
 // var spellNum = document.getElementById("spellN").value - 0;
@@ -434,7 +430,7 @@ async function more(word) {
 async function syllable(word, el) {
     if (can_record_p) {
         var syllable_r = await more(word);
-        if (syllable_r[0].hwi) {
+        if (syllable_r && syllable_r[0].hwi) {
             var syllable_t = syllable_r[0].hwi.hw;
             var n = 0;
             while (syllable_t.replace(/\*/g, "") != word) {
@@ -452,6 +448,8 @@ async function syllable(word, el) {
                 worddd = worddd.join('<span class="syllable_s"></span>');
                 return worddd;
             }
+        } else {
+            el.querySelector("#word").innerHTML = word;
         }
     }
 }
