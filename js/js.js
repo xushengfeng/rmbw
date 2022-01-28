@@ -420,7 +420,9 @@ async function more(word) {
                 );
 
                 res = await res.json();
-                delete res.def;
+                for (i in res) {
+                    delete res[i].def;
+                }
                 store.more[word] = res;
                 return res;
             }
