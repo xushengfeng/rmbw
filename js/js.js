@@ -268,6 +268,7 @@ var io = new IntersectionObserver(
             }
 
             if (!store["list"]) {
+                syllable(entries[0].target.getAttribute("word"), entries[0].target.querySelector("#word-main"));
                 word_more(entries[0].target.getAttribute("word"));
             }
         }
@@ -308,7 +309,6 @@ async function word_more(word) {
     document.querySelector(
         `word-card[word="${word}"] #more`
     ).innerHTML = `<div id="stems">${more_stems}</div><div id="def">${more_short_def}</div><div id="et">${more_et}</div>`;
-    console.log(more_stems, more_et, more_short_def);
 }
 
 function word_value_write(word, n) {

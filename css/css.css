@@ -131,6 +131,8 @@ body {
 word-card {
     display: grid;
     grid-template-columns: var(--not-spell);
+    grid-template-rows: auto 1fr;
+    height: 100%;
 }
 
 word-card div {
@@ -170,12 +172,16 @@ word-card #word_bar > button {
 }
 
 word-card #word-main {
-    margin: 0 0 40px 0;
     overflow: hidden;
     transition: 0.3s;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+word-card #word-main > #more {
+    font-size: 2rem;
+    overflow-y: auto;
 }
 
 word-card #word_spell {
