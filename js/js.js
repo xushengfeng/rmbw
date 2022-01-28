@@ -467,7 +467,7 @@ function word_other(word) {
 setInterval(() => {
     var l = document.querySelectorAll(`word-card #word_other > iframe`);
     for (i in l) {
-        l[i].src = null;
+        l[i].src = '';
     }
 }, 5 * 60 * 1000);
 
