@@ -132,6 +132,61 @@ word-card {
     display: grid;
     grid-template-columns: var(--not-spell);
 }
+
+word-card div {
+    transition: 0.5s;
+}
+
+word-card #word_bar {
+    grid-area: 1 / 1 / 2 / 3;
+    display: flex;
+    justify-content: space-between;
+}
+
+word-card #n {
+    -webkit-appearance: none;
+    background-size: 75% 100%;
+    border-radius: 10px;
+    background: linear-gradient(var(--color), var(--color)) no-repeat, var(--bg2-color);
+    margin: 0;
+}
+
+word-card #n::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 20px;
+    width: 20px;
+}
+
+word-card #word_bar {
+    margin-top: 16px;
+}
+
+word-card #word_bar > button {
+    height: 20px;
+    width: 20px;
+    border-radius: 10px;
+    background-color: var(--bg2-color);
+    border: none;
+}
+
+word-card #word-main {
+    margin: 0 0 40px 0;
+    overflow: hidden;
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+word-card #word-main > div {
+    white-space: nowrap;
+}
+
+word-card #word_spell {
+    overflow: hidden;
+    transition: 0.3s;
+}
+
 .cx {
     background-color: #eee;
     border-radius: 1rem;

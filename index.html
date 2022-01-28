@@ -45,62 +45,6 @@
     <script src="js/js.js"></script>
 
     <template id="word_card">
-        <style>
-            div {
-                transition: 0.5s;
-            }
-
-            #word_bar {
-                grid-area: 1 / 1 / 2 / 3;
-                display: flex;
-                justify-content: space-between;
-            }
-
-            #n {
-                -webkit-appearance: none;
-                background-size: 75% 100%;
-                border-radius: 10px;
-                background: linear-gradient(var(--color), var(--color)) no-repeat, var(--bg2-color);
-                margin: 0;
-
-            }
-
-            #n::-webkit-slider-thumb {
-                -webkit-appearance: none;
-                height: 20px;
-                width: 20px;
-            }
-
-            #word_bar{
-                margin-top: 16px;
-            }
-
-            #word_bar>button{
-                height: 20px;
-                width: 20px;
-                border-radius: 10px;
-                background-color: var(--bg2-color);
-                border: none;
-            }
-
-            #word-main {
-                margin: 0 0 40px 0;
-                overflow: hidden;
-                transition: 0.3s;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-
-            #word-main>div {
-                white-space: nowrap;
-            }
-
-            #word_spell {
-                overflow: hidden;
-                transition: 0.3s;
-            }
-        </style>
         <div id="word_bar">
             <input type="range" id="n" min="0" max="3">
             <button id="spell_b"></button>
