@@ -19,7 +19,7 @@
     --translation-s-h: 1rem;
     --main-div-height: 100%;
     --spacing: 0.1em;
-    --not-spell: 1fr 0;
+    --not-spell: 1fr 0 0;
 }
 
 html {
@@ -140,7 +140,7 @@ word-card div {
 }
 
 word-card #word_bar {
-    grid-area: 1 / 1 / 2 / 3;
+    grid-area: 1 / 1 / 2 / 4;
     display: flex;
     justify-content: space-between;
 }
@@ -195,6 +195,14 @@ word-card #def {
     list-style: circle;
 }
 
+word-card #word_other{
+    width: 100%;
+    overflow: hidden;
+}
+word-card #word_other iframe{
+    width: 100%;
+    height: 100%;
+}
 
 word-card #word_spell {
     overflow: hidden;

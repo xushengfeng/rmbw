@@ -282,7 +282,7 @@ var io = new IntersectionObserver(
 async function word_more(word) {
     var more_r = await more(word);
     var more_stems = more_r[0].meta.stems;
-    more_stems = `<span>${more_stems.join('</span><span>')}</span>`;
+    more_stems = `<span>${more_stems.join("</span><span>")}</span>`;
     if (more_r[0].et) {
         var more_et = more_r[0].et[0][1];
         var et_o = {
@@ -308,7 +308,7 @@ async function word_more(word) {
         more_et = "";
     }
     var more_short_def = more_r[0].shortdef;
-    more_short_def = `<li>${more_short_def.join('</li><li>')}</li>`;
+    more_short_def = `<li>${more_short_def.join("</li><li>")}</li>`;
     document.querySelector(
         `word-card[word="${word}"] #more`
     ).innerHTML = `<div id="stems">${more_stems}</div><div id="def">${more_short_def}</div><div id="et">${more_et}</div>`;
@@ -458,6 +458,18 @@ async function syllable(word, el) {
         }
     }
 }
+
+function word_other(word) {
+    document.querySelector(`word-card[word="${word}"] #word_other > iframe`).src =
+        "https://cn.bing.com/dict/search?q=" + word;
+}
+
+setInterval(() => {
+    var l = document.querySelectorAll(`word-card #word_other > iframe`);
+    for (i in l) {
+        l[i].src = null;
+    }
+}, 5 * 60 * 1000);
 
 document.getElementById("spacing").oninput = () => {
     document.documentElement.style.setProperty("--spacing", `${document.getElementById("spacing").value}em`);
