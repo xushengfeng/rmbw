@@ -20,7 +20,8 @@ fetch(url, {
         return res.json();
     })
     .then((res) => {
-        store = res;
+        // 合并数据，res覆盖相同键的值
+        Object.assign(store, res);
     });
 
 // 界面渲染和初始化
@@ -413,17 +414,19 @@ async function more(word) {
             return store.more[word];
         } else {
             store.dic_key = document.getElementById("dic_key").value;
-            var res = await fetch(
-                `https://www.dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${store.dic_key}`,
-                {
-                    method: "GET",
-                }
-            );
+            if (store.dic_key != "") {
+                var res = await fetch(
+                    `https://www.dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${store.dic_key}`,
+                    {
+                        method: "GET",
+                    }
+                );
 
-            res = await res.json();
-            delete res.def;
-            store.more[word] = res;
-            return res;
+                res = await res.json();
+                delete res.def;
+                store.more[word] = res;
+                return res;
+            }
         }
     }
 }
