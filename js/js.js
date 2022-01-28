@@ -256,25 +256,26 @@ var can_record_p = false;
 var io = new IntersectionObserver(
     (entries) => {
         if (entries[0].isIntersecting) {
+            var card_el = entries[0].target.querySelector("word-card");
             // 记录位置
             if (can_record_p) {
-                console.log(entries[0].target.getAttribute("word"));
-                word_num = (entries[0].target.getAttribute("n") - 0) % store[dropdownValue].page_step;
+                console.log(card_el.getAttribute("word"));
+                word_num = (card_el.getAttribute("n") - 0) % store[dropdownValue].page_step;
                 store[dropdownValue].w_n = word_num;
             }
             // 自动播放
             if (store.autoC && !store["list"]) {
-                play(entries[0].target.getAttribute("word"));
+                play(card_el.getAttribute("word"));
             }
 
             if (!store["list"]) {
-                syllable(entries[0].target.getAttribute("word"), entries[0].target.querySelector("#word-main"));
-                word_more(entries[0].target.getAttribute("word"));
+                syllable(card_el.getAttribute("word"), card_el.querySelector("#word-main"));
+                word_more(card_el.getAttribute("word"));
             }
         }
     },
     {
-        threshold: 1,
+        threshold: 0.75,
     }
 );
 
