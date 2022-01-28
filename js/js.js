@@ -64,12 +64,17 @@ document.getElementById("mode_b").onclick = () => {
 
 function change(n) {
     mode = n;
+    var l = document.querySelectorAll("word-card");
     if (n) {
         document.getElementById("mode_b").innerHTML = "背词";
-        document.documentElement.style.setProperty("--not-spell", "1fr 0");
+        for (i in l) {
+            l[i].spell = false;
+        }
     } else {
         document.getElementById("mode_b").innerHTML = "拼写";
-        document.documentElement.style.setProperty("--not-spell", "0 1fr");
+        for (i in l) {
+            l[i].spell = true;
+        }
     }
     showWordList();
 }

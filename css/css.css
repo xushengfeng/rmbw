@@ -178,10 +178,6 @@ word-card #word-main {
     align-items: center;
 }
 
-word-card #word-main > div {
-    white-space: nowrap;
-}
-
 word-card #word_spell {
     overflow: hidden;
     transition: 0.3s;
