@@ -182,7 +182,19 @@ word-card #word-main {
 word-card #word-main > #more {
     font-size: 2rem;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+
+word-card #stems > span {
+    margin: 1rem;
+}
+
+word-card #def {
+    list-style: circle;
+}
+
 
 word-card #word_spell {
     overflow: hidden;
