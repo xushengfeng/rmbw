@@ -400,7 +400,7 @@ function aeiouy(word) {
     word1 = word1.replace(/<\/>/g, "</span>");
     word1 = word1.replace(/< >/g, '<span class="fu">');
     word1 = word1.replace(/<\/ >/g, "</span>");
-    word2 = word.replace(/([aeiou])|(?<=[^aeiou])y/g, '<span class="aeiouy">$&</span>');
+    word2 = word.replace(/([aeiou])|(?:[^aeiou])y/g, '<span class="aeiouy">$&</span>');
     // word = word.replace(/([aeiou])[^aeiou](e)/g, '<span class="aeiou_e">$&</span>')
 
     return [word1, word2];
