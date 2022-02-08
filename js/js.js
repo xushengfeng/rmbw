@@ -385,26 +385,6 @@ function to(word) {
     word = word.replace(/[a-z]+\./g, '<span class="cx">$&</span>');
     return word;
 }
-// 标记
-function aeiouy(word) {
-    // word = word.replace(/ /g,'<span class="space"></span>')
-    word1 = word.replace(
-        /(ai)|(air)|(al)|(ar)|(are)|(au)|(aw)|(ay)|(ea)|(ee)|(er)|(ear)|(eer)|(er)|(ere)|(ey)|(ie)|(ir)|(oa)|(oi)|(oo)|(oor)|(or)|(oor)|(our)|(ou)|(oy)|(ow)|(ur)/g,
-        "<>$&</>"
-    );
-    word1 = word1.replace(
-        /(se)|(ch)|(th)|(sh)|(wh)|(tch)|(ds)|(ts)|(dr)|(tr)|(ing)|(cial)|(sion)|(tion)/g,
-        "< >$&</ >"
-    );
-    word1 = word1.replace(/<>/g, '<span class="yuan">');
-    word1 = word1.replace(/<\/>/g, "</span>");
-    word1 = word1.replace(/< >/g, '<span class="fu">');
-    word1 = word1.replace(/<\/ >/g, "</span>");
-    word2 = word.replace(/([aeiou])|(?<=[^aeiou])y/g, '<span class="aeiouy">$&</span>');
-    // word = word.replace(/([aeiou])[^aeiou](e)/g, '<span class="aeiou_e">$&</span>')
-
-    return [word1, word2];
-}
 
 async function more(word) {
     if (!word.includes(".")) {
