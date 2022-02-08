@@ -216,6 +216,8 @@ function change_b_list() {
     can_record_p = false;
     next(store[dropdownValue].w_n);
     can_record_p = true;
+
+    big_list(false);
 }
 
 word_num = 0;
@@ -447,7 +449,7 @@ function word_other(word) {
 setInterval(() => {
     var l = document.querySelectorAll(`word-card #word_other > iframe`);
     for (i in l) {
-        l[i].src = '';
+        l[i].src = "";
     }
 }, 5 * 60 * 1000);
 
