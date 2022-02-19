@@ -469,7 +469,7 @@ function sum() {
         if (v != 0) w_n++;
         all_n += v - 0;
     });
-    var l = Object.values(store.word_value).length;
-    console.log(w_n, all_n);
-    document.getElementById("sum").innerText = `${w_n}/${l} ${all_n}/${l * 3}`;
+    document.getElementById("sum").innerText = `${w_n}/${map[dropdownValue].length} ${all_n}/${
+        map[dropdownValue].length * 3
+    }`;
 }
