@@ -217,6 +217,10 @@ function change_b_list() {
     next(store[dropdownValue].w_n);
     can_record_p = true;
 
+    // 渲染完成
+
+    sum();
+
     big_list(false);
 }
 
@@ -319,6 +323,7 @@ async function word_more(word) {
 function word_value_write(word, n) {
     if (!store.word_value) store.word_value = {};
     store.word_value[word] = n;
+    sum();
 }
 
 function big_list(v) {
@@ -456,3 +461,15 @@ setInterval(() => {
 document.getElementById("spacing").oninput = () => {
     document.documentElement.style.setProperty("--spacing", `${document.getElementById("spacing").value}em`);
 };
+
+function sum() {
+    var w_n = 0;
+    var all_n = 0;
+    Object.values(store.word_value).map((v) => {
+        if (v != 0) w_n++;
+        all_n += v - 0;
+    });
+    var l = Object.values(store.word_value).length;
+    console.log(w_n, all_n);
+    document.getElementById("sum").innerText = `${w_n}/${l} ${all_n}/${l * 3}`;
+}
