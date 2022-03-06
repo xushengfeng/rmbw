@@ -3,6 +3,7 @@ import os
 import sys
 import web
 
+
 class data:
     def read():
         with open(
@@ -12,10 +13,29 @@ class data:
             return json.dumps(main_dic)
 
     def write(web_data):
+        r = json.loads(data.read())
         with open(
-            os.path.split(os.path.realpath(sys.argv[0]))[0] + "/data.json", "w+"
+            os.path.split(os.path.realpath(sys.argv[0]))[
+                0] + "/data.json", "w+"
         ) as file:
-            json.dump(web_data, file)
+            a = update_dic(r, web_data)
+            json.dump(a, file)
+            r = None
+
+
+def update_dic(a, web_dic):
+    new_dic = {}
+    new_dic = a
+    # 鉴于这个项目数据，只嵌套一层
+    for i in web_dic:
+        if i in new_dic:
+            # 防止网页端数据丢失而覆盖
+            if len(new_dic[i]) <= len(web_dic[i]):
+                new_dic[i] = web_dic[i]
+        else:
+            new_dic[i] = web_dic[i]
+    return new_dic
+
 
 urls = ("/", "index")
 
