@@ -184,21 +184,27 @@ word-card #word-main > #more {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
+}
+
+word-card #stems {
+    display: flex;
+    flex-wrap: wrap;
 }
 
 word-card #stems > span {
-    margin: 1rem;
+    margin: 0 1rem;
 }
 
 word-card #def {
     list-style: circle;
 }
 
-word-card #word_other{
+word-card #word_other {
     width: 100%;
     overflow: hidden;
 }
-word-card #word_other iframe{
+word-card #word_other iframe {
     width: 100%;
     height: 100%;
 }
