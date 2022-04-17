@@ -1,11 +1,11 @@
 var store = JSON.parse(window.localStorage.rmbw || "{}");
 function save() {
+    window.localStorage.rmbw = JSON.stringify(store);
     var tmp_store = store;
     delete tmp_store.sql;
-    window.localStorage.rmbw = JSON.stringify(tmp_store);
     fetch(url, {
         method: "POST",
-        body: JSON.stringify(store),
+        body: JSON.stringify(tmp_store),
     }).then((res) => {
         res.json();
         tmp_store = null;
