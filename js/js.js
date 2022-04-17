@@ -18,20 +18,22 @@ setInterval(save, 5 * 60 * 1000);
 
 var url = "http://" + (store["sql"] || "0.0.0.0") + ":8888";
 
-fetch(url, {
-    method: "GET",
-})
-    .then((res) => {
-        return res.json();
-    })
-    .then((res) => {
-        delete res.sql;
-        // 合并数据，res覆盖相同键的值
-        Object.assign(store, res);
-    });
-
 // 界面渲染和初始化
-window.addEventListener("load", () => {
+window.addEventListener("load", load);
+
+function load() {
+    fetch(url, {
+        method: "GET",
+    })
+        .then((res) => {
+            return res.json();
+        })
+        .then((res) => {
+            delete res.sql;
+            // 合并数据，res覆盖相同键的值
+            Object.assign(store, res);
+        });
+
     changeDropdown();
     showWordList();
     if (window.location.href.substring(window.location.href.length - 3) == "?px") {
@@ -44,7 +46,7 @@ window.addEventListener("load", () => {
     if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("sw.js");
     }
-});
+}
 
 var dropdownValue;
 function changeDropdown() {
@@ -141,6 +143,7 @@ function showWordList() {
         store["sql"] = document.getElementById("sql").value;
         url = "http://" + (store["sql"] || "0.0.0.0") + ":8080";
     };
+    document.getElementById("sql").onchange = load;
     document.getElementById("dic_key").oninput = () => {
         store["dic_key"] = document.getElementById("dic_key").value;
     };
