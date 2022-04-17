@@ -1,10 +1,15 @@
 var store = JSON.parse(window.localStorage.rmbw || "{}");
 function save() {
-    window.localStorage.rmbw = JSON.stringify(store);
+    var tmp_store = store;
+    delete tmp_store.sql;
+    window.localStorage.rmbw = JSON.stringify(tmp_store);
     fetch(url, {
         method: "POST",
         body: JSON.stringify(store),
-    }).then((res) => res.json());
+    }).then((res) => {
+        res.json();
+        tmp_store = null;
+    });
 }
 window.onbeforeunload = () => {
     save();
@@ -20,6 +25,7 @@ fetch(url, {
         return res.json();
     })
     .then((res) => {
+        delete res.sql;
         // 合并数据，res覆盖相同键的值
         Object.assign(store, res);
     });
