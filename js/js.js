@@ -405,8 +405,14 @@ function next(num) {
         play(word);
     }
 
-    document.getElementById("main").scrollTop =
-        document.querySelector(`word-card[word="${word}"]`).offsetTop - document.getElementById("main").offsetTop;
+    /**@type {HTMLElement} */ var el = document.querySelector(`word-card[word="${word}"]`);
+
+    document.getElementById("main").scrollTop = el.offsetTop - document.getElementById("main").offsetTop;
+
+    el.style.outline = "1px dashed";
+    setTimeout(() => {
+        el.style.outline = "";
+    }, 300);
 
     if (!mode) {
         document.querySelector(`word-card[word="${word}"] #spellWord`).focus();
