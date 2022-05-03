@@ -506,3 +506,9 @@ function sum() {
         map[dropdownValue].length * 3
     }`;
 }
+
+document.onkeyup = (e) => {
+    if (e.key == "Enter" && store.list && document.getElementById("R").checked) {
+        next(1);
+    }
+};
