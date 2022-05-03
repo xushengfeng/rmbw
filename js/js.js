@@ -491,18 +491,6 @@ async function syllable(word, el) {
     }
 }
 
-function word_other(word) {
-    document.querySelector(`word-card[word="${word}"] #word_other > iframe`).src =
-        "https://cn.bing.com/dict/search?q=" + word;
-}
-
-setInterval(() => {
-    var l = document.querySelectorAll(`word-card #word_other > iframe`);
-    for (i in l) {
-        l[i].src = "";
-    }
-}, 5 * 60 * 1000);
-
 document.getElementById("spacing").oninput = () => {
     document.documentElement.style.setProperty("--spacing", `${document.getElementById("spacing").value}em`);
 };
