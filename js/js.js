@@ -176,7 +176,7 @@ function showWordList() {
 
 function listS(v) {
     if (v == 0) {
-        document.getElementById("List").style.transform = "translateX(-102%)";
+        document.getElementById("List").style.transform = "translateX(-110%)";
     } else {
         document.getElementById("List").style.transform = "translateX(0)";
     }

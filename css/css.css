@@ -4,7 +4,7 @@
     --bg3-color: #fff9;
     --color: #252525;
     --color2: #fff;
-    --shadow-color: #9993;
+    --shadow-color: #9995;
     --display-word: visible;
     --display-phonetic: visible;
     --display-translation: hidden;
@@ -222,7 +222,7 @@ word-card #word_spell {
 
 #List {
     position: fixed;
-    transform: translateX(-101%);
+    transform: translateX(-110%);
     top: 0;
     bottom: 0;
     z-index: 3;
@@ -232,8 +232,9 @@ word-card #word_spell {
     display: flex;
     flex-direction: column;
     transition: 0.3s;
-    box-shadow: 8px 0px 20px 0px var(--shadow-color);
+    box-shadow: 0px 0px 8px 0px var(--shadow-color);
     padding: 16px 0 0 0;
+    overflow-y: auto;
 }
 
 #control {
@@ -344,7 +345,7 @@ input {
         --color: #dadada;
         --bg2-color: #444;
         --bg3-color: #0009;
-        --shadow-color: #6663;
+        --shadow-color: #6665;
         --color2: #000;
     }
 
