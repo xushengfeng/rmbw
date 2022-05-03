@@ -220,13 +220,19 @@ function change_b_list() {
 
     sum();
 
-    big_list(false);
+    big_list(document.getElementById("list").checked);
 }
 
 word_num = 0;
 word_value = store.word_value || {};
 var page_w_l = [];
 
+/**
+ * 加载页
+ * @param {number} num 页数
+ * @param {number} step 一页列表数
+ * @returns none
+ */
 function slow_load(num, step) {
     if (num * step > map[dropdownValue].length) {
         return;
@@ -254,6 +260,8 @@ function slow_load(num, step) {
     store[dropdownValue].page = num;
 
     save();
+
+    big_list(document.getElementById("list").checked);
 }
 
 function log_book_words() {
@@ -334,6 +342,10 @@ function word_value_write(word, n) {
     sum();
 }
 
+/**
+ * 列表/卡片模式
+ * @param {boolean} v t:列表模式, f:卡片模式
+ */
 function big_list(v) {
     var l = document.querySelectorAll("word-card");
     if (v) {
