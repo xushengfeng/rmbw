@@ -91,16 +91,16 @@ function change(n) {
 // 左边控件和单词表
 function showWordList() {
     document.getElementById("control").innerHTML =
-        `<div><lock-b id="list"></lock-b>列表模式</div>`+
-        `<div><lock-b id="playC"></lock-b>发音</div>`+
-        `<div><lock-b id="playtC"></lock-b>翻译发音</div>`+
-        `<div><lock-b id="autoC"></lock-b>自动播放</div>`+
-        `<div><lock-b id="wordStyle"></lock-b>样式</div>`+
-        `<div><lock-b id="R"></lock-b>random</div>`+
-        `<div><lock-b id="bingC"></lock-b>bing</div>`+
-        `<div><lock-b id="wordC"></lock-b>word</div>`+
-        `<div><lock-b id="phoneticC"></lock-b>phonetic</div>`+
-        `<div><lock-b id="translationC"></lock-b>translation</div>`+
+        `<div><lock-b id="list"></lock-b>列表模式</div>` +
+        `<div><lock-b id="playC"></lock-b>发音</div>` +
+        `<div><lock-b id="playtC"></lock-b>翻译发音</div>` +
+        `<div><lock-b id="autoC"></lock-b>自动播放</div>` +
+        `<div><lock-b id="wordStyle"></lock-b>样式</div>` +
+        `<div><lock-b id="R"></lock-b>random</div>` +
+        `<div><lock-b id="bingC"></lock-b>bing</div>` +
+        `<div><lock-b id="wordC"></lock-b>word</div>` +
+        `<div><lock-b id="phoneticC"></lock-b>phonetic</div>` +
+        `<div><lock-b id="translationC"></lock-b>translation</div>` +
         `<input type="number" min="1" id="spellN" value="${store.spellN || 3}">
         <input type=text placeholder="数据库地址" id="sql" value="${store.sql || "0.0.0.0"}">
         <input type=text placeholder="词典key" id="dic_key" value="${store.dic_key || ""}">`;
@@ -179,14 +179,16 @@ function listS(v) {
         document.getElementById("List").style.transform = "translateX(-110%)";
     } else {
         document.getElementById("List").style.transform = "translateX(0)";
+        document.getElementById("List").focus();
     }
 }
 document.getElementById("list_show").addEventListener("click", () => {
     listS(1);
 });
-document.getElementById("list_disappear").addEventListener("click", () => {
+
+document.getElementById("List").onblur = document.getElementById("list_disappear").onclick = () => {
     listS(0);
-});
+};
 
 // 底部页数栏
 function change_b_list() {
