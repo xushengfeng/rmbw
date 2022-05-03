@@ -137,7 +137,7 @@ word-card {
 }
 
 word-card div {
-    transition: 0.5s;
+    transition: 0.3s;
 }
 
 word-card #word_bar {
