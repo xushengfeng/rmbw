@@ -266,6 +266,15 @@ function slow_load(num, step) {
     save();
 }
 
+function log_book_words() {
+    var c=""
+    for (let i = 0;  i < map[dropdownValue].length; i++) {
+        let id = map[dropdownValue][i];
+        c += `${dic[id][0]}\n`;
+    }
+    console.log(c);
+}
+
 var can_record_p = false;
 // 判断滚动到某个单词
 var io = new IntersectionObserver(
