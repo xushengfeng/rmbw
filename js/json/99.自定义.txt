@@ -1,245 +1,187 @@
-airline
-bay
-craft
-antique
-pleasant
-arise
-massive
-literally
-breath
-take one's breath away
-bound
-scenery
-awesome
-spectacular
-peak
-highlight
-goat
-drill
-freezing
-freeze
-mall
-prairie
-anticipate
-bunch
-a bunch of
-thunder
-frost
-curtain
-border
-duration
-harbour
-enrol
-quarry
-idiom
-contrary
-contrary to
-anyhow
-alongside
-proceed
-proceed to
-shore
-astonish
-misty
-mist
-steel
-dusk
-advertisement
-accent
-photographer
-owe
-owe to
-toast
-coherent
-technique
-leaflet
-organ
-toxin
-ray
-sense of touch
-radiation
-acid
-millimeter
-minor
-layer
-electric
-victim
-swollen
-swell
-underneath
-nerve
-fabric
-loose
-urgent
-ease
-paramedic
-swallow
-wrap
-bathtub
-bath
-slip
-mosquito
-elderly
-carpet
-operator
-ambulance
-delay
-needle
-vital sign
-ward
-drown
-sprain
-ankle
-bleeding
-bleed
-panic
-interrupt
-scream
-fellow
-diner
-choke
-steak
-throat
-desperate
-slap
-help...to one's feet
-practical
-obstruction
-fist
-grab
-tightly
-tight
-motion
-face up
-face down
-justify
-welfare
-collapse
-manual
-sleep in
-out of shape
-foggy
-suburb
-membership
-precise
-precisely
-Christianity
-realistic
-realism
-realist
-primitive
-dimension
-in particular
-set apart from
-humanistic
-humanity
-breakthrough
-influential
-reputation
-noble
-rank
-purchase
-mythology
-client
-photography
-emerge
-sunrise
-convey
-subjective
-outer
-subsequent
-fond
-be fond of
-fine art
-sculpture
-sculptor
-visual
-water lily
-pond
-arched
-arch
-investment
-bride
-permanent
-memorial
-humble
-criticize
-criticism
-representative
-ink
-animation
-frame
-symphony
-decline
-exhibition
-bronze
-ceramic
-vase
-artistic
-entry
-civil
-recognition
-Buddhist
-Buddhism
-expansion
-bring...to life
-guarantee
-contemporary
-worthy
-be worthy of
-The Middle Ages
-the Renaissance
-Impressionism
-tobacco
-alcohol
-abuse
-physical
-dominate
-repeatedly
-psychology
-cue
-in response to
-reward
-rely
-rely on
-facilitate
-examine
-negative
-escalator
-straight away
-pessimistic
-discipline
-pill
-delete
-decide on
-make up one's mind
-compose
-be composed of
-surgeon
-surgery
-liberation
-shave
-shave off
-beard
-disturb
-cigarette
-specialist
-consultant
-drug
-skip
-dizzy
-flu
-stimulate
-dentist
-sugary
-nut
-skateboard
-dynamic
-stressed out
-worn out
-bowling
-comedy
-monthly
-enhance
-refresh
-absorb
+drama
+sorrow
+imagery
+literary
+rhyme
+rhythm
+nursery
+nursery rhyme
+folk
+mockingbird
+diamond
+brass
+bull
+recite
+bee
+dewdrop
+dawn
+clover
+butterfly
+lawn
+amateur
+be made up of
+mood
+tease
+syllable
+format
+respectively
+respective
+blossom
+delicate
+await
+revolve
+utter
+comprehension
+shelf
+core
+cherry
+cherry blossom
+blank
+verse
+civilian
+prose
+sympathetic
+sympathy
+version
+innocence
+innocent
+era
+correspondence
+correspond
+sow
+seed
+dominant
+sonnet
+deadline
+contest
+polish
+string
+wherever
+barren
+grief
+complicated
+variation
+racial
+prejudice
+fiction
+science fiction
+test out
+bonus
+more like
+ridiculous
+integrity
+dignity
+salary
+absurd
+appointment
+nail
+saleswoman
+guilty
+suspend
+ladder
+dismiss
+declare
+whereas
+rumour
+presume
+fare
+weekly
+on a... basis
+calculate
+chairwoman
+gramme
+flour
+venue
+salesman
+alien
+pros and cons
+blurred
+superior
+superior to
+take over
+inaction
+conflict with
+labour
+leather
+lever
+panel
+inch
+backwards
+grip
+hazy
+niece
+fetch
+handkerchief
+lamp
+turn out
+pace
+fall away
+division
+puff
+urge
+have an urge to
+random
+maximum
+explode
+jolt
+flip
+stun
+mud
+overstatement
+iconic
+foundation
+political
+located
+equator
+koala
+barbecue
+bakery
+joint
+butcher
+premier
+herb
+hollow
+vibrate
+horn
+pitch
+straightforward
+slogan
+minister
+prime minister
+frog
+arrow
+entitle
+getaway
+dive
+peak season
+freedom
+domain
+sponsor
+liberty
+golf
+strait
+sample
+monument
+kiwi
+bungee
+a flock of
+distribution
+pouch
+temporary
+phase
+trunk
+licensed
+license
+session
+frequency
+violent
+violence
+nest
+mammal
+biology
+hatch
+capacity
+a handful of
+fence
+prison
+grand
