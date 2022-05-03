@@ -189,15 +189,7 @@ document.getElementById("list_disappear").addEventListener("click", () => {
 });
 
 function checkboxClass(id, name) {
-    return (
-        '<div class="mdc-form-field"><div class="mdc-checkbox"><input type="checkbox" class="mdc-checkbox__native-control" id="' +
-        id +
-        '" /><div class="mdc-checkbox__background"><svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24"><path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59" /></svg><div class="mdc-checkbox__mixedmark"></div></div><div class="mdc-checkbox__ripple"></div></div><label for="' +
-        id +
-        '">' +
-        name +
-        "</label></div>"
-    );
+    return `<div><lock-b id="${id}"></lock-b>${name}</div>`;
 }
 
 // 底部页数栏
@@ -267,8 +259,8 @@ function slow_load(num, step) {
 }
 
 function log_book_words() {
-    var c=""
-    for (let i = 0;  i < map[dropdownValue].length; i++) {
+    var c = "";
+    for (let i = 0; i < map[dropdownValue].length; i++) {
         let id = map[dropdownValue][i];
         c += `${dic[id][0]}\n`;
     }
