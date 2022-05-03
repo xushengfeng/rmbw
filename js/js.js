@@ -326,10 +326,11 @@ var io = new IntersectionObserver(
 
 async function word_more(word) {
     var more_r = await more(word);
-    var more_stems = more_r[0].meta.stems;
+    var more_stems = more_r[0].meta?.stems || [];
     more_stems = `<span>${more_stems.join("</span><span>")}</span>`;
-    if (more_r[0].et) {
-        var more_et = more_r[0].et[0][1];
+    var et = more_r[0].et || more_r[1].et || "";
+    if (et) {
+        var more_et = et[0][1];
         var et_o = {
             "{b}": "<strong>",
             "{/b}": "</strong>",
@@ -353,7 +354,8 @@ async function word_more(word) {
         more_et = "";
     }
     var more_short_def = more_r[0].shortdef;
-    more_short_def = `<li>${more_short_def.join("</li><li>")}</li>`;
+    if (more_short_def && more_short_def.length == 0) more_short_def = more_r[1].shortdef;
+    more_short_def = more_short_def ? `<li>${more_short_def.join("</li><li>")}</li>` : "";
     document.querySelector(
         `word-card[word="${word}"] #more`
     ).innerHTML = `<div id="stems">${more_stems}</div><div id="def">${more_short_def}</div><div id="et">${more_et}</div>`;
