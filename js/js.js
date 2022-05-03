@@ -16,6 +16,18 @@ window.onbeforeunload = () => {
 };
 setInterval(save, 5 * 60 * 1000);
 
+/**
+ * 下载数据库
+ */
+function download_store() {
+    var aTag = document.createElement("a");
+    var blob = new Blob([JSON.stringify(store)]);
+    aTag.download = "rmbw_data.json";
+    aTag.href = URL.createObjectURL(blob);
+    aTag.click();
+    URL.revokeObjectURL(blob);
+}
+
 var url = "http://" + (store["sql"] || "0.0.0.0") + ":8888";
 
 // 界面渲染和初始化
