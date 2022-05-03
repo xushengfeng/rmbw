@@ -28,6 +28,16 @@ function download_store() {
     URL.revokeObjectURL(blob);
 }
 
+document.getElementById("download_store").onclick = download_store;
+
+document.getElementById("upload_store").onchange = () => {
+    var filereader = new FileReader();
+    filereader.readAsText(document.getElementById("upload_store").files[0]);
+    filereader.onload = () => {
+        store = JSON.parse(filereader.result);
+    };
+};
+
 var url = "http://" + (store["sql"] || "0.0.0.0") + ":8888";
 
 // 界面渲染和初始化
@@ -191,7 +201,6 @@ function listS(v) {
         document.getElementById("List").style.transform = "translateX(-110%)";
     } else {
         document.getElementById("List").style.transform = "translateX(0)";
-        document.getElementById("List").focus();
     }
 }
 document.getElementById("list_show").addEventListener("click", () => {
