@@ -16,9 +16,7 @@ window.onbeforeunload = () => {
 };
 setInterval(save, 5 * 60 * 1000);
 
-/**
- * 下载数据库
- */
+/**下载数据库 */
 function download_store() {
     var aTag = document.createElement("a");
     var blob = new Blob([JSON.stringify(store)]);
@@ -30,11 +28,15 @@ function download_store() {
 
 document.getElementById("download_store").onclick = download_store;
 
+/**上传数据库 */
 document.getElementById("upload_store").onchange = () => {
     var filereader = new FileReader();
     filereader.readAsText(document.getElementById("upload_store").files[0]);
     filereader.onload = () => {
         store = JSON.parse(filereader.result);
+        setTimeout(() => {
+            location.reload();
+        }, 500);
     };
 };
 
