@@ -91,16 +91,16 @@ function change(n) {
 // 左边控件和单词表
 function showWordList() {
     document.getElementById("control").innerHTML =
-        checkboxClass("list", "列表模式") +
-        checkboxClass("playC", "发音") +
-        checkboxClass("playtC", "翻译发音") +
-        checkboxClass("autoC", "自动播放") +
-        checkboxClass("wordStyle", "样式") +
-        checkboxClass("R", "random") +
-        checkboxClass("bingC", "bing") +
-        checkboxClass("wordC", "word") +
-        checkboxClass("phoneticC", "phonetic") +
-        checkboxClass("translationC", "translation") +
+        `<div><lock-b id="list"></lock-b>列表模式</div>`+
+        `<div><lock-b id="playC"></lock-b>发音</div>`+
+        `<div><lock-b id="playtC"></lock-b>翻译发音</div>`+
+        `<div><lock-b id="autoC"></lock-b>自动播放</div>`+
+        `<div><lock-b id="wordStyle"></lock-b>样式</div>`+
+        `<div><lock-b id="R"></lock-b>random</div>`+
+        `<div><lock-b id="bingC"></lock-b>bing</div>`+
+        `<div><lock-b id="wordC"></lock-b>word</div>`+
+        `<div><lock-b id="phoneticC"></lock-b>phonetic</div>`+
+        `<div><lock-b id="translationC"></lock-b>translation</div>`+
         `<input type="number" min="1" id="spellN" value="${store.spellN || 3}">
         <input type=text placeholder="数据库地址" id="sql" value="${store.sql || "0.0.0.0"}">
         <input type=text placeholder="词典key" id="dic_key" value="${store.dic_key || ""}">`;
@@ -187,10 +187,6 @@ document.getElementById("list_show").addEventListener("click", () => {
 document.getElementById("list_disappear").addEventListener("click", () => {
     listS(0);
 });
-
-function checkboxClass(id, name) {
-    return `<div><lock-b id="${id}"></lock-b>${name}</div>`;
-}
 
 // 底部页数栏
 function change_b_list() {
