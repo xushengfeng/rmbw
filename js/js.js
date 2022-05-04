@@ -261,7 +261,7 @@ function slow_load(num, step) {
     for (i = num * step; i < (num + 1) * step && i < map[dropdownValue].length; i++) {
         id = map[dropdownValue][i];
         c += `<div><word-card word="${dic[id][0]}" phonetic="${dic[id][1]}" translation="${dic[id][2]}" value="${
-            word_value[dic[id][0]] || 0
+            word_value[dic[id][0]]?.value || 0
         }" n="${i}"></word-card></div>`;
         page_w_l.push(id);
     }
@@ -358,7 +358,8 @@ async function word_more(word) {
 
 function word_value_write(word, n) {
     if (!store.word_value) store.word_value = {};
-    store.word_value[word] = n;
+    store.word_value[word].value = n;
+    if (n > 0) store.word_value[word].time.push(new Date().getTime());
     sum();
 }
 
@@ -512,8 +513,8 @@ function sum() {
     var all_n = 0;
     Object.keys(store.word_value).map((v) => {
         if (book_words_l.includes(v)) {
-            if (store.word_value[v] != 0) w_n++;
-            all_n += store.word_value[v] - 0;
+            if (store.word_value[v].value != 0) w_n++;
+            all_n += store.word_value[v].value - 0;
         }
     });
     document.getElementById("sum").innerText = `${w_n}/${map[dropdownValue].length} ${all_n}/${
