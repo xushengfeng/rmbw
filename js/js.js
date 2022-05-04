@@ -394,7 +394,18 @@ var n = 0;
 var r_in_0 = false;
 
 function next(num) {
-    n = document.getElementById("R").checked == true ? Math.floor(Math.random() * (page_w_l.length + 1)) : num; // n随机与否
+    // n随机与否
+    if (document.getElementById("R").checked) {
+        if (r_in_0) {
+            var el_l = document.querySelectorAll("word-card[value='0']");
+            let i = Math.floor(Math.random() * (el_l.length + 1));
+            n = Number(el_l[i].n) % page_w_l.length;
+        } else {
+            n = Math.floor(Math.random() * (page_w_l.length + 1));
+        }
+    } else {
+        n = num;
+    }
     n = n < 0 ? 0 : n; // n must>=0
 
     id = page_w_l[n];
@@ -406,15 +417,7 @@ function next(num) {
         play(word);
     }
 
-    if (document.getElementById("R").checked) {
-        if (r_in_0) {
-            var el_l = document.querySelectorAll("word-card[value='0']");
-            let i = Math.floor(Math.random() * (el_l.length + 1));
-            /**@type {HTMLElement} */ var el = el_l[i];
-        }
-    } else {
-        /**@type {HTMLElement} */ var el = document.querySelector(`word-card[word="${word}"]`);
-    }
+    /**@type {HTMLElement} */ var el = document.querySelector(`word-card[word="${word}"]`);
 
     document.getElementById("main").scrollTop = el.offsetTop - document.getElementById("main").offsetTop;
 
