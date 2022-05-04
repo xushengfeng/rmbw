@@ -521,6 +521,8 @@ function sum() {
     document.getElementById("sum").innerText = `${w_n}/${map[dropdownValue].length} ${all_n}/${
         map[dropdownValue].length * 3
     }`;
+
+    rander_chart();
 }
 
 document.onkeyup = (e) => {
@@ -553,35 +555,33 @@ chart();
  * @param {number} value 值
  */
 function set_chart(date, value) {
-    var the_date_l = date
-        .split("-")
-        .map((x) => Number(x))
-        .join("-");
-    document.getElementById(`d${the_date_l}`).style.background = `rgba(0, 255, 0, ${value / max_v})`;
-    document.getElementById(`d${the_date_l}`).title = `${value}, ${
-        document.getElementById(`d${the_date_l}`).title
-    }`;
+    document.getElementById(`d${date}`).style.background = `rgba(0, 255, 0, ${value / max_v})`;
+    var t = document.getElementById(`d${date}`).title.replace(/.+,/, "");
+    document.getElementById(`d${date}`).title = value + "," + t;
 }
-
-var time_line = [];
-var date_value = {};
-for (let i in store.word_value) {
-    time_line.push(store.word_value[i].time);
-}
-time_line = time_line.flat();
 
 var max_v = 0;
-for (let i of time_line) {
-    var time = new Date(i);
-    var key = `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()}`;
-    if (date_value[key]) {
-        date_value[key]++;
-    } else {
-        date_value[key] = 1;
+function rander_chart() {
+    var time_line = [];
+    var date_value = {};
+    for (let i in store.word_value) {
+        time_line.push(store.word_value[i].time);
     }
-    if (date_value[key] > max_v) max_v = date_value[key];
-}
+    time_line = time_line.flat();
 
-for (let i in date_value) {
-    set_chart(i, date_value[i]);
+    for (let i of time_line) {
+        var time = new Date(i);
+        var key = `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()}`;
+        if (date_value[key]) {
+            date_value[key]++;
+        } else {
+            date_value[key] = 1;
+        }
+        if (date_value[key] > max_v) max_v = date_value[key];
+    }
+
+    for (let i in date_value) {
+        set_chart(i, date_value[i]);
+    }
 }
+rander_chart();
