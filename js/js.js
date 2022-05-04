@@ -527,3 +527,35 @@ document.onkeyup = (e) => {
         next(1);
     }
 };
+
+function chart() {
+    var z_date = new Date(2022, 0, 1);
+    var 开始数 = (z_date.getDay() + 1) * 24 * 60 * 60 * 1000;
+    var s_date = new Date(z_date.getTime() - 开始数);
+    var t = "";
+    for (let x = 1; x <= 53; x++) {
+        t += "<div>";
+        for (let y = 1; y <= 7; y++) {
+            s_date = new Date(s_date.getTime() + 24 * 60 * 60 * 1000);
+            let x = `${s_date.getFullYear()}-${s_date.getMonth() + 1}-${s_date.getDate()}`;
+            t += `<div title="${s_date.toDateString()}" id="d${x}"></div>`;
+        }
+        t += "</div>";
+    }
+    document.getElementById("chart").innerHTML = t;
+}
+chart();
+
+/**
+ * 设定日历格子
+ * @param {string} date 日期
+ * @param {number} value 值
+ */
+function set_chart(date, value) {
+    var the_date_l = date
+        .split("-")
+        .map((x) => Number(x))
+        .join("-");
+    var max_v = 10;
+    document.querySelector(`#chart #d${the_date_l}`).style.background = `rgba(0, 255, 0, ${value / max_v})`;
+}

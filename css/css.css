@@ -264,7 +264,6 @@ lock-b:hover {
     background-color: var(--hover-color);
 }
 
-
 #control {
     display: flex;
     flex-direction: column;
@@ -274,6 +273,21 @@ lock-b:hover {
     overflow-y: scroll;
 }
 
+#chart {
+    width: 100%;
+    height: 60px;
+    display: flex;
+}
+#chart > div {
+    width: 6px;
+    margin-right: 1px;
+}
+#chart > div > div {
+    margin-bottom: 1px;
+    box-shadow: 0 0 1px #5555;
+    width: 6px;
+    height: 6px;
+}
 .llul {
     padding: 0;
 }
