@@ -506,9 +506,12 @@ document.getElementById("spacing").oninput = () => {
 function sum() {
     var w_n = 0;
     var all_n = 0;
-    Object.values(store.word_value).map((v) => {
-        if (v != 0) w_n++;
-        all_n += v - 0;
+    let tmp_book_words = map[dropdownValue].map((v) => dic[v][0]);
+    Object.keys(store.word_value).map((v) => {
+        if (tmp_book_words.includes(v)) {
+            if (store.word_value[v] != 0) w_n++;
+            all_n += store.word_value[v] - 0;
+        }
     });
     document.getElementById("sum").innerText = `${w_n}/${map[dropdownValue].length} ${all_n}/${
         map[dropdownValue].length * 3
