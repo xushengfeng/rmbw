@@ -121,6 +121,7 @@ function showWordList() {
         `<div><lock-b id="autoC"></lock-b>自动播放</div>` +
         `<div><lock-b id="wordStyle"></lock-b>样式</div>` +
         `<div><lock-b id="R"></lock-b>random</div>` +
+        `<div><lock-b id="r_in_0"></lock-b>random in blank</div>` +
         `<div><lock-b id="bingC"></lock-b>bing</div>` +
         `<div><lock-b id="wordC"></lock-b>word</div>` +
         `<div><lock-b id="phoneticC"></lock-b>phonetic</div>` +
@@ -144,6 +145,7 @@ function showWordList() {
     document.getElementById("wordStyle").checked = store["wordStyle"];
     document.getElementById("spellN").value = store["spellN"];
     document.getElementById("R").checked = store["R"];
+    document.getElementById("r_in_0").checked = store["r_in_0"];
     check();
     // 选项存储
     document.getElementById("control").onclick = () => {
@@ -157,6 +159,7 @@ function showWordList() {
         store["autoC"] = document.getElementById("autoC").checked;
         store["wordStyle"] = document.getElementById("wordStyle").checked;
         store["R"] = document.getElementById("R").checked;
+        store["r_in_0"] = document.getElementById("r_in_0").checked;
         check();
     };
 
@@ -391,12 +394,11 @@ function big_list(v) {
 // 存储
 var wptList, word, phonetic, translation, id;
 var n = 0;
-var r_in_0 = false;
 
 function next(num) {
     // n随机与否
     if (document.getElementById("R").checked) {
-        if (r_in_0) {
+        if (document.getElementById("r_in_0").checked) {
             let el_l = document.querySelectorAll("word-card[value='0']");
             let i = Math.floor(Math.random() * el_l.length);
             n = Number(el_l[i].n) % 50;
