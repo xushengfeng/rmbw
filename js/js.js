@@ -266,7 +266,7 @@ function slow_load(num, step) {
     for (i = num * step; i < (num + 1) * step && i < map[dropdownValue].length; i++) {
         id = map[dropdownValue][i];
         c += `<div><word-card word="${dic[id][0]}" phonetic="${dic[id][1]}" translation="${dic[id][2]}" value="${
-            word_value[dic[id][0]]
+            word_value[dic[id][0]] || 0
         }" n="${i}"></word-card></div>`;
         page_w_l.push(id);
     }
@@ -390,7 +390,8 @@ function big_list(v) {
 
 // 存储
 var wptList, word, phonetic, translation, id;
-n = 0;
+var n = 0;
+var r_in_0 = false;
 
 function next(num) {
     n = document.getElementById("R").checked == true ? Math.floor(Math.random() * (page_w_l.length + 1)) : num; // n随机与否
@@ -405,7 +406,15 @@ function next(num) {
         play(word);
     }
 
-    /**@type {HTMLElement} */ var el = document.querySelector(`word-card[word="${word}"]`);
+    if (document.getElementById("R").checked) {
+        if (r_in_0) {
+            var el_l = document.querySelectorAll("word-card[value='0']");
+            let i = Math.floor(Math.random() * (el_l.length + 1));
+            /**@type {HTMLElement} */ var el = el_l[i];
+        }
+    } else {
+        /**@type {HTMLElement} */ var el = document.querySelector(`word-card[word="${word}"]`);
+    }
 
     document.getElementById("main").scrollTop = el.offsetTop - document.getElementById("main").offsetTop;
 
