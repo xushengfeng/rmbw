@@ -397,8 +397,8 @@ function next(num) {
     // n随机与否
     if (document.getElementById("R").checked) {
         if (r_in_0) {
-            var el_l = document.querySelectorAll("word-card[value='0']");
-            let i = Math.floor(Math.random() * (el_l.length + 1));
+            let el_l = document.querySelectorAll("word-card[value='0']");
+            let i = Math.floor(Math.random() * el_l.length);
             n = Number(el_l[i].n) % page_w_l.length;
         } else {
             n = Math.floor(Math.random() * (page_w_l.length + 1));
