@@ -399,7 +399,7 @@ function next(num) {
         if (r_in_0) {
             let el_l = document.querySelectorAll("word-card[value='0']");
             let i = Math.floor(Math.random() * el_l.length);
-            n = Number(el_l[i].n) % page_w_l.length;
+            n = Number(el_l[i].n) % 50;
         } else {
             n = Math.floor(Math.random() * (page_w_l.length + 1));
         }
