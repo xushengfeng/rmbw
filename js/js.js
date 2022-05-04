@@ -204,7 +204,9 @@ document.getElementById("List").onblur = document.getElementById("list_disappear
     listS(0);
 };
 
-// 底部页数栏
+/**
+ * 更改词书，生成底部页数栏
+ */
 function change_b_list() {
     store["drop"] = dropdownValue = document.getElementById("dropdown").value;
     var c = "";
@@ -232,10 +234,12 @@ function change_b_list() {
 
     // 渲染完成
 
+    book_words_l = map[dropdownValue].map((v) => dic[v][0]);
     sum();
 
     big_list(document.getElementById("list").checked);
 }
+var book_words_l = [];
 
 word_num = 0;
 word_value = store.word_value || {};
@@ -506,9 +510,8 @@ document.getElementById("spacing").oninput = () => {
 function sum() {
     var w_n = 0;
     var all_n = 0;
-    let tmp_book_words = map[dropdownValue].map((v) => dic[v][0]);
     Object.keys(store.word_value).map((v) => {
-        if (tmp_book_words.includes(v)) {
+        if (book_words_l.includes(v)) {
             if (store.word_value[v] != 0) w_n++;
             all_n += store.word_value[v] - 0;
         }
