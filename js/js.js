@@ -358,6 +358,7 @@ async function word_more(word) {
 
 function word_value_write(word, n) {
     if (!store.word_value) store.word_value = {};
+    store.word_value[word] = { value: 0, time: [] };
     store.word_value[word].value = n;
     if (n > 0) store.word_value[word].time.push(new Date().getTime());
     sum();
@@ -556,6 +557,31 @@ function set_chart(date, value) {
         .split("-")
         .map((x) => Number(x))
         .join("-");
-    var max_v = 10;
-    document.querySelector(`#chart #d${the_date_l}`).style.background = `rgba(0, 255, 0, ${value / max_v})`;
+    document.getElementById(`d${the_date_l}`).style.background = `rgba(0, 255, 0, ${value / max_v})`;
+    document.getElementById(`d${the_date_l}`).title = `${value}, ${
+        document.getElementById(`d${the_date_l}`).title
+    }`;
+}
+
+var time_line = [];
+var date_value = {};
+for (let i in store.word_value) {
+    time_line.push(store.word_value[i].time);
+}
+time_line = time_line.flat();
+
+var max_v = 0;
+for (let i of time_line) {
+    var time = new Date(i);
+    var key = `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()}`;
+    if (date_value[key]) {
+        date_value[key]++;
+    } else {
+        date_value[key] = 1;
+    }
+    if (date_value[key] > max_v) max_v = date_value[key];
+}
+
+for (let i in date_value) {
+    set_chart(i, date_value[i]);
 }
