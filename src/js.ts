@@ -1,3 +1,6 @@
+var map = <object>map,
+    dic = <object>dic;
+
 var store = JSON.parse(window.localStorage.rmbw || "{}");
 function save() {
     window.localStorage.rmbw = JSON.stringify(store);
@@ -23,17 +26,18 @@ function download_store() {
     aTag.download = "rmbw_data.json";
     aTag.href = URL.createObjectURL(blob);
     aTag.click();
-    URL.revokeObjectURL(blob);
+    URL.revokeObjectURL(String(blob));
 }
 
 document.getElementById("download_store").onclick = download_store;
 
 /**上传数据库 */
-document.getElementById("upload_store").onchange = () => {
+var upload_el = <HTMLInputElement>document.getElementById("upload_store");
+upload_el.onchange = () => {
     var filereader = new FileReader();
-    filereader.readAsText(document.getElementById("upload_store").files[0]);
+    filereader.readAsText(upload_el.files[0]);
     filereader.onload = () => {
-        store = JSON.parse(filereader.result);
+        store = JSON.parse(<string>filereader.result);
         setTimeout(() => {
             location.reload();
         }, 500);
@@ -62,7 +66,6 @@ function load() {
     showWordList();
     if (window.location.href.substring(window.location.href.length - 3) == "?px") {
         change(false);
-        showSpell();
     } else {
         change(true);
         change_b_list();
@@ -74,13 +77,13 @@ function load() {
 
 var dropdownValue;
 function changeDropdown() {
-    dropdownC = "";
-    for (i in map) {
+    let dropdownC = "";
+    for (let i in map) {
         dropdownC += "<option>" + i + "</option>";
     }
     document.getElementById("dropdown").innerHTML = dropdownC;
 
-    if (store["drop"]) document.getElementById("dropdown").value = dropdownValue = store["drop"];
+    if (store["drop"]) (<HTMLSelectElement>document.getElementById("dropdown")).value = dropdownValue = store["drop"];
 }
 
 // 词书切换按钮
@@ -100,12 +103,12 @@ function change(n) {
     var l = document.querySelectorAll("word-card");
     if (n) {
         document.getElementById("mode_b").innerHTML = "背词";
-        for (i in l) {
+        for (let i in l) {
             l[i].spell = false;
         }
     } else {
         document.getElementById("mode_b").innerHTML = "拼写";
-        for (i in l) {
+        for (let i in l) {
             l[i].spell = true;
         }
     }
@@ -119,7 +122,7 @@ function showWordList() {
     document.getElementById("dic_key").value = store.dic_key || "";
 
     // 选项切换
-    document.querySelector("#bingC").onclick = () => {};
+    document.getElementById("bingC").onclick = () => {};
 
     // document.querySelector(':root').setAttribute('style', '--display-word:block');
     document.getElementById("list").checked = store["list"];
@@ -210,11 +213,11 @@ document.getElementById("List").onblur = document.getElementById("list_disappear
 function change_b_list() {
     store["drop"] = dropdownValue = document.getElementById("dropdown").value;
     var c = "";
-    for (i = 1; i <= Math.ceil(map[dropdownValue].length / 50); i++) {
+    for (let i = 1; i <= Math.ceil(map[dropdownValue].length / 50); i++) {
         c += `<li>${i}</li>`;
     }
     document.querySelector("#nav2").innerHTML = c;
-    for (i = 0; i <= Math.ceil(map[dropdownValue].length / 50) - 1; i++) {
+    for (let i = 0; i <= Math.ceil(map[dropdownValue].length / 50) - 1; i++) {
         ((i) => {
             document.querySelectorAll("#nav2>li")[i].onclick = () => {
                 slow_load(i, 50);
@@ -222,7 +225,7 @@ function change_b_list() {
         })(i);
     }
     if (store[dropdownValue]) {
-        var page = store[dropdownValue].page || 0;
+        var page = <number>store[dropdownValue].page || 0;
     } else {
         store[dropdownValue] = { page: 0, page_step: 50, w_n: 0 };
         var page = 0;
@@ -241,8 +244,8 @@ function change_b_list() {
 }
 var book_words_l = [];
 
-word_num = 0;
-word_value = store.word_value || {};
+var word_num = 0;
+var word_value = store.word_value || {};
 var page_w_l = [];
 
 /**
@@ -251,14 +254,14 @@ var page_w_l = [];
  * @param {number} step 一页列表数
  * @returns none
  */
-function slow_load(num, step) {
+function slow_load(num: number, step: number) {
     if (num * step > map[dropdownValue].length) {
         return;
     }
     var c = "";
     page_w_l = [];
     word_value = store.word_value || {};
-    for (i = num * step; i < (num + 1) * step && i < map[dropdownValue].length; i++) {
+    for (let i = num * step; i < (num + 1) * step && i < map[dropdownValue].length; i++) {
         id = map[dropdownValue][i];
         c += `<div><word-card word="${dic[id][0]}" phonetic="${dic[id][1]}" translation="${dic[id][2]}" value="${
             word_value[dic[id][0]]?.v?.m || 0
@@ -300,7 +303,7 @@ var io = new IntersectionObserver(
             // 记录位置
             if (can_record_p) {
                 console.log(card_el.getAttribute("word"));
-                word_num = (card_el.getAttribute("n") - 0) % store[dropdownValue].page_step;
+                word_num = Number(card_el.getAttribute("n")) % store[dropdownValue].page_step;
                 store[dropdownValue].w_n = word_num;
             }
             // 自动播放
@@ -341,7 +344,7 @@ async function word_more(word) {
             "{rdquo}": "&rdquo;",
             "{bc}": "<strong>: </strong>",
         };
-        for (i in et_o) {
+        for (let i in et_o) {
             more_et = more_et.replace(RegExp(i, "g"), et_o[i]);
         }
         more_et = more_et.replace(/{.*}/g, "");
@@ -368,18 +371,18 @@ function word_value_write(word, n) {
  * 列表/卡片模式
  * @param {boolean} v t:列表模式, f:卡片模式
  */
-function big_list(v) {
+function big_list(v: boolean) {
     var l = document.querySelectorAll("word-card");
     if (v) {
         document.getElementById("main").style.scrollSnapType = "none";
         document.documentElement.style.setProperty("--main-div-height", "auto");
-        for (i in l) {
+        for (let i in l) {
             l[i].show = false;
         }
     } else {
         document.getElementById("main").style.scrollSnapType = "";
         document.documentElement.style.setProperty("--main-div-height", "100%");
-        for (i in l) {
+        for (let i in l) {
             l[i].show = true;
         }
     }
@@ -413,7 +416,7 @@ function next(num) {
         play(word);
     }
 
-    /**@type {HTMLElement} */ var el = document.querySelector(`word-card[word="${word}"]`);
+    var el: HTMLElement = document.querySelector(`word-card[word="${word}"]`);
 
     document.getElementById("main").scrollTop = el.offsetTop - document.getElementById("main").offsetTop;
 
@@ -423,7 +426,7 @@ function next(num) {
     }, 300);
 
     if (!mode) {
-        document.querySelector(`word-card[word="${word}"] #spellWord`).focus();
+        (<HTMLElement>document.querySelector(`word-card[word="${word}"] #spellWord`)).focus();
     }
 }
 
@@ -436,8 +439,8 @@ function answer(el, w, p, t) {
     play(w);
 }
 
-function play(word) {
-    audio = document.getElementById("audio");
+function play(word: string) {
+    let audio = <HTMLAudioElement>document.getElementById("audio");
     audio.src = "https://dict.youdao.com/dictvoice?le=eng&type=1&audio=" + word;
     audio.play();
 }
@@ -458,7 +461,7 @@ async function more(word) {
         if (store.more[word]) {
             return store.more[word];
         } else {
-            store.dic_key = document.getElementById("dic_key").value;
+            store.dic_key = (<HTMLInputElement>document.getElementById("dic_key")).value;
             if (store.dic_key != "") {
                 var res = await fetch(
                     `https://www.dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${store.dic_key}`,
@@ -468,7 +471,7 @@ async function more(word) {
                 );
 
                 res = await res.json();
-                for (i in res) {
+                for (let i in res) {
                     delete res[i].def;
                 }
                 store.more[word] = res;
@@ -495,7 +498,7 @@ async function syllable(word, el) {
             }
             function w(worddd) {
                 worddd = worddd.split("*");
-                for (i in worddd) worddd[i] = `<span class="syllable">${worddd[i]}</span>`;
+                for (let i in worddd) worddd[i] = `<span class="syllable">${worddd[i]}</span>`;
                 worddd = worddd.join('<span class="syllable_s"></span>');
                 return worddd;
             }
@@ -506,7 +509,10 @@ async function syllable(word, el) {
 }
 
 document.getElementById("spacing").oninput = () => {
-    document.documentElement.style.setProperty("--spacing", `${document.getElementById("spacing").value}em`);
+    document.documentElement.style.setProperty(
+        "--spacing",
+        `${(<HTMLInputElement>document.getElementById("spacing")).value}em`
+    );
 };
 
 function sum() {
@@ -526,7 +532,7 @@ function sum() {
 }
 
 document.onkeyup = (e) => {
-    if (e.key == "Enter" && store.list && document.getElementById("R").checked) {
+    if (e.key == "Enter" && store.list && (<HTMLInputElement>document.getElementById("R")).checked) {
         next(1);
     }
 };
@@ -554,7 +560,7 @@ chart();
  * @param {string} date 日期
  * @param {number} value 值
  */
-function set_chart(date, value) {
+function set_chart(date: string, value: number) {
     document.getElementById(`d${date}`).style.background = `rgba(0, 255, 0, ${value / max_v})`;
     var t = document.getElementById(`d${date}`).title.replace(/.+,/, "");
     document.getElementById(`d${date}`).title = value + "," + t;
