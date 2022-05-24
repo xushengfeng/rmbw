@@ -15,6 +15,7 @@ window.onbeforeunload = () => {
     save();
 };
 setInterval(save, 5 * 60 * 1000);
+
 /**下载数据库 */
 function download_store() {
     var aTag = document.createElement("a");
@@ -24,7 +25,9 @@ function download_store() {
     aTag.click();
     URL.revokeObjectURL(blob);
 }
+
 document.getElementById("download_store").onclick = download_store;
+
 /**上传数据库 */
 document.getElementById("upload_store").onchange = () => {
     var filereader = new FileReader();
@@ -36,28 +39,31 @@ document.getElementById("upload_store").onchange = () => {
         }, 500);
     };
 };
+
 var url = "http://" + (store["sql"] || "0.0.0.0") + ":8888";
+
 // 界面渲染和初始化
 window.addEventListener("load", load);
+
 function load() {
     fetch(url, {
         method: "GET",
     })
         .then((res) => {
-        return res.json();
-    })
+            return res.json();
+        })
         .then((res) => {
-        delete res.sql;
-        // 合并数据，res覆盖相同键的值
-        Object.assign(store, res);
-    });
+            delete res.sql;
+            // 合并数据，res覆盖相同键的值
+            Object.assign(store, res);
+        });
+
     changeDropdown();
     showWordList();
     if (window.location.href.substring(window.location.href.length - 3) == "?px") {
         change(false);
         showSpell();
-    }
-    else {
+    } else {
         change(true);
         change_b_list();
     }
@@ -65,6 +71,7 @@ function load() {
         navigator.serviceWorker.register("sw.js");
     }
 }
+
 var dropdownValue;
 function changeDropdown() {
     dropdownC = "";
@@ -72,19 +79,22 @@ function changeDropdown() {
         dropdownC += "<option>" + i + "</option>";
     }
     document.getElementById("dropdown").innerHTML = dropdownC;
-    if (store["drop"])
-        document.getElementById("dropdown").value = dropdownValue = store["drop"];
+
+    if (store["drop"]) document.getElementById("dropdown").value = dropdownValue = store["drop"];
 }
+
 // 词书切换按钮
 document.getElementById("dropdown").addEventListener("change", () => {
     change_b_list();
 });
+
 // 模式切换按钮
 var mode = false;
 document.getElementById("mode_b").onclick = () => {
     mode = !mode;
     change(mode);
 };
+
 function change(n) {
     mode = n;
     var l = document.querySelectorAll("word-card");
@@ -93,8 +103,7 @@ function change(n) {
         for (i in l) {
             l[i].spell = false;
         }
-    }
-    else {
+    } else {
         document.getElementById("mode_b").innerHTML = "拼写";
         for (i in l) {
             l[i].spell = true;
@@ -102,13 +111,16 @@ function change(n) {
     }
     showWordList();
 }
+
 // 左边控件和单词表
 function showWordList() {
     document.getElementById("spellN").value = store.spellN || 3;
     document.getElementById("sql").value = store.sql || "0.0.0.0";
     document.getElementById("dic_key").value = store.dic_key || "";
+
     // 选项切换
-    document.querySelector("#bingC").onclick = () => { };
+    document.querySelector("#bingC").onclick = () => {};
+
     // document.querySelector(':root').setAttribute('style', '--display-word:block');
     document.getElementById("list").checked = store["list"];
     document.getElementById("bingC").checked = store["bingC"];
@@ -138,6 +150,7 @@ function showWordList() {
         store["r_in_0"] = document.getElementById("r_in_0").checked;
         check();
     };
+
     document.getElementById("spellN").oninput = () => {
         store["spellN"] = document.getElementById("spellN").value;
     };
@@ -149,48 +162,48 @@ function showWordList() {
     document.getElementById("dic_key").oninput = () => {
         store["dic_key"] = document.getElementById("dic_key").value;
     };
+
     function check() {
         big_list(document.getElementById("list").checked);
+
         if (document.querySelector("#wordC").checked) {
             document.documentElement.style.setProperty("--display-word", "visible");
-        }
-        else {
+        } else {
             document.documentElement.style.setProperty("--display-word", "hidden");
         }
         if (document.querySelector("#phoneticC").checked) {
             document.documentElement.style.setProperty("--display-phonetic", "visible");
-        }
-        else {
+        } else {
             document.documentElement.style.setProperty("--display-phonetic", "hidden");
         }
         if (document.querySelector("#translationC").checked) {
             document.documentElement.style.setProperty("--display-translation", "visible");
-        }
-        else {
+        } else {
             document.documentElement.style.setProperty("--display-translation", "hidden");
         }
         if (document.querySelector("#wordStyle").checked) {
             document.documentElement.style.setProperty("--display-aeiouy", "underline");
-        }
-        else {
+        } else {
             document.documentElement.style.setProperty("--display-aeiouy", "none");
         }
     }
 }
+
 function listS(v) {
     if (v == 0) {
         document.getElementById("List").style.transform = "translateX(-110%)";
-    }
-    else {
+    } else {
         document.getElementById("List").style.transform = "translateX(0)";
     }
 }
 document.getElementById("list_show").addEventListener("click", () => {
     listS(1);
 });
+
 document.getElementById("List").onblur = document.getElementById("list_disappear").onclick = () => {
     listS(0);
 };
+
 /**
  * 更改词书，生成底部页数栏
  */
@@ -210,8 +223,7 @@ function change_b_list() {
     }
     if (store[dropdownValue]) {
         var page = store[dropdownValue].page || 0;
-    }
-    else {
+    } else {
         store[dropdownValue] = { page: 0, page_step: 50, w_n: 0 };
         var page = 0;
     }
@@ -219,15 +231,20 @@ function change_b_list() {
     can_record_p = false;
     next(store[dropdownValue].w_n);
     can_record_p = true;
+
     // 渲染完成
+
     book_words_l = map[dropdownValue].map((v) => dic[v][0]);
     sum();
+
     big_list(document.getElementById("list").checked);
 }
 var book_words_l = [];
+
 word_num = 0;
 word_value = store.word_value || {};
 var page_w_l = [];
+
 /**
  * 加载页
  * @param {number} num 页数
@@ -243,7 +260,9 @@ function slow_load(num, step) {
     word_value = store.word_value || {};
     for (i = num * step; i < (num + 1) * step && i < map[dropdownValue].length; i++) {
         id = map[dropdownValue][i];
-        c += `<div><word-card word="${dic[id][0]}" phonetic="${dic[id][1]}" translation="${dic[id][2]}" value="${word_value[dic[id][0]]?.v?.m || 0}" n="${i}"></word-card></div>`;
+        c += `<div><word-card word="${dic[id][0]}" phonetic="${dic[id][1]}" translation="${dic[id][2]}" value="${
+            word_value[dic[id][0]]?.v?.m || 0
+        }" n="${i}"></word-card></div>`;
         page_w_l.push(id);
     }
     can_record_p = false;
@@ -254,11 +273,15 @@ function slow_load(num, step) {
         v.className = "";
     });
     document.querySelectorAll("#nav2>li")[num].className = "nav2-li-h";
+
     store[dropdownValue].page_step = step;
     store[dropdownValue].page = num;
+
     save();
+
     big_list(document.getElementById("list").checked);
 }
+
 function log_book_words() {
     var c = "";
     for (let i = 0; i < map[dropdownValue].length; i++) {
@@ -267,29 +290,35 @@ function log_book_words() {
     }
     console.log(c);
 }
+
 var can_record_p = false;
 // 判断滚动到某个单词
-var io = new IntersectionObserver((entries) => {
-    if (entries[0].isIntersecting) {
-        var card_el = entries[0].target.querySelector("word-card");
-        // 记录位置
-        if (can_record_p) {
-            console.log(card_el.getAttribute("word"));
-            word_num = (card_el.getAttribute("n") - 0) % store[dropdownValue].page_step;
-            store[dropdownValue].w_n = word_num;
+var io = new IntersectionObserver(
+    (entries) => {
+        if (entries[0].isIntersecting) {
+            var card_el = entries[0].target.querySelector("word-card");
+            // 记录位置
+            if (can_record_p) {
+                console.log(card_el.getAttribute("word"));
+                word_num = (card_el.getAttribute("n") - 0) % store[dropdownValue].page_step;
+                store[dropdownValue].w_n = word_num;
+            }
+            // 自动播放
+            if (store.autoC && !store["list"]) {
+                play(card_el.getAttribute("word"));
+            }
+
+            if (!store["list"]) {
+                syllable(card_el.getAttribute("word"), card_el.querySelector("#word-main"));
+                word_more(card_el.getAttribute("word"));
+            }
         }
-        // 自动播放
-        if (store.autoC && !store["list"]) {
-            play(card_el.getAttribute("word"));
-        }
-        if (!store["list"]) {
-            syllable(card_el.getAttribute("word"), card_el.querySelector("#word-main"));
-            word_more(card_el.getAttribute("word"));
-        }
+    },
+    {
+        threshold: 0.75,
     }
-}, {
-    threshold: 0.75,
-});
+);
+
 async function word_more(word) {
     var more_r = await more(word);
     var more_stems = more_r[0].meta?.stems || [];
@@ -316,25 +345,25 @@ async function word_more(word) {
             more_et = more_et.replace(RegExp(i, "g"), et_o[i]);
         }
         more_et = more_et.replace(/{.*}/g, "");
-    }
-    else {
+    } else {
         more_et = "";
     }
     var more_short_def = more_r[0].shortdef;
-    if (more_short_def && more_short_def.length == 0)
-        more_short_def = more_r[1].shortdef;
+    if (more_short_def && more_short_def.length == 0) more_short_def = more_r[1].shortdef;
     more_short_def = more_short_def ? `<li>${more_short_def.join("</li><li>")}</li>` : "";
-    document.querySelector(`word-card[word="${word}"] #more`).innerHTML = `<div id="stems">${more_stems}</div><div id="def">${more_short_def}</div><div id="et">${more_et}</div>`;
+    document.querySelector(
+        `word-card[word="${word}"] #more`
+    ).innerHTML = `<div id="stems">${more_stems}</div><div id="def">${more_short_def}</div><div id="et">${more_et}</div>`;
 }
+
 function word_value_write(word, n) {
-    if (!store.word_value)
-        store.word_value = {};
+    if (!store.word_value) store.word_value = {};
     store.word_value[word] = { v: { m: 0 }, time: [] };
     store.word_value[word].v.m = n;
-    if (n > 0)
-        store.word_value[word].time.push(new Date().getTime());
+    if (n > 0) store.word_value[word].time.push(new Date().getTime());
     sum();
 }
+
 /**
  * 列表/卡片模式
  * @param {boolean} v t:列表模式, f:卡片模式
@@ -347,8 +376,7 @@ function big_list(v) {
         for (i in l) {
             l[i].show = false;
         }
-    }
-    else {
+    } else {
         document.getElementById("main").style.scrollSnapType = "";
         document.documentElement.style.setProperty("--main-div-height", "100%");
         for (i in l) {
@@ -356,9 +384,11 @@ function big_list(v) {
         }
     }
 }
+
 // 存储
 var wptList, word, phonetic, translation, id;
 var n = 0;
+
 function next(num) {
     // n随机与否
     if (document.getElementById("R").checked) {
@@ -366,32 +396,37 @@ function next(num) {
             let el_l = document.querySelectorAll("word-card[value='0']");
             let i = Math.floor(Math.random() * el_l.length);
             n = Number(el_l[i].n) % 50;
-        }
-        else {
+        } else {
             n = Math.floor(Math.random() * (page_w_l.length + 1));
         }
-    }
-    else {
+    } else {
         n = num;
     }
     n = n < 0 ? 0 : n; // n must>=0
+
     id = page_w_l[n];
     word = dic[id][0];
     phonetic = dic[id][1];
     translation = dic[id][2];
+
     if (document.getElementById("playC").checked) {
         play(word);
     }
+
     /**@type {HTMLElement} */ var el = document.querySelector(`word-card[word="${word}"]`);
+
     document.getElementById("main").scrollTop = el.offsetTop - document.getElementById("main").offsetTop;
+
     el.style.outline = "1px dashed";
     setTimeout(() => {
         el.style.outline = "";
     }, 300);
+
     if (!mode) {
         document.querySelector(`word-card[word="${word}"] #spellWord`).focus();
     }
 }
+
 // var spellNum = document.getElementById("spellN").value - 0;
 // 展示答案
 function answer(el, w, p, t) {
@@ -400,11 +435,13 @@ function answer(el, w, p, t) {
     el.querySelector("#translation").innerHTML = t;
     play(w);
 }
+
 function play(word) {
     audio = document.getElementById("audio");
     audio.src = "https://dict.youdao.com/dictvoice?le=eng&type=1&audio=" + word;
     audio.play();
 }
+
 // 释义编排
 function to(word) {
     word = word.replace(/【/g, "[").replace(/】/g, "]").replace(/（/g, "(").replace(/）/g, ")").replace(/，/g, ",");
@@ -414,18 +451,22 @@ function to(word) {
     word = word.replace(/[a-z]+\./g, '<span class="cx">$&</span>');
     return word;
 }
+
 async function more(word) {
     if (!word.includes(".")) {
         store.more = store.more || {};
         if (store.more[word]) {
             return store.more[word];
-        }
-        else {
+        } else {
             store.dic_key = document.getElementById("dic_key").value;
             if (store.dic_key != "") {
-                var res = await fetch(`https://www.dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${store.dic_key}`, {
-                    method: "GET",
-                });
+                var res = await fetch(
+                    `https://www.dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${store.dic_key}`,
+                    {
+                        method: "GET",
+                    }
+                );
+
                 res = await res.json();
                 for (i in res) {
                     delete res[i].def;
@@ -436,6 +477,7 @@ async function more(word) {
         }
     }
 }
+
 async function syllable(word, el) {
     if (can_record_p) {
         var syllable_r = await more(word);
@@ -448,44 +490,47 @@ async function syllable(word, el) {
             }
             if (el) {
                 el.querySelector("#word").innerHTML = w(syllable_t);
-            }
-            else {
+            } else {
                 return w(syllable_t);
             }
             function w(worddd) {
                 worddd = worddd.split("*");
-                for (i in worddd)
-                    worddd[i] = `<span class="syllable">${worddd[i]}</span>`;
+                for (i in worddd) worddd[i] = `<span class="syllable">${worddd[i]}</span>`;
                 worddd = worddd.join('<span class="syllable_s"></span>');
                 return worddd;
             }
-        }
-        else {
+        } else {
             el.querySelector("#word").innerHTML = word;
         }
     }
 }
+
 document.getElementById("spacing").oninput = () => {
     document.documentElement.style.setProperty("--spacing", `${document.getElementById("spacing").value}em`);
 };
+
 function sum() {
     var w_n = 0;
     var all_n = 0;
     Object.keys(store.word_value).map((v) => {
         if (book_words_l.includes(v)) {
-            if (store.word_value[v].v.m != 0)
-                w_n++;
+            if (store.word_value[v].v.m != 0) w_n++;
             all_n += store.word_value[v].v.m - 0;
         }
     });
-    document.getElementById("sum").innerText = `${w_n}/${map[dropdownValue].length} ${all_n}/${map[dropdownValue].length * 3}`;
+    document.getElementById("sum").innerText = `${w_n}/${map[dropdownValue].length} ${all_n}/${
+        map[dropdownValue].length * 3
+    }`;
+
     rander_chart();
 }
+
 document.onkeyup = (e) => {
     if (e.key == "Enter" && store.list && document.getElementById("R").checked) {
         next(1);
     }
 };
+
 function chart() {
     var z_date = new Date(2022, 0, 1);
     var 开始数 = (z_date.getDay() + 1) * 24 * 60 * 60 * 1000;
@@ -503,6 +548,7 @@ function chart() {
     document.getElementById("chart").innerHTML = t;
 }
 chart();
+
 /**
  * 设定日历格子
  * @param {string} date 日期
@@ -513,6 +559,7 @@ function set_chart(date, value) {
     var t = document.getElementById(`d${date}`).title.replace(/.+,/, "");
     document.getElementById(`d${date}`).title = value + "," + t;
 }
+
 var max_v = 0;
 function rander_chart() {
     var time_line = [];
@@ -521,18 +568,18 @@ function rander_chart() {
         time_line.push(store.word_value[i].time);
     }
     time_line = time_line.flat();
+
     for (let i of time_line) {
         var time = new Date(i);
         var key = `${time.getFullYear()}-${time.getMonth() + 1}-${time.getDate()}`;
         if (date_value[key]) {
             date_value[key]++;
-        }
-        else {
+        } else {
             date_value[key] = 1;
         }
-        if (date_value[key] > max_v)
-            max_v = date_value[key];
+        if (date_value[key] > max_v) max_v = date_value[key];
     }
+
     for (let i in date_value) {
         set_chart(i, date_value[i]);
     }
