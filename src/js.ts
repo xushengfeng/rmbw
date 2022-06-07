@@ -265,7 +265,7 @@ function slow_load(num: number, step: number) {
         id = map[dropdownValue][i];
         c += `<div><word-card word="${dic[id][0]}" phonetic="${dic[id][1]}" translation="${dic[id][2]}" value="${
             word_value[dic[id][0]]?.v?.m || 0
-        }" n="${i}"></word-card></div>`;
+        }" n="${i}" tabindex=${i}></word-card></div>`;
         page_w_l.push(id);
     }
     can_record_p = false;

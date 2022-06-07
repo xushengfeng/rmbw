@@ -136,6 +136,10 @@ word-card {
     height: 100%;
 }
 
+word-card:focus {
+    outline: 1px dashed;
+}
+
 word-card div {
     transition: 0.3s;
 }
