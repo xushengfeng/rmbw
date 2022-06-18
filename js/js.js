@@ -522,7 +522,9 @@ function rander_chart() {
     var time_line = [];
     var date_value = {};
     for (let i in store.word_value) {
-        time_line.push(store.word_value[i].time);
+        time_line.push(store.word_value[i]?.k?.t || []);
+        time_line.push(store.word_value[i]?.s?.t || []);
+        time_line.push(store.word_value[i]?.v?.t || []);
     }
     time_line = time_line.flat();
     for (let i of time_line) {
