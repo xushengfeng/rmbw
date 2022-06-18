@@ -244,7 +244,8 @@ function slow_load(num, step) {
     word_value = store.word_value || {};
     for (let i = num * step; i < (num + 1) * step && i < map[dropdownValue].length; i++) {
         id = map[dropdownValue][i];
-        c += `<div><word-card word="${dic[id][0]}" phonetic="${dic[id][1]}" translation="${dic[id][2]}" value="${word_value[dic[id][0]]?.v?.m || 0}" n="${i}" tabindex=${i}></word-card></div>`;
+        let w = dic[id][0];
+        c += `<div><word-card word="${dic[id][0]}" phonetic="${dic[id][1]}" translation="${dic[id][2]}" value="${word_value[w]?.k?.v || 0},${word_value[w]?.s?.v || 0},${word_value[w]?.v?.v || 0}" n="${i}" tabindex=${i}></word-card></div>`;
         page_w_l.push(id);
     }
     can_record_p = false;
@@ -327,13 +328,15 @@ async function word_more(word) {
     more_short_def = more_short_def ? `<li>${more_short_def.join("</li><li>")}</li>` : "";
     document.querySelector(`word-card[word="${word}"] #more`).innerHTML = `<div id="stems">${more_stems}</div><div id="def">${more_short_def}</div><div id="et">${more_et}</div>`;
 }
-function word_value_write(word, n) {
+function word_value_write(word, key, v) {
     if (!store.word_value)
         store.word_value = {};
-    store.word_value[word] = { v: { m: 0 }, time: [] };
-    store.word_value[word].v.m = n;
-    if (n > 0)
-        store.word_value[word].time.push(new Date().getTime());
+    if (!store.word_value[word])
+        store.word_value[word] = { k: { v: 0, t: [] }, s: { v: 0, t: [] }, v: { v: 0, t: [] } };
+    let o_v = store.word_value[word][key].v;
+    store.word_value[word][key].v = v;
+    if (v != o_v)
+        store.word_value[word][key].t.push(new Date().getTime());
     sum();
 }
 /**
