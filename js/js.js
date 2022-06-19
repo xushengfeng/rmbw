@@ -53,6 +53,10 @@ async function file_load() {
     reader.onload = () => {
         store = JSON.parse(reader.result);
         setTimeout(() => {
+            url = "http://" + (store["sql"] || "0.0.0.0") + ":8888";
+            load();
+            chart();
+            rander_chart();
         }, 500);
     };
     reader.readAsText(file);
