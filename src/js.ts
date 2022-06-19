@@ -416,6 +416,7 @@ function word_value_write(word: string, key: "k" | "s" | "v", v: number) {
     if (!store.word_value) store.word_value = {};
     if (!store.word_value[word])
         store.word_value[word] = { k: { v: 0, t: [] }, s: { v: 0, t: [] }, v: { v: 0, t: [] } };
+    if (!store.word_value[word]?.[key]) store.word_value[word][key] = { v: 0, t: [] };
     let o_v = store.word_value[word][key].v;
     store.word_value[word][key].v = v;
     if (v != o_v) store.word_value[word][key].t.push(new Date().getTime());
