@@ -533,9 +533,9 @@ function sum() {
     var all_n = 0;
     Object.keys(store.word_value).map((v) => {
         if (book_words_l.includes(v)) {
-            if (store.word_value[v].k.v != 0)
+            if (store.word_value[v]?.k?.v)
                 w_n++;
-            all_n += store.word_value[v].k.v;
+            all_n += store.word_value[v]?.k?.v || 0;
         }
     });
     document.getElementById("sum").innerText = `${w_n}/${map[dropdownValue].length} ${all_n}/${map[dropdownValue].length * 3}`;
