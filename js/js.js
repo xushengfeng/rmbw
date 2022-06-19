@@ -610,7 +610,12 @@ function tags_list() {
         datalist.append(o);
     }
     datalist.id = "tags_list";
-    document.body.append(datalist);
+    if (document.querySelector("#tags_list")) {
+        document.querySelector("#tags_list").innerHTML = datalist.innerHTML;
+    }
+    else {
+        document.body.append(datalist);
+    }
 }
 document.onkeydown = (e) => {
     if (e.ctrlKey && e.key == "s") {
