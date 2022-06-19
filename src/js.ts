@@ -19,30 +19,71 @@ window.onbeforeunload = () => {
 };
 setInterval(save, 5 * 60 * 1000);
 
+/**上传数据库 */
+var upload_el = <HTMLInputElement>document.getElementById("upload_store");
+
+var fileHandle: FileSystemFileHandle;
+
+if (window.showOpenFilePicker) {
+    document.getElementById("upfile").onclick = file_load;
+} else {
+    document.getElementById("upfile").onclick = () => {
+        upload_el.click();
+    };
+    upload_el.onchange = file_load;
+}
+
+async function file_load() {
+    let file: File;
+    if (window.showOpenFilePicker) {
+        [fileHandle] = await window.showOpenFilePicker({
+            types: [
+                {
+                    description: "JSON",
+                    accept: {
+                        "text/*": [".json"],
+                    },
+                },
+            ],
+            excludeAcceptAllOption: true,
+        });
+        if (fileHandle.kind != "file") return;
+        file = await fileHandle.getFile();
+    } else {
+        file = upload_el.files[0];
+    }
+
+    let reader = new FileReader();
+    reader.onload = () => {
+        store = JSON.parse(<string>reader.result);
+        setTimeout(() => {
+        }, 500);
+    };
+    reader.readAsText(file);
+}
+
 /**下载数据库 */
+async function write_file(text: string) {
+    if (fileHandle && (await fileHandle.requestPermission({ mode: "readwrite" })) === "granted") {
+        const writable = await fileHandle.createWritable();
+        await writable.write(text);
+        await writable.close();
+    } else {
+        let a = document.createElement("a");
+        let blob = new Blob([text]);
+        a.download = `rmbw_data.json`;
+        a.href = URL.createObjectURL(blob);
+        a.click();
+        URL.revokeObjectURL(String(blob));
+    }
+}
+
 function download_store() {
-    var aTag = document.createElement("a");
-    var blob = new Blob([JSON.stringify(store)]);
-    aTag.download = "rmbw_data.json";
-    aTag.href = URL.createObjectURL(blob);
-    aTag.click();
-    URL.revokeObjectURL(String(blob));
+    let t = JSON.stringify(store);
+    write_file(t);
 }
 
 document.getElementById("download_store").onclick = download_store;
-
-/**上传数据库 */
-var upload_el = <HTMLInputElement>document.getElementById("upload_store");
-upload_el.onchange = () => {
-    var filereader = new FileReader();
-    filereader.readAsText(upload_el.files[0]);
-    filereader.onload = () => {
-        store = JSON.parse(<string>filereader.result);
-        setTimeout(() => {
-            location.reload();
-        }, 500);
-    };
-};
 
 var url = "http://" + (store["sql"] || "0.0.0.0") + ":8888";
 
