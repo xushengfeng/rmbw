@@ -170,10 +170,23 @@ word-card #tags {
 word-card #tags > div {
     border-radius: 10px;
     margin-right: 8px;
+    display: flex;
+    align-items: center;
+}
+
+word-card #tags > div > button {
+    height: 20px;
+    width: 20px;
+    border-radius: 10px;
+    background-color: var(--bg2-color);
+    border: none;
+    outline: none;
+    cursor: pointer;
 }
 
 word-card #tags > input {
     margin: 0;
+    background-color: #0000;
 }
 
 word-card :is(#n, #s)::-webkit-slider-thumb {
