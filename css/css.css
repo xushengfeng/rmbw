@@ -319,6 +319,17 @@ input {
     margin: 8px;
 }
 
+#store_file > button {
+    background-color: var(--bg2-color);
+    margin: 8px;
+    border: none;
+    border-radius: 8px;
+}
+
+#upload_store {
+    display: none;
+}
+
 .yuan {
     /* color: #34A353; */
     color: var(--display-yuan);
