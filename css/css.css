@@ -163,11 +163,17 @@ word-card #tags {
     flex-grow: 1;
     border-radius: 10px;
     overflow: hidden;
+    display: flex;
+    align-items: center;
 }
 
 word-card #tags > div {
     border-radius: 10px;
     margin-right: 8px;
+}
+
+word-card #tags > input {
+    margin: 0;
 }
 
 word-card :is(#n, #s)::-webkit-slider-thumb {
