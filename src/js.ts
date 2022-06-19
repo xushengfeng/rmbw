@@ -107,6 +107,7 @@ function load() {
             Object.assign(store, res);
         });
 
+    tags_list();
     changeDropdown();
     showWordList();
     if (window.location.href.substring(window.location.href.length - 3) == "?px") {
@@ -650,3 +651,15 @@ function rander_chart() {
     }
 }
 rander_chart();
+
+function tags_list() {
+    if (!store?.tags) store.tags = {};
+    let datalist = document.createElement("datalist");
+    for (let i in store.tags) {
+        let o = document.createElement("option");
+        o.value = i;
+        datalist.append(o);
+    }
+    datalist.id = "tags_list";
+    document.body.append(datalist);
+}
