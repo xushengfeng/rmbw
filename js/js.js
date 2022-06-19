@@ -372,6 +372,12 @@ async function word_more(word) {
     more_short_def = more_short_def ? `<li>${more_short_def.join("</li><li>")}</li>` : "";
     document.querySelector(`word-card[word="${word}"] #more`).innerHTML = `<div id="stems">${more_stems}</div><div id="def">${more_short_def}</div><div id="et">${more_et}</div>`;
 }
+/**
+ * 记录单词记忆状态
+ * @param word 单词
+ * @param key 键
+ * @param v 值
+ */
 function word_value_write(word, key, v) {
     if (!store.word_value)
         store.word_value = {};
@@ -382,6 +388,9 @@ function word_value_write(word, key, v) {
     if (v != o_v)
         store.word_value[word][key].t.push(new Date().getTime());
     sum();
+    if (window.showOpenFilePicker) {
+        download_store();
+    }
 }
 /**
  * 列表/卡片模式

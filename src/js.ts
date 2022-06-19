@@ -405,6 +405,12 @@ async function word_more(word) {
     ).innerHTML = `<div id="stems">${more_stems}</div><div id="def">${more_short_def}</div><div id="et">${more_et}</div>`;
 }
 
+/**
+ * 记录单词记忆状态
+ * @param word 单词
+ * @param key 键
+ * @param v 值
+ */
 function word_value_write(word: string, key: "k" | "s" | "v", v: number) {
     if (!store.word_value) store.word_value = {};
     if (!store.word_value[word])
@@ -413,6 +419,9 @@ function word_value_write(word: string, key: "k" | "s" | "v", v: number) {
     store.word_value[word][key].v = v;
     if (v != o_v) store.word_value[word][key].t.push(new Date().getTime());
     sum();
+    if (window.showOpenFilePicker) {
+        download_store();
+    }
 }
 
 /**
