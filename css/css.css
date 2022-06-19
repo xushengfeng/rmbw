@@ -156,13 +156,18 @@ word-card :is(#n, #s) {
     background-size: 75% 100%;
     border-radius: 10px;
     background: linear-gradient(var(--color), var(--color)) no-repeat, var(--bg2-color);
-}
-
-word-card #n {
     margin: 0 16px 0 0;
 }
-word-card #s {
-    margin: 0 auto 0 0;
+
+word-card #tags {
+    flex-grow: 1;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+word-card #tags > div {
+    border-radius: 10px;
+    margin-right: 8px;
 }
 
 word-card :is(#n, #s)::-webkit-slider-thumb {
