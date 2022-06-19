@@ -391,7 +391,7 @@ function word_value_write(word, key, v) {
     if (v != o_v)
         store.word_value[word][key].t.push(new Date().getTime());
     sum();
-    if (window.showOpenFilePicker) {
+    if (window.showOpenFilePicker && fileHandle) {
         download_store();
     }
 }
