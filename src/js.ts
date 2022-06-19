@@ -663,3 +663,12 @@ function tags_list() {
     datalist.id = "tags_list";
     document.body.append(datalist);
 }
+
+document.onkeydown = (e) => {
+    if (e.ctrlKey && e.key == "s") {
+        e.preventDefault();
+        if (window.showOpenFilePicker && fileHandle) {
+            download_store();
+        }
+    }
+};
