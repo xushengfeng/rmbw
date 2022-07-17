@@ -156,24 +156,26 @@ word-card #word_bar {
 word-card #el {
     border-radius: 10px;
     margin: 0 16px 0 0;
-    height: 100%;
+    height: 20px;
     display: flex;
     align-items: center;
     overflow: hidden;
-    min-width: 61px;
+    min-width: calc(2 * 20px + 1em + 2 * 4px);
 }
 
 word-card #el > button {
     border: none;
     outline: none;
     padding: 0;
-    height: 100%;
+    height: 20px;
     aspect-ratio: 1;
 }
 word-card #el > span {
     margin: 0 4px;
     mix-blend-mode: difference;
     color: #fff;
+    min-width: 1em;
+    text-align: center;
 }
 word-card #n {
     display: none;
