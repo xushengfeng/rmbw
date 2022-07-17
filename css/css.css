@@ -153,33 +153,30 @@ word-card #word_bar {
     margin-top: 16px;
 }
 
-word-card :is(#n, #s) {
-    -webkit-appearance: none;
+word-card #el {
     border-radius: 10px;
     margin: 0 16px 0 0;
-    display: none;
-}
-
-word-card :is(#kel, #sel) {
-    border-radius: 10px;
-    margin: 0 16px 0 0;
-    overflow: hidden;
+    height: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    overflow: hidden;
+    min-width: 61px;
 }
 
-word-card :is(#kel, #sel) > button {
+word-card #el > button {
     border: none;
     outline: none;
     padding: 0;
     height: 100%;
     aspect-ratio: 1;
 }
-word-card :is(#kel, #sel) > span {
+word-card #el > span {
     margin: 0 4px;
     mix-blend-mode: difference;
     color: #fff;
+}
+word-card #n {
+    display: none;
 }
 
 word-card #tags {
