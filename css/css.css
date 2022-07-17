@@ -21,6 +21,8 @@
     --main-div-height: 100%;
     --spacing: 0.1em;
     --not-spell: 1fr 0 0;
+    --value-max-k: 0;
+    --value-max-s: 0;
 }
 
 html {
@@ -153,9 +155,7 @@ word-card #word_bar {
 
 word-card :is(#n, #s) {
     -webkit-appearance: none;
-    background-size: 75% 100%;
     border-radius: 10px;
-    background: linear-gradient(var(--color), var(--color)) no-repeat, var(--bg2-color);
     margin: 0 16px 0 0;
 }
 
