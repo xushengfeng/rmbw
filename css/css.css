@@ -157,6 +157,29 @@ word-card :is(#n, #s) {
     -webkit-appearance: none;
     border-radius: 10px;
     margin: 0 16px 0 0;
+    display: none;
+}
+
+word-card :is(#kel, #sel) {
+    border-radius: 10px;
+    margin: 0 16px 0 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+word-card :is(#kel, #sel) > button {
+    border: none;
+    outline: none;
+    padding: 0;
+    height: 100%;
+    aspect-ratio: 1;
+}
+word-card :is(#kel, #sel) > span {
+    margin: 0 4px;
+    mix-blend-mode: difference;
+    color: #fff;
 }
 
 word-card #tags {
