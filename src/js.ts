@@ -130,7 +130,7 @@ function changeDropdown() {
     }
     document.getElementById("dropdown").innerHTML = dropdownC;
 
-    if (store["drop"]) (<HTMLSelectElement>document.getElementById("dropdown")).value = dropdownValue = store["drop"];
+    if (store["drop"]) (<HTMLSelectElement>(<HTMLInputElement>document.getElementById("dropdown"))).value = dropdownValue = store["drop"];
 }
 
 // 词书切换按钮
@@ -164,74 +164,74 @@ function change(n) {
 
 // 左边控件和单词表
 function showWordList() {
-    document.getElementById("spellN").value = store.spellN || 3;
-    document.getElementById("sql").value = store.sql || "0.0.0.0";
-    document.getElementById("dic_key").value = store.dic_key || "";
+    (<HTMLInputElement>(<HTMLInputElement>document.getElementById("spellN"))).value = store.spellN || 3;
+    (<HTMLInputElement>document.getElementById("sql")).value = store.sql || "0.0.0.0";
+    (<HTMLInputElement>document.getElementById("dic_key")).value = store.dic_key || "";
 
     // 选项切换
     document.getElementById("bingC").onclick = () => {};
 
     // document.querySelector(':root').setAttribute('style', '--display-word:block');
-    document.getElementById("list").checked = store["list"];
-    document.getElementById("bingC").checked = store["bingC"];
-    document.getElementById("wordC").checked = store["wordC"];
-    document.getElementById("phoneticC").checked = store["phoneticC"];
-    document.getElementById("translationC").checked = store["translationC"];
-    document.getElementById("playC").checked = store["playC"];
-    document.getElementById("playtC").checked = store["playtC"];
-    document.getElementById("autoC").checked = store["autoC"];
-    document.getElementById("wordStyle").checked = store["wordStyle"];
-    document.getElementById("spellN").value = store["spellN"];
-    document.getElementById("R").checked = store["R"];
-    document.getElementById("r_in_0").checked = store["r_in_0"];
+    (<HTMLInputElement>document.getElementById("list")).checked = store["list"];
+    (<HTMLInputElement>document.getElementById("bingC")).checked = store["bingC"];
+    (<HTMLInputElement>document.getElementById("wordC")).checked = store["wordC"];
+    (<HTMLInputElement>document.getElementById("phoneticC")).checked = store["phoneticC"];
+    (<HTMLInputElement>document.getElementById("translationC")).checked = store["translationC"];
+    (<HTMLInputElement>document.getElementById("playC")).checked = store["playC"];
+    (<HTMLInputElement>document.getElementById("playtC")).checked = store["playtC"];
+    (<HTMLInputElement>document.getElementById("autoC")).checked = store["autoC"];
+    (<HTMLInputElement>document.getElementById("wordStyle")).checked = store["wordStyle"];
+    (<HTMLInputElement>document.getElementById("spellN")).value = store["spellN"];
+    (<HTMLInputElement>document.getElementById("R")).checked = store["R"];
+    (<HTMLInputElement>document.getElementById("r_in_0")).checked = store["r_in_0"];
     check();
     // 选项存储
     document.getElementById("control").onclick = () => {
-        store["list"] = document.getElementById("list").checked;
-        store["bingC"] = document.getElementById("bingC").checked;
-        store["wordC"] = document.getElementById("wordC").checked;
-        store["phoneticC"] = document.getElementById("phoneticC").checked;
-        store["translationC"] = document.getElementById("translationC").checked;
-        store["playC"] = document.getElementById("playC").checked;
-        store["playtC"] = document.getElementById("playtC").checked;
-        store["autoC"] = document.getElementById("autoC").checked;
-        store["wordStyle"] = document.getElementById("wordStyle").checked;
-        store["R"] = document.getElementById("R").checked;
-        store["r_in_0"] = document.getElementById("r_in_0").checked;
+        store["list"] = (<HTMLInputElement>document.getElementById("list")).checked;
+        store["bingC"] = (<HTMLInputElement>document.getElementById("bingC")).checked;
+        store["wordC"] = (<HTMLInputElement>document.getElementById("wordC")).checked;
+        store["phoneticC"] = (<HTMLInputElement>document.getElementById("phoneticC")).checked;
+        store["translationC"] = (<HTMLInputElement>document.getElementById("translationC")).checked;
+        store["playC"] = (<HTMLInputElement>document.getElementById("playC")).checked;
+        store["playtC"] = (<HTMLInputElement>document.getElementById("playtC")).checked;
+        store["autoC"] = (<HTMLInputElement>document.getElementById("autoC")).checked;
+        store["wordStyle"] = (<HTMLInputElement>document.getElementById("wordStyle")).checked;
+        store["R"] = (<HTMLInputElement>document.getElementById("R")).checked;
+        store["r_in_0"] = (<HTMLInputElement>document.getElementById("r_in_0")).checked;
         check();
     };
 
     document.getElementById("spellN").oninput = () => {
-        store["spellN"] = document.getElementById("spellN").value;
+        store["spellN"] = (<HTMLInputElement>document.getElementById("spellN")).value;
     };
     document.getElementById("sql").oninput = () => {
-        store["sql"] = document.getElementById("sql").value;
+        store["sql"] = (<HTMLInputElement>document.getElementById("sql")).value;
         url = "http://" + (store["sql"] || "0.0.0.0") + ":8080";
     };
     document.getElementById("sql").onchange = load;
     document.getElementById("dic_key").oninput = () => {
-        store["dic_key"] = document.getElementById("dic_key").value;
+        store["dic_key"] = (<HTMLInputElement>document.getElementById("dic_key")).value;
     };
 
     function check() {
-        big_list(document.getElementById("list").checked);
+        big_list((<HTMLInputElement>document.getElementById("list")).checked);
 
-        if (document.querySelector("#wordC").checked) {
+        if ((<HTMLInputElement>document.querySelector("#wordC")).checked) {
             document.documentElement.style.setProperty("--display-word", "visible");
         } else {
             document.documentElement.style.setProperty("--display-word", "hidden");
         }
-        if (document.querySelector("#phoneticC").checked) {
+        if ((<HTMLInputElement>document.querySelector("#phoneticC")).checked) {
             document.documentElement.style.setProperty("--display-phonetic", "visible");
         } else {
             document.documentElement.style.setProperty("--display-phonetic", "hidden");
         }
-        if (document.querySelector("#translationC").checked) {
+        if ((<HTMLInputElement>document.querySelector("#translationC")).checked) {
             document.documentElement.style.setProperty("--display-translation", "visible");
         } else {
             document.documentElement.style.setProperty("--display-translation", "hidden");
         }
-        if (document.querySelector("#wordStyle").checked) {
+        if ((<HTMLInputElement>document.querySelector("#wordStyle")).checked) {
             document.documentElement.style.setProperty("--display-aeiouy", "underline");
         } else {
             document.documentElement.style.setProperty("--display-aeiouy", "none");
@@ -258,7 +258,7 @@ document.getElementById("List").onblur = document.getElementById("list_disappear
  * 更改词书，生成底部页数栏
  */
 function change_b_list() {
-    store["drop"] = dropdownValue = document.getElementById("dropdown").value;
+    store["drop"] = dropdownValue = (<HTMLInputElement>document.getElementById("dropdown")).value;
     var c = "";
     for (let i = 1; i <= Math.ceil(map[dropdownValue].length / 50); i++) {
         c += `<li>${i}</li>`;
@@ -287,7 +287,7 @@ function change_b_list() {
     book_words_l = map[dropdownValue].map((v) => dic[v][0]);
     sum();
 
-    big_list(document.getElementById("list").checked);
+    big_list((<HTMLInputElement>document.getElementById("list")).checked);
 }
 var book_words_l = [];
 
@@ -330,7 +330,7 @@ function slow_load(num: number, step: number) {
 
     save();
 
-    big_list(document.getElementById("list").checked);
+    big_list((<HTMLInputElement>document.getElementById("list")).checked);
 }
 
 function log_book_words() {
@@ -454,8 +454,8 @@ var n = 0;
 
 function next(num) {
     // n随机与否
-    if (document.getElementById("R").checked) {
-        if (document.getElementById("r_in_0").checked) {
+    if ((<HTMLInputElement>document.getElementById("R")).checked) {
+        if ((<HTMLInputElement>document.getElementById("r_in_0")).checked) {
             let el_l = document.querySelectorAll("word-card[value='0']");
             let i = Math.floor(Math.random() * el_l.length);
             n = Number(el_l[i].n) % 50;
@@ -472,7 +472,7 @@ function next(num) {
     phonetic = dic[id][1];
     translation = dic[id][2];
 
-    if (document.getElementById("playC").checked) {
+    if ((<HTMLInputElement>document.getElementById("playC")).checked) {
         play(word);
     }
 
@@ -521,7 +521,7 @@ async function more(word) {
         if (store.more[word]) {
             return store.more[word];
         } else {
-            store.dic_key = (<HTMLInputElement>document.getElementById("dic_key")).value;
+            store.dic_key = (<HTMLInputElement>(<HTMLInputElement>document.getElementById("dic_key"))).value;
             if (store.dic_key != "") {
                 var res = await fetch(
                     `https://www.dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${store.dic_key}`,
@@ -571,7 +571,7 @@ async function syllable(word, el) {
 document.getElementById("spacing").oninput = () => {
     document.documentElement.style.setProperty(
         "--spacing",
-        `${(<HTMLInputElement>document.getElementById("spacing")).value}em`
+        `${(<HTMLInputElement>(<HTMLInputElement>document.getElementById("spacing"))).value}em`
     );
 };
 
@@ -592,7 +592,7 @@ function sum() {
 }
 
 document.onkeyup = (e) => {
-    if (e.key == "Enter" && store.list && (<HTMLInputElement>document.getElementById("R")).checked) {
+    if (e.key == "Enter" && store.list && (<HTMLInputElement>(<HTMLInputElement>document.getElementById("R"))).checked) {
         next(1);
     }
 };
