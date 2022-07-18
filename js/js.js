@@ -57,6 +57,7 @@ async function file_load() {
             load();
             chart();
             rander_chart();
+            save();
         }, 500);
     };
     reader.readAsText(file);
