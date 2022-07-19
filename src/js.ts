@@ -597,6 +597,20 @@ function sum() {
     rander_chart();
 }
 
+function sum_all() {
+    let n = 0,
+        k = 0,
+        s = 0;
+    Object.keys(store.word_value).map((v) => {
+        if (book_words_l.includes(v)) {
+            if (store.word_value[v]?.k?.v || store.word_value[v]?.s?.v) n++;
+            if (store.word_value[v]?.k?.v) k++;
+            if (store.word_value[v]?.s?.v) s++;
+        }
+    });
+    return { n, k, s };
+}
+
 document.onkeyup = (e) => {
     if (
         e.key == "Enter" &&
