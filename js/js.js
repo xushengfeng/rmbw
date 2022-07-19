@@ -120,7 +120,8 @@ function changeDropdown() {
     }
     document.getElementById("dropdown").innerHTML = dropdownC;
     if (store["drop"])
-        document.getElementById("dropdown").value = dropdownValue = store["drop"];
+        document.getElementById("dropdown").value = dropdownValue =
+            store["drop"];
 }
 // 词书切换按钮
 document.getElementById("dropdown").addEventListener("change", () => {
@@ -530,20 +531,27 @@ document.getElementById("spacing").oninput = () => {
     document.documentElement.style.setProperty("--spacing", `${document.getElementById("spacing").value}em`);
 };
 function sum() {
-    var w_n = 0;
-    var all_n = 0;
+    var 知道的词数 = 0;
+    var 知道次数 = 0;
+    var 拼写词数 = 0;
+    var 拼写次数 = 0;
     Object.keys(store.word_value).map((v) => {
         if (book_words_l.includes(v)) {
             if (store.word_value[v]?.k?.v)
-                w_n++;
-            all_n += store.word_value[v]?.k?.v || 0;
+                知道的词数++;
+            知道次数 += store.word_value[v]?.k?.v || 0;
+            if (store.word_value[v]?.s?.v)
+                拼写词数++;
+            拼写次数 += store.word_value[v]?.s?.v || 0;
         }
     });
-    document.getElementById("sum").innerText = `${w_n}/${map[dropdownValue].length} ${all_n}/${map[dropdownValue].length * 3}`;
+    document.getElementById("sum").innerText = `(${知道的词数},${知道次数})(${拼写词数},${拼写次数}) /${map[dropdownValue].length}`;
     rander_chart();
 }
 document.onkeyup = (e) => {
-    if (e.key == "Enter" && store.list && document.getElementById("R").checked) {
+    if (e.key == "Enter" &&
+        store.list &&
+        document.getElementById("R").checked) {
         next(1);
     }
 };
