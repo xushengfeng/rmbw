@@ -120,8 +120,7 @@ function changeDropdown() {
     }
     document.getElementById("dropdown").innerHTML = dropdownC;
     if (store["drop"])
-        document.getElementById("dropdown").value = dropdownValue =
-            store["drop"];
+        document.getElementById("dropdown").value = dropdownValue = store["drop"];
 }
 // 词书切换按钮
 document.getElementById("dropdown").addEventListener("change", () => {

@@ -22,7 +22,7 @@ setInterval(save, 5 * 60 * 1000);
 /**上传数据库 */
 var upload_el = <HTMLInputElement>document.getElementById("upload_store");
 
-var fileHandle: FileSystemFileHandle;
+var fileHandle;
 
 if (window.showOpenFilePicker) {
     document.getElementById("upfile").onclick = file_load;
@@ -130,9 +130,7 @@ function changeDropdown() {
     }
     document.getElementById("dropdown").innerHTML = dropdownC;
 
-    if (store["drop"])
-        (<HTMLSelectElement>(<HTMLInputElement>document.getElementById("dropdown"))).value = dropdownValue =
-            store["drop"];
+    if (store["drop"]) (<HTMLSelectElement>document.getElementById("dropdown")).value = dropdownValue = store["drop"];
 }
 
 // 词书切换按钮
@@ -149,7 +147,7 @@ document.getElementById("mode_b").onclick = () => {
 
 function change(n) {
     mode = n;
-    var l = document.querySelectorAll("word-card");
+    var l = document.querySelectorAll("word-card") as any;
     if (n) {
         document.getElementById("mode_b").innerHTML = "背词";
         for (let i in l) {
@@ -268,7 +266,7 @@ function change_b_list() {
     document.querySelector("#nav2").innerHTML = c;
     for (let i = 0; i <= Math.ceil(map[dropdownValue].length / 50) - 1; i++) {
         ((i) => {
-            document.querySelectorAll("#nav2>li")[i].onclick = () => {
+            (<HTMLLIElement>document.querySelectorAll("#nav2>li")[i]).onclick = () => {
                 slow_load(i, 50);
             };
         })(i);
@@ -434,7 +432,7 @@ function word_value_write(word: string, key: "k" | "s" | "v", v: number) {
  * @param {boolean} v t:列表模式, f:卡片模式
  */
 function big_list(v: boolean) {
-    var l = document.querySelectorAll("word-card");
+    var l = document.querySelectorAll("word-card") as any;
     if (v) {
         document.getElementById("main").style.scrollSnapType = "none";
         document.documentElement.style.setProperty("--main-div-height", "auto");
@@ -458,7 +456,7 @@ function next(num) {
     // n随机与否
     if ((<HTMLInputElement>document.getElementById("R")).checked) {
         if ((<HTMLInputElement>document.getElementById("r_in_0")).checked) {
-            let el_l = document.querySelectorAll("word-card[value='0']");
+            let el_l = document.querySelectorAll("word-card[value='0']") as any;
             let i = Math.floor(Math.random() * el_l.length);
             n = Number(el_l[i].n) % 50;
         } else {
