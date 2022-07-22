@@ -4,15 +4,7 @@ var map = <object>map,
 var store = JSON.parse(window.localStorage.rmbw || "{}");
 function save() {
     window.localStorage.rmbw = JSON.stringify(store);
-    var tmp_store = store;
-    delete tmp_store.sql;
-    fetch(url, {
-        method: "POST",
-        body: JSON.stringify(tmp_store),
-    }).then((res) => {
-        res.json();
-        tmp_store = null;
-    });
+    上传();
 }
 window.onbeforeunload = () => {
     save();
@@ -97,9 +89,12 @@ var headers = {
     Authorization: "",
 };
 function 上传() {
-    fetch(url, { method: "PUT", headers, body: JSON.stringify(store) })
-        .then((response) => response.json())
-        .then((response) => console.log(response))
+    let tmp_store = store;
+    delete tmp_store.sql;
+    fetch(url, { method: "PUT", headers, body: JSON.stringify(tmp_store) })
+        .then(() => {
+            tmp_store = null;
+        })
         .catch((err) => console.error(err));
 }
 function 下载() {
