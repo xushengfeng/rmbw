@@ -101,27 +101,20 @@ function 下载() {
     fetch(url, {
         method: "GET",
         headers,
-    }).then((res) => {
-        console.log(res.text());
-        return res.text();
-    });
+    })
+        .then((res) => res.json())
+        .then((res) => {
+            delete res.sql;
+            // 合并数据，res覆盖相同键的值
+            Object.assign(store, res);
+        });
 }
 
 // 界面渲染和初始化
 window.addEventListener("load", load);
 
 function load() {
-    fetch(url, {
-        method: "GET",
-    })
-        .then((res) => {
-            return res.json();
-        })
-        .then((res) => {
-            delete res.sql;
-            // 合并数据，res覆盖相同键的值
-            Object.assign(store, res);
-        });
+    下载();
 
     tags_list();
     changeDropdown();
