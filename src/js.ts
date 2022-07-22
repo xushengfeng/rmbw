@@ -92,6 +92,26 @@ document.getElementById("download_store").onclick = download_store;
 
 var url = "http://" + (store["sql"] || "0.0.0.0") + ":8888";
 
+var headers = {
+    "content-type": "text/plain",
+    Authorization: "",
+};
+function 上传() {
+    fetch(url, { method: "PUT", headers, body: JSON.stringify(store) })
+        .then((response) => response.json())
+        .then((response) => console.log(response))
+        .catch((err) => console.error(err));
+}
+function 下载() {
+    fetch(url, {
+        method: "GET",
+        headers,
+    }).then((res) => {
+        console.log(res.text());
+        return res.text();
+    });
+}
+
 // 界面渲染和初始化
 window.addEventListener("load", load);
 
