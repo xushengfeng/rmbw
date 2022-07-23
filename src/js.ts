@@ -144,8 +144,12 @@ function 上传() {
     fetch(get_webdav_o().url, { method: "PUT", headers, body: JSON.stringify(tmp_store) })
         .then(() => {
             tmp_store = null;
+            zt_upload("s");
         })
-        .catch((err) => console.error(err));
+        .catch((err) => {
+            zt_upload("e");
+            console.error(err);
+        });
 }
 function 下载() {
     if (!get_webdav_o().url) return;
@@ -160,11 +164,51 @@ function 下载() {
             // 合并数据，res覆盖相同键的值
             Object.assign(store, res);
             db_put();
+            zt_download("s");
+        })
+        .catch((err) => {
+            zt_download("e");
+            console.error(err);
         });
 }
 
 document.getElementById("download").onclick = 下载;
 document.getElementById("upload").onclick = 上传;
+
+function zt_upload(t: "s" | "e" | "b") {
+    if (t == "s" || t == "e")
+        setTimeout(() => {
+            zt_upload("b");
+        }, 1000);
+    switch (t) {
+        case "s":
+            document.getElementById("upload").innerText = "上传成功";
+            break;
+        case "e":
+            document.getElementById("upload").innerText = "上传失败";
+            break;
+        case "b":
+            document.getElementById("upload").innerText = "上传到云";
+            break;
+    }
+}
+function zt_download(t: "s" | "e" | "b") {
+    if (t == "s" || t == "e")
+        setTimeout(() => {
+            zt_download("b");
+        }, 1000);
+    switch (t) {
+        case "s":
+            document.getElementById("download").innerText = "下载成功";
+            break;
+        case "e":
+            document.getElementById("download").innerText = "下载失败";
+            break;
+        case "b":
+            document.getElementById("download").innerText = "从云下载";
+            break;
+    }
+}
 
 // 界面渲染和初始化
 // window.addEventListener("load", load);
