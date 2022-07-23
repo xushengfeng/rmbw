@@ -156,6 +156,7 @@ function 下载() {
         Object.assign(store, res);
     });
 }
+document.getElementById("download").onclick = 下载;
 // 界面渲染和初始化
 // window.addEventListener("load", load);
 function load() {

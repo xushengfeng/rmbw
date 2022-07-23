@@ -162,6 +162,8 @@ function 下载() {
         });
 }
 
+document.getElementById("download").onclick = 下载;
+
 // 界面渲染和初始化
 // window.addEventListener("load", load);
 
