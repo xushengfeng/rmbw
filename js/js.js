@@ -4,7 +4,12 @@ var db_store_name = "words";
 var db;
 request.onsuccess = (event) => {
     db = event.target.result;
-    db_get(load);
+    try {
+        db_get(load);
+    }
+    catch (error) {
+        load();
+    }
 };
 request.onerror = (event) => {
     console.error(new Error(event.target.error));

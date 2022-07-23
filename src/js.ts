@@ -7,7 +7,11 @@ var db: IDBDatabase;
 
 request.onsuccess = (event) => {
     db = (<any>event.target).result;
-    db_get(load);
+    try {
+        db_get(load);
+    } catch (error) {
+        load();
+    }
 };
 request.onerror = (event) => {
     console.error(new Error((<any>event.target).error));
