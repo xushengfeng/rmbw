@@ -138,7 +138,8 @@ var headers = {
 };
 function 上传() {
     if (!get_webdav_o().url) return;
-    let tmp_store = store;
+    let tmp_store = { ...store };
+    delete tmp_store.more;
     headers.Authorization = `Basic ${btoa(`${get_webdav_o().name}:${get_webdav_o().passwd}`)}`;
     fetch(get_webdav_o().url, { method: "PUT", headers, body: JSON.stringify(tmp_store) })
         .then(() => {
