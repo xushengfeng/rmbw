@@ -1,9 +1,49 @@
 var map = <object>map,
     dic = <object>dic;
 
-var store = JSON.parse(window.localStorage.rmbw || "{}");
+var request = indexedDB.open("words");
+var db_store_name = "words";
+var db: IDBDatabase;
+
+request.onsuccess = (event) => {
+    db = (<any>event.target).result;
+    db_get(load);
+};
+request.onerror = (event) => {
+    console.error(new Error((<any>event.target).error));
+};
+request.onupgradeneeded = (event) => {
+    db = (<any>event.target).result;
+    db.createObjectStore(db_store_name, { keyPath: "id" });
+};
+var db_writing = false;
+function db_put() {
+    if (db_writing) return;
+    db_writing = true;
+    let customerObjectStore = db.transaction(db_store_name, "readwrite").objectStore(db_store_name);
+    store["id"] = "";
+    let r = customerObjectStore.put(store);
+    r.onerror = (event) => {
+        console.error(new Error((<any>event.target).error));
+    };
+    r.onsuccess = () => {
+        db_writing = false;
+    };
+}
+
+function db_get(cb) {
+    let customerObjectStore = db.transaction(db_store_name, "readwrite").objectStore(db_store_name);
+    let r = customerObjectStore.get("");
+    r.onsuccess = () => {
+        console.log(r.result);
+        if (r.result) store = r.result;
+        cb();
+    };
+}
+
+var store = { word_value: {}, more: {}, tags: {} };
 function save() {
-    window.localStorage.rmbw = JSON.stringify(store);
+    if (db) db_put();
     上传();
 }
 window.onbeforeunload = () => {
@@ -119,7 +159,7 @@ function 下载() {
 }
 
 // 界面渲染和初始化
-window.addEventListener("load", load);
+// window.addEventListener("load", load);
 
 function load() {
     下载();
