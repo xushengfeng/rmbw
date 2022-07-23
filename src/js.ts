@@ -48,7 +48,6 @@ function db_get(cb) {
 var store = { word_value: {}, more: {}, tags: {} };
 function save() {
     if (db) db_put();
-    上传();
 }
 window.onbeforeunload = () => {
     save();
@@ -164,6 +163,7 @@ function 下载() {
 }
 
 document.getElementById("download").onclick = 下载;
+document.getElementById("upload").onclick = 上传;
 
 // 界面渲染和初始化
 // window.addEventListener("load", load);
