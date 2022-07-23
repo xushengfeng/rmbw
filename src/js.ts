@@ -84,6 +84,14 @@ document.getElementById("download_store").onclick = download_store;
 
 var url = "http://" + (store["sql"] || "0.0.0.0") + ":8888";
 
+function get_webdav_o() {
+    return {
+        url: (<HTMLInputElement>document.getElementById("webdav_url")).value,
+        name: (<HTMLInputElement>document.getElementById("webdav_name")).value,
+        passwd: (<HTMLInputElement>document.getElementById("webdav_passwd")).value,
+    };
+}
+
 var headers = {
     "content-type": "text/plain",
     Authorization: "",
@@ -91,14 +99,16 @@ var headers = {
 function 上传() {
     let tmp_store = store;
     delete tmp_store.sql;
-    fetch(url, { method: "PUT", headers, body: JSON.stringify(tmp_store) })
+    headers.Authorization = `Basic ${btoa(`${get_webdav_o().name}:${get_webdav_o().passwd}`)}`;
+    fetch(get_webdav_o().url, { method: "PUT", headers, body: JSON.stringify(tmp_store) })
         .then(() => {
             tmp_store = null;
         })
         .catch((err) => console.error(err));
 }
 function 下载() {
-    fetch(url, {
+    headers.Authorization = `Basic ${btoa(`${get_webdav_o().name}:${get_webdav_o().passwd}`)}`;
+    fetch(get_webdav_o().url, {
         method: "GET",
         headers,
     })
