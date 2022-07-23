@@ -232,22 +232,6 @@ function showWordList() {
         (<HTMLInputElement>document.getElementById(i)).value = config[i]?.value;
     }
     check();
-    // 选项存储
-    document.getElementById("control").onclick = () => {
-        let o = {};
-        let f = document.getElementById("control").querySelectorAll("input");
-        for (let i of f) {
-            let e = <HTMLInputElement>i;
-            if (e.type == "checkbox") {
-                o[e.id] = { checked: e.checked };
-            } else {
-                o[e.id] = { value: e.value };
-            }
-        }
-        config = o;
-        localStorage.setItem("config", JSON.stringify(o));
-        check();
-    };
 
     document.getElementById("spellN").oninput = () => {
         config["spellN"] = (<HTMLInputElement>document.getElementById("spellN")).value;
@@ -255,36 +239,53 @@ function showWordList() {
     document.getElementById("dic_key").oninput = () => {
         config["dic_key"] = (<HTMLInputElement>document.getElementById("dic_key")).value;
     };
+}
+function check() {
+    big_list((<HTMLInputElement>document.getElementById("list")).checked);
 
-    function check() {
-        big_list((<HTMLInputElement>document.getElementById("list")).checked);
+    if ((<HTMLInputElement>document.querySelector("#wordC")).checked) {
+        document.documentElement.style.setProperty("--display-word", "visible");
+    } else {
+        document.documentElement.style.setProperty("--display-word", "hidden");
+    }
+    if ((<HTMLInputElement>document.querySelector("#phoneticC")).checked) {
+        document.documentElement.style.setProperty("--display-phonetic", "visible");
+    } else {
+        document.documentElement.style.setProperty("--display-phonetic", "hidden");
+    }
+    if ((<HTMLInputElement>document.querySelector("#translationC")).checked) {
+        document.documentElement.style.setProperty("--display-translation", "visible");
+    } else {
+        document.documentElement.style.setProperty("--display-translation", "hidden");
+    }
+    if ((<HTMLInputElement>document.querySelector("#wordStyle")).checked) {
+        document.documentElement.style.setProperty("--display-aeiouy", "underline");
+    } else {
+        document.documentElement.style.setProperty("--display-aeiouy", "none");
+    }
+}
 
-        if ((<HTMLInputElement>document.querySelector("#wordC")).checked) {
-            document.documentElement.style.setProperty("--display-word", "visible");
+// 选项存储
+function save_setting() {
+    let o = {};
+    let f = document.getElementById("control").querySelectorAll("input");
+    for (let i of f) {
+        let e = <HTMLInputElement>i;
+        if (e.type == "checkbox") {
+            o[e.id] = { checked: e.checked };
         } else {
-            document.documentElement.style.setProperty("--display-word", "hidden");
-        }
-        if ((<HTMLInputElement>document.querySelector("#phoneticC")).checked) {
-            document.documentElement.style.setProperty("--display-phonetic", "visible");
-        } else {
-            document.documentElement.style.setProperty("--display-phonetic", "hidden");
-        }
-        if ((<HTMLInputElement>document.querySelector("#translationC")).checked) {
-            document.documentElement.style.setProperty("--display-translation", "visible");
-        } else {
-            document.documentElement.style.setProperty("--display-translation", "hidden");
-        }
-        if ((<HTMLInputElement>document.querySelector("#wordStyle")).checked) {
-            document.documentElement.style.setProperty("--display-aeiouy", "underline");
-        } else {
-            document.documentElement.style.setProperty("--display-aeiouy", "none");
+            o[e.id] = { value: e.value };
         }
     }
+    config = o;
+    localStorage.setItem("config", JSON.stringify(o));
+    check();
 }
 
 function listS(v) {
     if (v == 0) {
         document.getElementById("List").style.transform = "translateX(-110%)";
+        save_setting();
     } else {
         document.getElementById("List").style.transform = "translateX(0)";
     }
