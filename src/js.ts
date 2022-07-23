@@ -159,6 +159,7 @@ function 下载() {
             delete res.sql;
             // 合并数据，res覆盖相同键的值
             Object.assign(store, res);
+            db_put();
         });
 }
 
