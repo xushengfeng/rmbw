@@ -489,6 +489,7 @@ function word_value_write(word, key, v) {
     if (window.showOpenFilePicker && fileHandle) {
         download_store();
     }
+    save();
 }
 /**
  * 列表/卡片模式

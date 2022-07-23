@@ -517,6 +517,7 @@ function word_value_write(word: string, key: "k" | "s" | "v", v: number) {
     if (window.showOpenFilePicker && fileHandle) {
         download_store();
     }
+    save();
 }
 
 /**
