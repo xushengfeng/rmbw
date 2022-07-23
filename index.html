@@ -30,46 +30,24 @@
 
     <div id="List" tabindex="0">
         <li class="nav-item" id="list_disappear">list</li>
-        <div id="control">
-            <div>
-                <lock-b id="list"></lock-b>列表模式
-            </div>
-            <div>
-                <lock-b id="playC"></lock-b>发音
-            </div>
-            <div>
-                <lock-b id="playtC"></lock-b>翻译发音
-            </div>
-            <div>
-                <lock-b id="autoC"></lock-b>自动播放
-            </div>
-            <div>
-                <lock-b id="wordStyle"></lock-b>样式
-            </div>
-            <div>
-                <lock-b id="R"></lock-b>random
-            </div>
-            <div>
-                <lock-b id="r_in_0"></lock-b>random in blank
-            </div>
-            <div>
-                <lock-b id="bingC"></lock-b>bing
-            </div>
-            <div>
-                <lock-b id="wordC"></lock-b>word
-            </div>
-            <div>
-                <lock-b id="phoneticC"></lock-b>phonetic
-            </div>
-            <div>
-                <lock-b id="translationC"></lock-b>translation
-            </div>
+        <form id="control">
+            <label><input type="checkbox" id="list">列表模式</label>
+            <label><input type="checkbox" id="playC">发音</label>
+            <label><input type="checkbox" id="playtC">翻译发音</label>
+            <label><input type="checkbox" id="autoC">自动播放</label>
+            <label><input type="checkbox" id="wordStyle">样式</label>
+            <label><input type="checkbox" id="R">random</label>
+            <label><input type="checkbox" id="r_in_0">random in blank</label>
+            <label><input type="checkbox" id="bingC">bing</label>
+            <label><input type="checkbox" id="wordC">word</label>
+            <label><input type="checkbox" id="phoneticC">phonetic</label>
+            <label><input type="checkbox" id="translationC">translation</label>
             <input type="number" min="1" id="spellN" value="3">
             <input type="url" placeholder="数据库地址" id="webdav_url">
             <input type="text" placeholder="用户名" id="webdav_name">
             <input type="password" placeholder="密码" id="webdav_passwd">
-            <input type=text placeholder="词典key" id="dic_key" value="">
-        </div>
+            <input type=text placeholder="词典key" id="dic_key">
+        </form>
         <div id="leftList"></div>
         <div id="store_file">
             <button id="download_store">下载数据库</button>

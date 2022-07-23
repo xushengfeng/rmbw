@@ -45,7 +45,6 @@ async function file_load() {
     reader.onload = () => {
         store = JSON.parse(reader.result);
         setTimeout(() => {
-            url = "http://" + (store["sql"] || "0.0.0.0") + ":8888";
             load();
             chart();
             rander_chart();
@@ -75,7 +74,6 @@ function download_store() {
     write_file(t);
 }
 document.getElementById("download_store").onclick = download_store;
-var url = "http://" + (store["sql"] || "0.0.0.0") + ":8888";
 function get_webdav_o() {
     return {
         url: document.getElementById("webdav_url").value,
@@ -91,7 +89,6 @@ function 上传() {
     if (!get_webdav_o().url)
         return;
     let tmp_store = store;
-    delete tmp_store.sql;
     headers.Authorization = `Basic ${btoa(`${get_webdav_o().name}:${get_webdav_o().passwd}`)}`;
     fetch(get_webdav_o().url, { method: "PUT", headers, body: JSON.stringify(tmp_store) })
         .then(() => {
@@ -169,52 +166,37 @@ function change(n) {
     }
     showWordList();
 }
+var config = JSON.parse(localStorage.getItem("config") || "{}");
 // 左边控件和单词表
 function showWordList() {
-    document.getElementById("spellN").value = store.spellN || 3;
-    document.getElementById("sql").value = store.sql || "0.0.0.0";
-    document.getElementById("dic_key").value = store.dic_key || "";
     // 选项切换
-    document.getElementById("bingC").onclick = () => { };
-    // document.querySelector(':root').setAttribute('style', '--display-word:block');
-    document.getElementById("list").checked = store["list"];
-    document.getElementById("bingC").checked = store["bingC"];
-    document.getElementById("wordC").checked = store["wordC"];
-    document.getElementById("phoneticC").checked = store["phoneticC"];
-    document.getElementById("translationC").checked = store["translationC"];
-    document.getElementById("playC").checked = store["playC"];
-    document.getElementById("playtC").checked = store["playtC"];
-    document.getElementById("autoC").checked = store["autoC"];
-    document.getElementById("wordStyle").checked = store["wordStyle"];
-    document.getElementById("spellN").value = store["spellN"];
-    document.getElementById("R").checked = store["R"];
-    document.getElementById("r_in_0").checked = store["r_in_0"];
+    for (let i in config) {
+        document.getElementById(i).checked = config[i]?.checked;
+        document.getElementById(i).value = config[i]?.value;
+    }
     check();
     // 选项存储
     document.getElementById("control").onclick = () => {
-        store["list"] = document.getElementById("list").checked;
-        store["bingC"] = document.getElementById("bingC").checked;
-        store["wordC"] = document.getElementById("wordC").checked;
-        store["phoneticC"] = document.getElementById("phoneticC").checked;
-        store["translationC"] = document.getElementById("translationC").checked;
-        store["playC"] = document.getElementById("playC").checked;
-        store["playtC"] = document.getElementById("playtC").checked;
-        store["autoC"] = document.getElementById("autoC").checked;
-        store["wordStyle"] = document.getElementById("wordStyle").checked;
-        store["R"] = document.getElementById("R").checked;
-        store["r_in_0"] = document.getElementById("r_in_0").checked;
+        let o = {};
+        let f = document.getElementById("control").querySelectorAll("input");
+        for (let i of f) {
+            let e = i;
+            if (e.type == "checkbox") {
+                o[e.id] = { checked: e.checked };
+            }
+            else {
+                o[e.id] = { value: e.value };
+            }
+        }
+        config = o;
+        localStorage.setItem("config", JSON.stringify(o));
         check();
     };
     document.getElementById("spellN").oninput = () => {
-        store["spellN"] = document.getElementById("spellN").value;
+        config["spellN"] = document.getElementById("spellN").value;
     };
-    document.getElementById("sql").oninput = () => {
-        store["sql"] = document.getElementById("sql").value;
-        url = "http://" + (store["sql"] || "0.0.0.0") + ":8080";
-    };
-    document.getElementById("sql").onchange = load;
     document.getElementById("dic_key").oninput = () => {
-        store["dic_key"] = document.getElementById("dic_key").value;
+        config["dic_key"] = document.getElementById("dic_key").value;
     };
     function check() {
         big_list(document.getElementById("list").checked);
@@ -347,10 +329,10 @@ var io = new IntersectionObserver((entries) => {
             store[dropdownValue].w_n = word_num;
         }
         // 自动播放
-        if (store.autoC && !store["list"]) {
+        if (config.autoC && !config["list"]) {
             play(card_el.getAttribute("word"));
         }
-        if (!store["list"]) {
+        if (!config["list"]) {
             syllable(card_el.getAttribute("word"), card_el.querySelector("#word-main"));
             word_more(card_el.getAttribute("word"));
         }
@@ -502,9 +484,9 @@ async function more(word) {
             return store.more[word];
         }
         else {
-            store.dic_key = document.getElementById("dic_key").value;
-            if (store.dic_key != "") {
-                var res = await fetch(`https://www.dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${store.dic_key}`, {
+            config.dic_key = document.getElementById("dic_key").value;
+            if (config.dic_key != "") {
+                var res = await fetch(`https://www.dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${config.dic_key}`, {
                     method: "GET",
                 });
                 res = await res.json();
@@ -583,7 +565,7 @@ function sum_all() {
 }
 document.onkeyup = (e) => {
     if (e.key == "Enter" &&
-        store.list &&
+        config.list &&
         document.getElementById("R").checked) {
         next(1);
     }

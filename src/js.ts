@@ -49,7 +49,6 @@ async function file_load() {
     reader.onload = () => {
         store = JSON.parse(<string>reader.result);
         setTimeout(() => {
-            url = "http://" + (store["sql"] || "0.0.0.0") + ":8888";
             load();
             chart();
             rander_chart();
@@ -82,8 +81,6 @@ function download_store() {
 
 document.getElementById("download_store").onclick = download_store;
 
-var url = "http://" + (store["sql"] || "0.0.0.0") + ":8888";
-
 function get_webdav_o() {
     return {
         url: (<HTMLInputElement>document.getElementById("webdav_url")).value,
@@ -99,7 +96,6 @@ var headers = {
 function 上传() {
     if (!get_webdav_o().url) return;
     let tmp_store = store;
-    delete tmp_store.sql;
     headers.Authorization = `Basic ${btoa(`${get_webdav_o().name}:${get_webdav_o().passwd}`)}`;
     fetch(get_webdav_o().url, { method: "PUT", headers, body: JSON.stringify(tmp_store) })
         .then(() => {
@@ -182,55 +178,38 @@ function change(n) {
     showWordList();
 }
 
+var config = JSON.parse(localStorage.getItem("config") || "{}");
+
 // 左边控件和单词表
 function showWordList() {
-    (<HTMLInputElement>(<HTMLInputElement>document.getElementById("spellN"))).value = store.spellN || 3;
-    (<HTMLInputElement>document.getElementById("sql")).value = store.sql || "0.0.0.0";
-    (<HTMLInputElement>document.getElementById("dic_key")).value = store.dic_key || "";
-
     // 选项切换
-    document.getElementById("bingC").onclick = () => {};
-
-    // document.querySelector(':root').setAttribute('style', '--display-word:block');
-    (<HTMLInputElement>document.getElementById("list")).checked = store["list"];
-    (<HTMLInputElement>document.getElementById("bingC")).checked = store["bingC"];
-    (<HTMLInputElement>document.getElementById("wordC")).checked = store["wordC"];
-    (<HTMLInputElement>document.getElementById("phoneticC")).checked = store["phoneticC"];
-    (<HTMLInputElement>document.getElementById("translationC")).checked = store["translationC"];
-    (<HTMLInputElement>document.getElementById("playC")).checked = store["playC"];
-    (<HTMLInputElement>document.getElementById("playtC")).checked = store["playtC"];
-    (<HTMLInputElement>document.getElementById("autoC")).checked = store["autoC"];
-    (<HTMLInputElement>document.getElementById("wordStyle")).checked = store["wordStyle"];
-    (<HTMLInputElement>document.getElementById("spellN")).value = store["spellN"];
-    (<HTMLInputElement>document.getElementById("R")).checked = store["R"];
-    (<HTMLInputElement>document.getElementById("r_in_0")).checked = store["r_in_0"];
+    for (let i in config) {
+        (<HTMLInputElement>document.getElementById(i)).checked = config[i]?.checked;
+        (<HTMLInputElement>document.getElementById(i)).value = config[i]?.value;
+    }
     check();
     // 选项存储
     document.getElementById("control").onclick = () => {
-        store["list"] = (<HTMLInputElement>document.getElementById("list")).checked;
-        store["bingC"] = (<HTMLInputElement>document.getElementById("bingC")).checked;
-        store["wordC"] = (<HTMLInputElement>document.getElementById("wordC")).checked;
-        store["phoneticC"] = (<HTMLInputElement>document.getElementById("phoneticC")).checked;
-        store["translationC"] = (<HTMLInputElement>document.getElementById("translationC")).checked;
-        store["playC"] = (<HTMLInputElement>document.getElementById("playC")).checked;
-        store["playtC"] = (<HTMLInputElement>document.getElementById("playtC")).checked;
-        store["autoC"] = (<HTMLInputElement>document.getElementById("autoC")).checked;
-        store["wordStyle"] = (<HTMLInputElement>document.getElementById("wordStyle")).checked;
-        store["R"] = (<HTMLInputElement>document.getElementById("R")).checked;
-        store["r_in_0"] = (<HTMLInputElement>document.getElementById("r_in_0")).checked;
+        let o = {};
+        let f = document.getElementById("control").querySelectorAll("input");
+        for (let i of f) {
+            let e = <HTMLInputElement>i;
+            if (e.type == "checkbox") {
+                o[e.id] = { checked: e.checked };
+            } else {
+                o[e.id] = { value: e.value };
+            }
+        }
+        config = o;
+        localStorage.setItem("config", JSON.stringify(o));
         check();
     };
 
     document.getElementById("spellN").oninput = () => {
-        store["spellN"] = (<HTMLInputElement>document.getElementById("spellN")).value;
+        config["spellN"] = (<HTMLInputElement>document.getElementById("spellN")).value;
     };
-    document.getElementById("sql").oninput = () => {
-        store["sql"] = (<HTMLInputElement>document.getElementById("sql")).value;
-        url = "http://" + (store["sql"] || "0.0.0.0") + ":8080";
-    };
-    document.getElementById("sql").onchange = load;
     document.getElementById("dic_key").oninput = () => {
-        store["dic_key"] = (<HTMLInputElement>document.getElementById("dic_key")).value;
+        config["dic_key"] = (<HTMLInputElement>document.getElementById("dic_key")).value;
     };
 
     function check() {
@@ -375,11 +354,11 @@ var io = new IntersectionObserver(
                 store[dropdownValue].w_n = word_num;
             }
             // 自动播放
-            if (store.autoC && !store["list"]) {
+            if (config.autoC && !config["list"]) {
                 play(card_el.getAttribute("word"));
             }
 
-            if (!store["list"]) {
+            if (!config["list"]) {
                 syllable(card_el.getAttribute("word"), card_el.querySelector("#word-main"));
                 word_more(card_el.getAttribute("word"));
             }
@@ -541,10 +520,10 @@ async function more(word) {
         if (store.more[word]) {
             return store.more[word];
         } else {
-            store.dic_key = (<HTMLInputElement>(<HTMLInputElement>document.getElementById("dic_key"))).value;
-            if (store.dic_key != "") {
+            config.dic_key = (<HTMLInputElement>(<HTMLInputElement>document.getElementById("dic_key"))).value;
+            if (config.dic_key != "") {
                 var res = await fetch(
-                    `https://www.dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${store.dic_key}`,
+                    `https://www.dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${config.dic_key}`,
                     {
                         method: "GET",
                     }
@@ -632,7 +611,7 @@ function sum_all() {
 document.onkeyup = (e) => {
     if (
         e.key == "Enter" &&
-        store.list &&
+        config.list &&
         (<HTMLInputElement>(<HTMLInputElement>document.getElementById("R"))).checked
     ) {
         next(1);
