@@ -97,6 +97,7 @@ var headers = {
     Authorization: "",
 };
 function 上传() {
+    if (!get_webdav_o().url) return;
     let tmp_store = store;
     delete tmp_store.sql;
     headers.Authorization = `Basic ${btoa(`${get_webdav_o().name}:${get_webdav_o().passwd}`)}`;
@@ -107,6 +108,7 @@ function 上传() {
         .catch((err) => console.error(err));
 }
 function 下载() {
+    if (!get_webdav_o().url) return;
     headers.Authorization = `Basic ${btoa(`${get_webdav_o().name}:${get_webdav_o().passwd}`)}`;
     fetch(get_webdav_o().url, {
         method: "GET",
