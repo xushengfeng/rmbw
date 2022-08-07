@@ -793,3 +793,38 @@ document.onkeydown = (e) => {
         }
     }
 };
+
+const write = document.getElementById("write") as HTMLCanvasElement;
+const ctx = write.getContext("2d");
+var points = { x: NaN, y: NaN, p: NaN };
+write.onpointermove = (e) => {
+    if (!e.pressure) return;
+    let x = e.offsetX,
+        y = e.offsetY;
+
+    if (!isNaN(points.x)) {
+        let w = e.pressure * 3;
+        let jl = Math.sqrt((points.x - x) ** 2 + (points.y - y) ** 2);
+        if (points.x)
+            for (let dj = 0; dj < jl; dj += 1) {
+                let iw = (points.p - (dj / jl) * (e.pressure - points.p)) * 3;
+                let ix = x + dj * Math.cos(Math.atan2(points.y - y, points.x - x));
+                let iy = y + dj * Math.sin(Math.atan2(points.y - y, points.x - x));
+                d(ix, iy, iw);
+            }
+        d(points.x, points.y, w);
+        function d(x: number, y: number, w: number) {
+            ctx.beginPath();
+            ctx.arc(x, y, w / 2, 0, 2 * Math.PI);
+            ctx.fillStyle = "#000";
+            ctx.shadowBlur = 1;
+            ctx.shadowColor = "#000";
+            ctx.stroke();
+        }
+    }
+    points = { x, y, p: e.pressure };
+};
+
+write.onpointerup = (e) => {
+    points = { x: NaN, y: NaN, p: NaN };
+};

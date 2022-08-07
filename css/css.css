@@ -426,6 +426,15 @@ input {
     outline: none;
 }
 
+#write {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    display: none;
+}
+
 @media (max-width: 900px) {
     :root {
         --word-s: 4rem;
