@@ -828,3 +828,23 @@ write.onpointermove = (e) => {
 write.onpointerup = (e) => {
     points = { x: NaN, y: NaN, p: NaN };
 };
+
+// @ts-ignore
+const { createWorker } = Tesseract;
+
+const worker = createWorker({
+    langPath: "../lang-data",
+    logger: (m) => console.log(m),
+});
+(async () => {
+    await worker.load();
+    await worker.loadLanguage("eng");
+    await worker.initialize("eng");
+})();
+
+async function ocr() {
+    const {
+        data: { text },
+    } = await worker.recognize(write);
+    console.log(text);
+}
