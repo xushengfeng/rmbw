@@ -434,7 +434,29 @@ input {
     top: 0;
     display: none;
 }
+#write_bar {
+    position: fixed;
+    right: 0;
+    top: 0;
+    display: none;
+    z-index: 2;
+}
+#write_bar > div {
+    width: 16px;
+    height: 16px;
+    margin: 8px;
+    border-radius: 4px;
+}
 
+#write_bar > div:nth-child(1) {
+    background-color: rgb(255, 92, 92);
+}
+#write_bar > div:nth-child(2) {
+    background-color: rgb(155, 155, 155);
+}
+#write_bar > div:nth-child(3) {
+    background-color: rgb(116, 252, 116);
+}
 @media (max-width: 900px) {
     :root {
         --word-s: 4rem;

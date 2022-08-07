@@ -745,6 +745,11 @@ document.onkeydown = (e) => {
 const write = document.getElementById("write");
 const ctx = write.getContext("2d");
 var points = { x: NaN, y: NaN, p: NaN };
+write.onpointerdown = () => {
+    let el = document.querySelector(`word-card[word="${now_spell_word}"]`).querySelector("#word_spell");
+    el.querySelector("#word").innerHTML = "";
+    el.querySelector("#phonetic").innerHTML = "";
+};
 write.onpointermove = (e) => {
     if (!e.pressure)
         return;
@@ -785,7 +790,28 @@ const worker = createWorker({
     await worker.loadLanguage("eng");
     await worker.initialize("eng");
 })();
+var now_spell_word = "";
 async function ocr() {
     const { data: { text }, } = await worker.recognize(write);
     console.log(text);
+    let i = document
+        .querySelector(`word-card[word="${now_spell_word}"]`)
+        .querySelector("#spellWord");
+    i.value = text;
+    i.dispatchEvent(new Event("input"));
+    // @ts-ignore
+    document.querySelector(`word-card[word="${now_spell_word}"]`).check();
 }
+document.getElementById("ocr_close").onclick = () => {
+    document.getElementById("write").style.display = "";
+    document.getElementById("write_bar").style.display = "";
+};
+document.getElementById("ocr_clean").onclick = () => {
+    write.width = write.offsetWidth;
+    write.height = write.offsetHeight;
+};
+document.getElementById("ocr_ok").onclick = () => {
+    ocr();
+    document.getElementById("write").style.display = "";
+    document.getElementById("write_bar").style.display = "";
+};
