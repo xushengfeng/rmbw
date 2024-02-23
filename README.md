@@ -2,6 +2,9 @@
 
 ## **R**e**M**en**B**er **W**ords
 
+> [!IMPORTANT]
+> rmbw1（即此仓库）不再开发  [rmbw2](https://github.com/xushengfeng/rmbw2)已推出，支持更好的单词复习、语境记忆
+
 打开`index.html`即可。
 
 网页版在这：[rmbw](https://xushengfeng.github.io/rmbw)
